@@ -15,7 +15,7 @@ website:
         href: https://twitter.com/dvaughan32
 format:
   html:
-    theme: default
+    theme: custom.scss
     css: styles.css
 
 editor: visual
