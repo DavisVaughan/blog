@@ -11,3 +11,11 @@ title-block-banner: true
 toc: true
 toc-title: Contents
 toc-location: left
+
+# Default knitr options
+# These match `hugodown::md_document()` used by tidyverse.org and ensure that
+# the output is placed in the same code chunk as the source code itself.
+knitr:
+  opts_chunk:
+     collapse: true
+     comment: "#>"

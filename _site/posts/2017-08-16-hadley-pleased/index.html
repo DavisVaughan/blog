@@ -255,12 +255,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>archive_html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>{xml_document}
-&lt;html lang="en-us"&gt;
-[1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;\n&lt;meta charset="u ...
-[2] &lt;body&gt;\n    &lt;nav class="menu"&gt;&lt;svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xli ...</code></pre>
-</div>
+<pre><code>#&gt; {xml_document}
+#&gt; &lt;html lang="en-us"&gt;
+#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;\n&lt;meta charset="u ...
+#&gt; [2] &lt;body&gt;\n    &lt;nav class="menu"&gt;&lt;svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xli ...</code></pre>
 </div>
 <p>Now we use a bit of <code>rvest</code> magic combined with the HTML inspector in Chrome to figure out which elements contain the info we need (I also highly recommend <a href="http://selectorgadget.com/">SelectorGadget</a> for this kind of work). Looking at the image below, you can see that all of the links are contained within the <code>main</code> tag as <code>a</code> tags (links).</p>
 <p><img src="./img/html-inspector.png" class="img-fluid"></p>
@@ -284,14 +282,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(links)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "http://blog.rstudio.com/2017/08/25/rstudio-conf-2018-early-bird-pricing/"    
-[2] "http://blog.rstudio.com/2017/08/22/rstudio-v1-1-preview-object-explorer/"    
-[3] "http://blog.rstudio.com/2017/08/18/google-cloud-platform/"                   
-[4] "http://blog.rstudio.com/2017/08/16/rstudio-preview-connections/"             
-[5] "http://blog.rstudio.com/2017/08/15/contributed-talks-diversity-scholarships/"
-[6] "http://blog.rstudio.com/2017/08/15/shiny-1-0-4/"                             </code></pre>
-</div>
+<pre><code>#&gt; [1] "http://blog.rstudio.com/2017/08/25/rstudio-conf-2018-early-bird-pricing/"    
+#&gt; [2] "http://blog.rstudio.com/2017/08/22/rstudio-v1-1-preview-object-explorer/"    
+#&gt; [3] "http://blog.rstudio.com/2017/08/18/google-cloud-platform/"                   
+#&gt; [4] "http://blog.rstudio.com/2017/08/16/rstudio-preview-connections/"             
+#&gt; [5] "http://blog.rstudio.com/2017/08/15/contributed-talks-diversity-scholarships/"
+#&gt; [6] "http://blog.rstudio.com/2017/08/15/shiny-1-0-4/"</code></pre>
 </div>
 </section>
 <section id="html-from-each-blog-post" class="level3">
@@ -314,11 +310,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>blog_data<span class="sc">$</span>main[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-{xml_nodeset (1)}
-[1] &lt;main&gt;&lt;div class="article-meta"&gt;\n&lt;h1&gt;&lt;span class="title"&gt;Newer to R? rstudio::conf 2018 is fo ...</code></pre>
-</div>
+<pre><code>#&gt; [[1]]
+#&gt; {xml_nodeset (1)}
+#&gt; [1] &lt;main&gt;&lt;div class="article-meta"&gt;\n&lt;h1&gt;&lt;span class="title"&gt;Newer to R? rstudio::conf 2018 is fo ...</code></pre>
 </div>
 </section>
 <section id="meta-information" class="level3">
@@ -341,9 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Roger Oberg"</code></pre>
-</div>
+<pre><code>#&gt; [1] "Roger Oberg"</code></pre>
 </div>
 <p>To scale up to grab the author for all posts, we use <code>map_chr()</code> since we want a character of the author’s name returned.</p>
 <div class="cell">
@@ -353,12 +345,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "Roger Oberg"        "Kevin Ushey"        "Roger Oberg"       
- [4] "Jonathan McPherson" "Hadley Wickham"     "Winston Chang"     
- [7] "Gary Ritchie"       "Roger Oberg"        "Jeff Allen"        
-[10] "Javier Luraschi"   </code></pre>
-</div>
+<pre><code>#&gt;  [1] "Roger Oberg"        "Kevin Ushey"        "Roger Oberg"       
+#&gt;  [4] "Jonathan McPherson" "Hadley Wickham"     "Winston Chang"     
+#&gt;  [7] "Gary Ritchie"       "Roger Oberg"        "Jeff Allen"        
+#&gt; [10] "Javier Luraschi"</code></pre>
 </div>
 <p>Finally, notice that if we switch <code>".author"</code> with <code>".title"</code> or <code>".date"</code> then we can grab that information as well. This kind of thinking means that we should create a function for extracting these pieces of information!</p>
 <div class="cell">
@@ -384,43 +374,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(blog_data, author, date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 253 × 2
-   author             date      
-   &lt;chr&gt;              &lt;chr&gt;     
- 1 Roger Oberg        2017-08-25
- 2 Kevin Ushey        2017-08-22
- 3 Roger Oberg        2017-08-18
- 4 Jonathan McPherson 2017-08-16
- 5 Hadley Wickham     2017-08-15
- 6 Winston Chang      2017-08-15
- 7 Gary Ritchie       2017-08-11
- 8 Roger Oberg        2017-08-10
- 9 Jeff Allen         2017-08-03
-10 Javier Luraschi    2017-07-31
-# … with 243 more rows</code></pre>
-</div>
+<pre><code>#&gt; # A tibble: 253 × 2
+#&gt;    author             date      
+#&gt;    &lt;chr&gt;              &lt;chr&gt;     
+#&gt;  1 Roger Oberg        2017-08-25
+#&gt;  2 Kevin Ushey        2017-08-22
+#&gt;  3 Roger Oberg        2017-08-18
+#&gt;  4 Jonathan McPherson 2017-08-16
+#&gt;  5 Hadley Wickham     2017-08-15
+#&gt;  6 Winston Chang      2017-08-15
+#&gt;  7 Gary Ritchie       2017-08-11
+#&gt;  8 Roger Oberg        2017-08-10
+#&gt;  9 Jeff Allen         2017-08-03
+#&gt; 10 Javier Luraschi    2017-07-31
+#&gt; # … with 243 more rows</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(blog_data, title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 253 × 1
-   title                                                                        
-   &lt;chr&gt;                                                                        
- 1 Newer to R? rstudio::conf 2018 is for you! Early bird pricing ends August 31.
- 2 RStudio v1.1 Preview - Object Explorer                                       
- 3 RStudio Server Pro is ready for BigQuery on the Google Cloud Platform        
- 4 RStudio 1.1 Preview - Data Connections                                       
- 5 rstudio::conf(2018): Contributed talks, e-posters, and diversity scholarships
- 6 Shiny 1.0.4                                                                  
- 7 RStudio v1.1 Preview: Terminal                                               
- 8 Building tidy tools workshop                                                 
- 9 RStudio Connect v1.5.4 - Now Supporting Plumber!                             
-10 sparklyr 0.6                                                                 
-# … with 243 more rows</code></pre>
-</div>
+<pre><code>#&gt; # A tibble: 253 × 1
+#&gt;    title                                                                        
+#&gt;    &lt;chr&gt;                                                                        
+#&gt;  1 Newer to R? rstudio::conf 2018 is for you! Early bird pricing ends August 31.
+#&gt;  2 RStudio v1.1 Preview - Object Explorer                                       
+#&gt;  3 RStudio Server Pro is ready for BigQuery on the Google Cloud Platform        
+#&gt;  4 RStudio 1.1 Preview - Data Connections                                       
+#&gt;  5 rstudio::conf(2018): Contributed talks, e-posters, and diversity scholarships
+#&gt;  6 Shiny 1.0.4                                                                  
+#&gt;  7 RStudio v1.1 Preview: Terminal                                               
+#&gt;  8 Building tidy tools workshop                                                 
+#&gt;  9 RStudio Connect v1.5.4 - Now Supporting Plumber!                             
+#&gt; 10 sparklyr 0.6                                                                 
+#&gt; # … with 243 more rows</code></pre>
 </div>
 </section>
 <section id="categories-and-tags" class="level3">
@@ -461,22 +447,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(blog_data, categories, tags)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 253 × 2
-   categories tags     
-   &lt;list&gt;     &lt;list&gt;   
- 1 &lt;chr [3]&gt;  &lt;chr [1]&gt;
- 2 &lt;chr [1]&gt;  &lt;chr [0]&gt;
- 3 &lt;chr [2]&gt;  &lt;chr [4]&gt;
- 4 &lt;chr [1]&gt;  &lt;chr [0]&gt;
- 5 &lt;chr [1]&gt;  &lt;chr [0]&gt;
- 6 &lt;chr [2]&gt;  &lt;chr [0]&gt;
- 7 &lt;chr [1]&gt;  &lt;chr [3]&gt;
- 8 &lt;chr [3]&gt;  &lt;chr [8]&gt;
- 9 &lt;chr [3]&gt;  &lt;chr [2]&gt;
-10 &lt;chr [1]&gt;  &lt;chr [3]&gt;
-# … with 243 more rows</code></pre>
-</div>
+<pre><code>#&gt; # A tibble: 253 × 2
+#&gt;    categories tags     
+#&gt;    &lt;list&gt;     &lt;list&gt;   
+#&gt;  1 &lt;chr [3]&gt;  &lt;chr [1]&gt;
+#&gt;  2 &lt;chr [1]&gt;  &lt;chr [0]&gt;
+#&gt;  3 &lt;chr [2]&gt;  &lt;chr [4]&gt;
+#&gt;  4 &lt;chr [1]&gt;  &lt;chr [0]&gt;
+#&gt;  5 &lt;chr [1]&gt;  &lt;chr [0]&gt;
+#&gt;  6 &lt;chr [2]&gt;  &lt;chr [0]&gt;
+#&gt;  7 &lt;chr [1]&gt;  &lt;chr [3]&gt;
+#&gt;  8 &lt;chr [3]&gt;  &lt;chr [8]&gt;
+#&gt;  9 &lt;chr [3]&gt;  &lt;chr [2]&gt;
+#&gt; 10 &lt;chr [1]&gt;  &lt;chr [3]&gt;
+#&gt; # … with 243 more rows</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>blog_data <span class="sc">%&gt;%</span></span>
@@ -484,10 +468,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(categories)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] "Packages"  "tidyverse" "Training" </code></pre>
-</div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] "Packages"  "tidyverse" "Training"</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>blog_data <span class="sc">%&gt;%</span></span>
@@ -495,11 +477,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(tags)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] "Advanced R"       "data science"     "ggplot2"          "Hadley Wickham"  
-[5] "R"                "RStudio Workshop" "r training"       "tutorial"        </code></pre>
-</div>
+<pre><code>#&gt; [[1]]
+#&gt; [1] "Advanced R"       "data science"     "ggplot2"          "Hadley Wickham"  
+#&gt; [5] "R"                "RStudio Workshop" "r training"       "tutorial"</code></pre>
 </div>
 </section>
 <section id="the-blog-post-itself" class="level3">
@@ -519,42 +499,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(blog_data, text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 253 × 1
-   text                                                                         
-   &lt;chr&gt;                                                                        
- 1 "Immersion is among the most effective ways to learn any language. Immersing…
- 2 "Today, we’re continuing our blog series on new features in RStudio 1.1. If …
- 3 "RStudio is excited to announce the availability of RStudio Server Pro on th…
- 4 "Today, we’re continuing our blog series on new features in RStudio 1.1. If …
- 5 "rstudio::conf, the conference on all things R and RStudio, will take place …
- 6 "Shiny 1.0.4 is now available on CRAN. To install it, run: For most Shiny us…
- 7 "Today we’re excited to announce availability of our first Preview Release f…
- 8 "Have you embraced the tidyverse? Do you now want to expand it to meet your …
- 9 "We’re thrilled to announce support for hosting Plumber APIs in RStudio Conn…
-10 "We’re excited to announce a new release of the sparklyr package, available …
-# … with 243 more rows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(blog_data, text)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 253 × 1</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    text                                                                         </span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                                                                        </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 "Immersion is among the most effective ways to learn any language. Immersing…</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 "Today, we’re continuing our blog series on new features in RStudio 1.1. If …</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 "RStudio is excited to announce the availability of RStudio Server Pro on th…</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 "Today, we’re continuing our blog series on new features in RStudio 1.1. If …</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 "rstudio::conf, the conference on all things R and RStudio, will take place …</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 "Shiny 1.0.4 is now available on CRAN. To install it, run: For most Shiny us…</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 "Today we’re excited to announce availability of our first Preview Release f…</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 "Have you embraced the tidyverse? Do you now want to expand it to meet your …</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 "We’re thrilled to announce support for hosting Plumber APIs in RStudio Conn…</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 "We’re excited to announce a new release of the sparklyr package, available …</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 243 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="who-writes-the-most-posts" class="level3">
 <h3 class="anchored" data-anchor-id="who-writes-the-most-posts">Who writes the most posts?</h3>
 <p>Now that we have all of this data, what can we do with it? To start with, who writes the most posts?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>blog_data <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">author =</span> <span class="fu">reorder</span>(author, count)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a bar graph of author counts</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> author, <span class="at">y =</span> count)) <span class="sc">+</span> </span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">"Who writes the most RStudio blog posts?"</span>,</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"By a huge margin, Hadley!"</span>) <span class="sc">+</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shoutout to Bob Rudis for the always fantastic themes</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  hrbrthemes<span class="sc">::</span><span class="fu">theme_ipsum</span>(<span class="at">grid =</span> <span class="st">"Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>blog_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(author) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">author =</span> <span class="fu">reorder</span>(author, count)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a bar graph of author counts</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> author, <span class="at">y =</span> count)) <span class="sc">+</span> </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">"Who writes the most RStudio blog posts?"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"By a huge margin, Hadley!"</span>) <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shoutout to Bob Rudis for the always fantastic themes</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  hrbrthemes<span class="sc">::</span><span class="fu">theme_ipsum</span>(<span class="at">grid =</span> <span class="st">"Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="792"></p>
 </div>
@@ -564,71 +542,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="tidytext">Tidytext</h3>
 <p>I’ve never used <code>tidytext</code> before today, but to get our feet wet, let’s create a tokenized tidy version of our data. By using <code>unnest_tokens()</code> the data will be reshaped to a long format holding 1 word per row, for each blog post. This tidy format lends itself to all manner of analysis, and a number of them are outlined in Julia Silge and David Robinson’s <a href="http://tidytextmining.com/">Text Mining with R</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>tokenized_blog <span class="ot">&lt;-</span> blog_data <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">short_title =</span> <span class="fu">str_sub</span>(title, <span class="at">end =</span> <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, short_title, author, date, text) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(tokenized_blog, short_title, word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 85,761 × 2
-   short_title     word     
-   &lt;chr&gt;           &lt;chr&gt;    
- 1 Newer to R? rst immersion
- 2 Newer to R? rst is       
- 3 Newer to R? rst among    
- 4 Newer to R? rst the      
- 5 Newer to R? rst most     
- 6 Newer to R? rst effective
- 7 Newer to R? rst ways     
- 8 Newer to R? rst to       
- 9 Newer to R? rst learn    
-10 Newer to R? rst any      
-# … with 85,751 more rows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tokenized_blog <span class="ot">&lt;-</span> blog_data <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">short_title =</span> <span class="fu">str_sub</span>(title, <span class="at">end =</span> <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(title, short_title, author, date, text) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> text)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(tokenized_blog, short_title, word)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 85,761 × 2</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    short_title     word     </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;           &lt;chr&gt;    </span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Newer to R? rst immersion</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Newer to R? rst is       </span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Newer to R? rst among    </span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Newer to R? rst the      </span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Newer to R? rst most     </span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Newer to R? rst effective</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Newer to R? rst ways     </span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Newer to R? rst to       </span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Newer to R? rst learn    </span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Newer to R? rst any      </span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 85,751 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="remove-stop-words" class="level3">
 <h3 class="anchored" data-anchor-id="remove-stop-words">Remove stop words</h3>
 <p>A number of words like “a” or “the” are included in the blog that don’t really add value to a text analysis. These stop words can be removed using an <code>anti_join()</code> with the <code>stop_words</code> dataset that comes with <code>tidytext</code>. After removing stop words, the number of rows was cut in half!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tokenized_blog <span class="ot">&lt;-</span> tokenized_blog <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(date))</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(tokenized_blog, short_title, word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 40,315 × 2
-   short_title     word     
-   &lt;chr&gt;           &lt;chr&gt;    
- 1 Newer to R? rst immersion
- 2 Newer to R? rst effective
- 3 Newer to R? rst learn    
- 4 Newer to R? rst language 
- 5 Newer to R? rst immersing
- 6 Newer to R? rst advanced 
- 7 Newer to R? rst users    
- 8 Newer to R? rst improve  
- 9 Newer to R? rst language 
-10 Newer to R? rst rare     
-# … with 40,305 more rows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>tokenized_blog <span class="ot">&lt;-</span> tokenized_blog <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(date))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(tokenized_blog, short_title, word)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 40,315 × 2</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    short_title     word     </span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;           &lt;chr&gt;    </span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 Newer to R? rst immersion</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 Newer to R? rst effective</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 Newer to R? rst learn    </span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 Newer to R? rst language </span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 Newer to R? rst immersing</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 Newer to R? rst advanced </span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 Newer to R? rst users    </span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 Newer to R? rst improve  </span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 Newer to R? rst language </span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Newer to R? rst rare     </span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 40,305 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="top-15-words-overall" class="level3">
 <h3 class="anchored" data-anchor-id="top-15-words-overall">Top 15 words overall</h3>
 <p>Out of pure curiousity, what are the top 15 words for all of the blog posts?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tokenized_blog <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">reorder</span>(word, n)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(word, n)) <span class="sc">+</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 15 words overall"</span>) <span class="sc">+</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  hrbrthemes<span class="sc">::</span><span class="fu">theme_ipsum</span>(<span class="at">grid =</span> <span class="st">"Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tokenized_blog <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">reorder</span>(word, n)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(word, n)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 15 words overall"</span>) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  hrbrthemes<span class="sc">::</span><span class="fu">theme_ipsum</span>(<span class="at">grid =</span> <span class="st">"Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="792"></p>
 </div>
@@ -641,35 +615,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>More simply, our null is that Hadley uses “pleased” less than or the same as the rest of the team.</p>
 <p>Let’s check visually to compare the two groups of posts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pleased <span class="ot">&lt;-</span> tokenized_blog <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by blog post</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the blog post contains "pleased" put yes, otherwise no</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a column checking if the author was Hadley</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">contains_pleased =</span> <span class="fu">case_when</span>(</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"pleased"</span> <span class="sc">%in%</span> word <span class="sc">~</span> <span class="st">"Yes"</span>,</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                <span class="sc">~</span> <span class="st">"No"</span>),</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_hadley =</span> <span class="fu">case_when</span>(</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>      author <span class="sc">==</span> <span class="st">"Hadley Wickham"</span> <span class="sc">~</span> <span class="st">"Hadley"</span>,</span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                       <span class="sc">~</span> <span class="st">"Not Hadley"</span>)</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove all duplicates now</span></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(title, contains_pleased, is_hadley)</span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>pleased <span class="sc">%&gt;%</span></span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> contains_pleased)) <span class="sc">+</span></span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>is_hadley, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">"Does this blog post contain 'pleased'?"</span>, </span>
-<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Nearly half of Hadley's do!"</span>,</span>
-<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x        =</span> <span class="st">"Contains 'pleased'"</span>,</span>
-<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">y        =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  hrbrthemes<span class="sc">::</span><span class="fu">theme_ipsum</span>(<span class="at">grid =</span> <span class="st">"Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pleased <span class="ot">&lt;-</span> tokenized_blog <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by blog post</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the blog post contains "pleased" put yes, otherwise no</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a column checking if the author was Hadley</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">contains_pleased =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"pleased"</span> <span class="sc">%in%</span> word <span class="sc">~</span> <span class="st">"Yes"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                <span class="sc">~</span> <span class="st">"No"</span>),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_hadley =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>      author <span class="sc">==</span> <span class="st">"Hadley Wickham"</span> <span class="sc">~</span> <span class="st">"Hadley"</span>,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                       <span class="sc">~</span> <span class="st">"Not Hadley"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove all duplicates now</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(title, contains_pleased, is_hadley)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>pleased <span class="sc">%&gt;%</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> contains_pleased)) <span class="sc">+</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>is_hadley, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title    =</span> <span class="st">"Does this blog post contain 'pleased'?"</span>, </span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Nearly half of Hadley's do!"</span>,</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x        =</span> <span class="st">"Contains 'pleased'"</span>,</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">y        =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>  hrbrthemes<span class="sc">::</span><span class="fu">theme_ipsum</span>(<span class="at">grid =</span> <span class="st">"Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="792"></p>
 </div>
@@ -679,51 +653,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="is-there-a-statistical-difference-here">Is there a statistical difference here?</h3>
 <p>To check if there is a statistical difference, we will use a test for difference in proportions contained in the R function, <code>prop.test()</code>. First, we need a continency table of the counts. Given the current form of our dataset, this isn’t too hard with the <code>table()</code> function from base R.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> pleased <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(is_hadley, contains_pleased) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Order the factor so Yes is before No for easy interpretation</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contains_pleased =</span> <span class="fu">factor</span>(contains_pleased, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            contains_pleased
-is_hadley    Yes  No
-  Hadley      43  45
-  Not Hadley  17 148</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> pleased <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(is_hadley, contains_pleased) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Order the factor so Yes is before No for easy interpretation</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">contains_pleased =</span> <span class="fu">factor</span>(contains_pleased, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>()</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>contingency_table</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             contains_pleased</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_hadley    Yes  No</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Hadley      43  45</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Not Hadley  17 148</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>From our null hypothesis, we want to perform a <em>one sided</em> test. The alternative to our null is that Hadley uses “pleased” <em>more</em> than the rest of the RStudio team. For this reason, we specify <code>alternative = "greater"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>test_prop <span class="ot">&lt;-</span> contingency_table <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.test</span>(<span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>test_prop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    2-sample test for equality of proportions with continuity correction
-
-data:  .
-X-squared = 45.063, df = 1, p-value = 9.541e-12
-alternative hypothesis: greater
-95 percent confidence interval:
- 0.2809899 1.0000000
-sample estimates:
-   prop 1    prop 2 
-0.4886364 0.1030303 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>test_prop <span class="ot">&lt;-</span> contingency_table <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.test</span>(<span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>test_prop</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2-sample test for equality of proportions with continuity correction</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  .</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X-squared = 45.063, df = 1, p-value = 9.541e-12</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: greater</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.2809899 1.0000000</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    prop 1    prop 2 </span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.4886364 0.1030303</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We could also tidy this up with <code>broom</code> if we were inclined to.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(test_prop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 9
-  estimate1 estimate2 statistic  p.value parameter conf.low conf.high method    
-      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
-1     0.489     0.103      45.1 9.54e-12         1    0.281         1 2-sample …
-# … with 1 more variable: alternative &lt;chr&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(test_prop)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 9</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   estimate1 estimate2 statistic  p.value parameter conf.low conf.high method    </span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     </span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     0.489     0.103      45.1 9.54e-12         1    0.281         1 2-sample …</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1 more variable: alternative &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="test-conclusion" class="level3">
