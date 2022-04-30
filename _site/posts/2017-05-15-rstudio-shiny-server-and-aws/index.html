@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-0.9.333">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Davis Vaughan">
 <meta name="dcterms.date" content="2017-05-15">
-
 <title>Davis Vaughan - RStudio and Shiny Servers with AWS - Part 1</title>
 <style>
 code{white-space: pre-wrap;}
@@ -81,22 +78,10 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -116,18 +101,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../../styles.css">
+}</script><link rel="stylesheet" href="../../styles.css">
 </head>
-
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Davis Vaughan</span>
   </a>
@@ -136,7 +115,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html">Posts</a>
   </li>  
   <li class="nav-item">
@@ -153,14 +132,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  </a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+<div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">RStudio and Shiny Servers with AWS - Part 1</h1>
                 </div>
@@ -191,29 +166,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc"><h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#step-1-setup-an-aws-account" id="toc-step-1-setup-an-aws-account" class="nav-link active" data-scroll-target="#step-1-setup-an-aws-account">Step 1: Setup an AWS Account</a></li>
+<li><a href="#step-1-setup-an-aws-account" id="toc-step-1-setup-an-aws-account" class="nav-link active" data-scroll-target="#step-1-setup-an-aws-account">Step 1: Setup an AWS Account</a></li>
   <li><a href="#step-2-setup-the-rstudio-amazon-machine-image" id="toc-step-2-setup-the-rstudio-amazon-machine-image" class="nav-link" data-scroll-target="#step-2-setup-the-rstudio-amazon-machine-image">Step 2: Setup the RStudio Amazon Machine Image</a></li>
   <li><a href="#step-3-new-password-for-rstudio-server" id="toc-step-3-new-password-for-rstudio-server" class="nav-link" data-scroll-target="#step-3-new-password-for-rstudio-server">Step 3: New password for RStudio Server</a></li>
   <li><a href="#step-4-update-everything" id="toc-step-4-update-everything" class="nav-link" data-scroll-target="#step-4-update-everything">Step 4: Update everything</a></li>
   <li><a href="#last-words" id="toc-last-words" class="nav-link" data-scroll-target="#last-words">Last words</a></li>
-  </ul>
-</nav>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  </ul></nav>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
-
-<p>After realizing how fast I can burn through my free 25 hours on shinyapps.io, I decided to repurpose my RStudio Server to also work with Shiny Server. Here’s my new setup:</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><p>After realizing how fast I can burn through my free 25 hours on shinyapps.io, I decided to repurpose my RStudio Server to also work with Shiny Server. Here’s my new setup:</p>
 <ul>
 <li>1 AWS EC2 server with an elastic IP address</li>
 <li>1 Route 55 Amazon domain linked to the EC2 elastic IP (davisvaughan.com)</li>
@@ -223,8 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In case I ever have to go through this madness again, or if anyone else wants to, I’ve compiled some step by step notes on the setup. It’s definitely worth it, though, so that you can have your own RStudio and Shiny servers!</p>
 <p>(I know that some others have already done posts like this, but I went into even more laborious detail on some of the basics.)</p>
 <p>In this post, I will walk you through getting up and running with an RStudio server. In the next post, you’ll learn to get Shiny server working.</p>
-<section id="step-1-setup-an-aws-account" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-setup-an-aws-account">Step 1: Setup an AWS Account</h3>
+<section id="step-1-setup-an-aws-account" class="level3"><h3 class="anchored" data-anchor-id="step-1-setup-an-aws-account">Step 1: Setup an AWS Account</h3>
 <p>Amazon is nice enough to provide 1 year’s worth of access to their <a href="https://aws.amazon.com/free/">Free Tier</a> for AWS. There are a huge number of options available, but the important one is that they provide a free 750 hours/month to deploy an EC2 instance. That’s just enough to keep 1 EC2 instance active 24/7, since 24 hours x 31 days = 744.</p>
 <p>If you aren’t familiar with EC2, think of it as your own personal always-on Linux computer that you can connect to through SSH, and access through the web by using an IP address. One step further and you can access it through a custom domain name.</p>
 <p>Create your free AWS account, and come back when you’ve finished. You should be able to click on the giant sign in button, and sign in to your console.</p>
@@ -232,9 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If all goes well, you’ll be at the console.</p>
 <p><img src="./img/console.png" class="img-fluid"></p>
 <p>We won’t do anything else yet, just stay signed in.</p>
-</section>
-<section id="step-2-setup-the-rstudio-amazon-machine-image" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-setup-the-rstudio-amazon-machine-image">Step 2: Setup the RStudio Amazon Machine Image</h3>
+</section><section id="step-2-setup-the-rstudio-amazon-machine-image" class="level3"><h3 class="anchored" data-anchor-id="step-2-setup-the-rstudio-amazon-machine-image">Step 2: Setup the RStudio Amazon Machine Image</h3>
 <p>It’s worth it to get familiar with setting up your own EC2 server, but we won’t have to do that here. Luckily, Louis Aslett has created an Amazon Machine Image (AMI) to take care of all of the hard work for us. It’s basically some preconfigured settings that at the time of writing install the following:</p>
 <ul>
 <li>RStudio Server 0.99.903</li>
@@ -272,10 +234,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="./img/rstudio-login.png" class="img-fluid"></p>
 <p>If it worked, you should see this.</p>
 <p><img src="./img/logged-in.png" class="img-fluid"></p>
-</section>
-<section id="step-3-new-password-for-rstudio-server" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-new-password-for-rstudio-server">Step 3: New password for RStudio Server</h3>
-<p>It’s advised that you immediately change the password. There are two ways to do so. The first way is easy. In the <code>Welcome.R</code> file that is shown above, you’ll see a description for how to <code>library("RStudioAMI")</code> and then run <code>passwd()</code>. You can do that, but eventually you’ll have to SSH into your server for <em>something</em>, so you may as well learn how now.</p>
+</section><section id="step-3-new-password-for-rstudio-server" class="level3"><h3 class="anchored" data-anchor-id="step-3-new-password-for-rstudio-server">Step 3: New password for RStudio Server</h3>
+<p>It’s advised that you immediately change the password. There are two ways to do so. The first way is easy. In the <code>Welcome.R</code> file that is shown above, you’ll see a description for how to <code><a href="https://rdrr.io/r/base/library.html">library("RStudioAMI")</a></code> and then run <code>passwd()</code>. You can do that, but eventually you’ll have to SSH into your server for <em>something</em>, so you may as well learn how now.</p>
 <p>Have you still got the AWS Console Instances page up? The one where you found the Public DNS (IPv4). Here it is again.</p>
 <p><img src="./img/start-up.png" class="img-fluid"></p>
 <p>AWS has made it pretty easy to connect through SSH. Click the “Connect” button. A window should pop up with some pretty detailed instructions. Do you have the path to your .pem file lying around? You’re going to need it!</p>
@@ -301,9 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> passwd rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then follow the prompts. Type <code>exit</code> to disconnect from the server, and go back to your RStudio Server site. Try and login with the new password.</p>
-</section>
-<section id="step-4-update-everything" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-update-everything">Step 4: Update everything</h3>
+</section><section id="step-4-update-everything" class="level3"><h3 class="anchored" data-anchor-id="step-4-update-everything">Step 4: Update everything</h3>
 <p>Unfortunately, the Amazon Images are only updated every few releases of RStudio Server. However, it’s not too hard to get the newest release installed straight from RStudio’s site.</p>
 <p>You’ll need to first set the CRAN mirror on your Ubuntu server so that you can actually download the latest version of R. This part is a bit of a pain, requiring you to work with some text editors through Terminal, but bear with me.</p>
 <p>Sign back into your Linux server through Terminal following the above instructions. When you’re done, type:</p>
@@ -359,9 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi rstudio-server-1.0.143-amd64.deb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>All done? Great! <code>exit</code> out of your Linux server, and reload your RStudio Server in the browser. When you login, you should be able to run <code>version</code> to see the latest version of R, and go to Help -&gt; About RStudio to see the updated version of RStudio Server!</p>
-</section>
-<section id="last-words" class="level3">
-<h3 class="anchored" data-anchor-id="last-words">Last words</h3>
+</section><section id="last-words" class="level3"><h3 class="anchored" data-anchor-id="last-words">Last words</h3>
 <p>This was quite the struggle. There are a few other resources out there to help, but I still struggled through some pieces of this one. Hopefully it wasn’t near as bad for you! In the next post, I’ll show you how to update your Shiny Server and start hosting your own apps on there (with no 5 app limit like shinyapps.io)!</p>
 <p>Here are some additional resources that I found helpful when setting up my server:</p>
 <ul>
@@ -369,10 +325,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();

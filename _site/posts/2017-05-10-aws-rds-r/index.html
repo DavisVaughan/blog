@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-0.9.333">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Davis Vaughan">
 <meta name="dcterms.date" content="2017-05-10">
-
 <title>Davis Vaughan - Amazon RDS + R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -81,22 +78,10 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -116,18 +101,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../../styles.css">
+}</script><link rel="stylesheet" href="../../styles.css">
 </head>
-
 <body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Davis Vaughan</span>
   </a>
@@ -136,7 +115,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html">Posts</a>
   </li>  
   <li class="nav-item">
@@ -153,14 +132,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  </a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+<div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Amazon RDS + R</h1>
                 </div>
@@ -191,68 +166,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Contents</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc"><h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#warning" id="toc-warning" class="nav-link active" data-scroll-target="#warning">Warning</a></li>
+<li><a href="#warning" id="toc-warning" class="nav-link active" data-scroll-target="#warning">Warning</a></li>
   <li><a href="#intro" id="toc-intro" class="nav-link" data-scroll-target="#intro">Intro</a></li>
   <li><a href="#step-1-the-one-where-you-got-connected" id="toc-step-1-the-one-where-you-got-connected" class="nav-link" data-scroll-target="#step-1-the-one-where-you-got-connected">Step 1: The one where you got connected</a></li>
   <li><a href="#step-2-the-one-where-you-take-it-for-a-test-spin" id="toc-step-2-the-one-where-you-take-it-for-a-test-spin" class="nav-link" data-scroll-target="#step-2-the-one-where-you-take-it-for-a-test-spin">Step 2: The one where you take it for a test spin</a></li>
   <li><a href="#step-3-the-one-with-the-pliers" id="toc-step-3-the-one-with-the-pliers" class="nav-link" data-scroll-target="#step-3-the-one-with-the-pliers">Step 3: The one with the pliers</a></li>
   <li><a href="#last-words" id="toc-last-words" class="nav-link" data-scroll-target="#last-words">Last words</a></li>
-  </ul>
-</nav>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  </ul></nav>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
-
-<section id="warning" class="level3">
-<h3 class="anchored" data-anchor-id="warning">Warning</h3>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="warning" class="level3"><h3 class="anchored" data-anchor-id="warning">Warning</h3>
 <p>The code and advice in this post is still valid, but I have shut down the AWS database that this post pulled from, so it no longer runs. Additionally, the output is no longer shown.</p>
-</section>
-<section id="intro" class="level3">
-<h3 class="anchored" data-anchor-id="intro">Intro</h3>
+</section><section id="intro" class="level3"><h3 class="anchored" data-anchor-id="intro">Intro</h3>
 <p>Welcome to my first post! To start things off at Data Insights, I’m going to show you how to connect to an AWS RDS instance from R.</p>
 <p>For those of you who don’t know, RDS is an easy way to create a database in the cloud. In this post, I won’t be showing you how to setup an RDS instance, but I will show you how to connect to it if you have one running.</p>
 <p>Let’s get started.</p>
-</section>
-<section id="step-1-the-one-where-you-got-connected" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-the-one-where-you-got-connected">Step 1: The one where you got connected</h3>
+</section><section id="step-1-the-one-where-you-got-connected" class="level3"><h3 class="anchored" data-anchor-id="step-1-the-one-where-you-got-connected">Step 1: The one where you got connected</h3>
 <p>You’ll need a few packages to get started.</p>
 <ul>
-<li><code>DBI</code> and <code>RMySQL</code> are used to connect to the database, although <code>RMySQL</code> is usually called without explicitely loading it (that’s just the standard)</li>
-<li><code>tidyquant</code> is just there to help us download some data to put in and get out of our database</li>
-<li><code>dplyr</code> will be used to show off an alternate way to query from the database. Note that you should get the most recent github version of <code>dplyr</code>, along with the database specific pieces from <code>dbplyr</code>.</li>
+<li>
+<code>DBI</code> and <code>RMySQL</code> are used to connect to the database, although <code>RMySQL</code> is usually called without explicitely loading it (that’s just the standard)</li>
+<li>
+<code>tidyquant</code> is just there to help us download some data to put in and get out of our database</li>
+<li>
+<code>dplyr</code> will be used to show off an alternate way to query from the database. Note that you should get the most recent github version of <code>dplyr</code>, along with the database specific pieces from <code>dbplyr</code>.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(RMySQL)</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github("tidyverse/dplyr")</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github("tidyverse/dbplyr")</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dbplyr)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org">DBI</a></span><span class="op">)</span>
+<span class="co"># library(RMySQL)</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span>
+
+<span class="co"># devtools::install_github("tidyverse/dplyr")</span>
+<span class="co"># devtools::install_github("tidyverse/dbplyr")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="co"># library(dbplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Getting connected isn’t too hard once you know what you’re looking for.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cn <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="at">drv      =</span> RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(), </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">username =</span> <span class="st">"user1"</span>, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">password =</span> <span class="st">"testpassword"</span>, </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">host     =</span> <span class="st">"davisdbinstance.crarljboc8to.us-west-2.rds.amazonaws.com"</span>, </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">port     =</span> <span class="dv">3306</span>, </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">dbname   =</span> <span class="st">"firstdb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">cn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span>drv      <span class="op">=</span> <span class="fu">RMySQL</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RMySQL/man/MySQLDriver-class.html">MySQL</a></span><span class="op">(</span><span class="op">)</span>, 
+                username <span class="op">=</span> <span class="st">"user1"</span>, 
+                password <span class="op">=</span> <span class="st">"testpassword"</span>, 
+                host     <span class="op">=</span> <span class="st">"davisdbinstance.crarljboc8to.us-west-2.rds.amazonaws.com"</span>, 
+                port     <span class="op">=</span> <span class="fl">3306</span>, 
+                dbname   <span class="op">=</span> <span class="st">"firstdb"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s go through the arguments to <code>dbConnect()</code>, the function from <code>DBI</code> that we used to connect.</p>
+<p>Let’s go through the arguments to <code><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect()</a></code>, the function from <code>DBI</code> that we used to connect.</p>
 <ul>
 <li><p><code>drv</code> - The driver I used is from the <code>RMySQL</code> package, an implementation of the general interface provided by <code>DBI</code>. I’ll leave it to <a href="https://github.com/rstats-db/DBI">the experts</a> to explain all of this.</p></li>
 <li><p><code>username</code> / <code>password</code> - You’ll have to have created a user and password on AWS first, but then you can use them here.</p></li>
@@ -262,98 +225,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p><code>port</code> - The rest of the Endpoint shows the port that you’ll need to access your RDS instance through. That goes here.</p></li>
 <li><p><code>dbname</code> - Finally, you’ll need the DB Name you used when setting up the instance. This can be found by clicking Instance Actions -&gt; See Details, and then under Configuration Details you’ll find DB Name.</p></li>
-</ul>
-</section>
-<section id="step-2-the-one-where-you-take-it-for-a-test-spin" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-the-one-where-you-take-it-for-a-test-spin">Step 2: The one where you take it for a test spin</h3>
+</ul></section><section id="step-2-the-one-where-you-take-it-for-a-test-spin" class="level3"><h3 class="anchored" data-anchor-id="step-2-the-one-where-you-take-it-for-a-test-spin">Step 2: The one where you take it for a test spin</h3>
 <p>Well, alright…that was…cool? How do we know it’s working? Let’s get some data to load into the database. We will use some Apple stock data retrieved through <code>tidyquant</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>aapl <span class="ot">&lt;-</span> <span class="fu">tq_get</span>(<span class="st">"AAPL"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(aapl, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op">(</span><span class="st">"AAPL"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">aapl</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 
 </div>
-<p>To write the tibble (data frame) to the database, we will use another function called <code>dbWriteTable()</code>. It’s pretty straightforward. “name” is the name of the table you are creating, and “value” is the data frame you want to write.</p>
+<p>To write the tibble (data frame) to the database, we will use another function called <code><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable()</a></code>. It’s pretty straightforward. “name” is the name of the table you are creating, and “value” is the data frame you want to write.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(cn, <span class="at">name =</span> <span class="st">"apple"</span>, <span class="at">value =</span> aapl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">cn</span>, name <span class="op">=</span> <span class="st">"apple"</span>, value <span class="op">=</span> <span class="va">aapl</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now the fun part! Let’s use a SQL query to pull it back down with <code>dbGetQuery()</code>. This function is a combination of <code>dbSendQuery()</code>, which returns a result set for your query, and <code>dbFetch()</code> which returns the rows from that result set.</p>
+<p>Now the fun part! Let’s use a SQL query to pull it back down with <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery()</a></code>. This function is a combination of <code><a href="https://dbi.r-dbi.org/reference/dbSendQuery.html">dbSendQuery()</a></code>, which returns a result set for your query, and <code><a href="https://dbi.r-dbi.org/reference/dbFetch.html">dbFetch()</a></code> which returns the rows from that result set.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>apple_from_db <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(cn, <span class="st">"SELECT * FROM apple;"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This effectively is the same as</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dbReadTable(cn, "apple")</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(apple_from_db, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">apple_from_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html">dbGetQuery</a></span><span class="op">(</span><span class="va">cn</span>, <span class="st">"SELECT * FROM apple;"</span><span class="op">)</span>
+
+<span class="co"># This effectively is the same as</span>
+<span class="co"># dbReadTable(cn, "apple")</span>
+
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">apple_from_db</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are a huge number of functions from <code>DBI</code> that you can use to communicate with databases. Maybe I will cover more in a separate post, but for now, let’s move on to <code>dplyr</code>.</p>
-</section>
-<section id="step-3-the-one-with-the-pliers" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-the-one-with-the-pliers">Step 3: The one with the pliers</h3>
-<p>Before <code>dplyr</code> 0.6.0 was announced, you’d have to disconnect, and then reconnect through a <code>dplyr</code> specific function, <code>src_mysql()</code>. That would look something like the code below. Since then, however, you can now use the <code>DBI</code> connection with <code>dplyr</code>!</p>
+</section><section id="step-3-the-one-with-the-pliers" class="level3"><h3 class="anchored" data-anchor-id="step-3-the-one-with-the-pliers">Step 3: The one with the pliers</h3>
+<p>Before <code>dplyr</code> 0.6.0 was announced, you’d have to disconnect, and then reconnect through a <code>dplyr</code> specific function, <code><a href="https://dplyr.tidyverse.org/reference/src_dbi.html">src_mysql()</a></code>. That would look something like the code below. Since then, however, you can now use the <code>DBI</code> connection with <code>dplyr</code>!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There is no need for this code anymore!</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(cn)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>cn <span class="ot">&lt;-</span> <span class="fu">src_mysql</span>(<span class="at">user     =</span> <span class="st">"user1"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">password =</span> <span class="st">"testpassword"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">host     =</span> <span class="st">"davisdbinstance.crarljboc8to.us-west-2.rds.amazonaws.com"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">port     =</span> <span class="dv">3306</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">dbname   =</span> <span class="st">"firstdb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># There is no need for this code anymore!</span>
+<span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">cn</span><span class="op">)</span>
+
+<span class="va">cn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/src_dbi.html">src_mysql</a></span><span class="op">(</span>user     <span class="op">=</span> <span class="st">"user1"</span>,
+                password <span class="op">=</span> <span class="st">"testpassword"</span>,
+                host     <span class="op">=</span> <span class="st">"davisdbinstance.crarljboc8to.us-west-2.rds.amazonaws.com"</span>,
+                port     <span class="op">=</span> <span class="fl">3306</span>,
+                dbname   <span class="op">=</span> <span class="st">"firstdb"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Select the apple table from the database. <em>This does not actually pull the data into memory</em>. It just makes a connection!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With dplyr 0.6.0 we can just use the DBI connection!</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>apple_table <span class="ot">&lt;-</span> <span class="fu">tbl</span>(cn, <span class="st">"apple"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># By default the first 1000 rows are displayed</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>apple_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># With dplyr 0.6.0 we can just use the DBI connection!</span>
+<span class="va">apple_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">cn</span>, <span class="st">"apple"</span><span class="op">)</span>
+
+<span class="co"># By default the first 1000 rows are displayed</span>
+<span class="va">apple_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The best part is that we can use almost any dplyr command with this! It queries the database, and does not do the manipulation in R. All of the familiar syntax of dplyr, but with databases. Let’s use <code>filter()</code> to get all of the rows after January 1, 2009.</p>
+<p>The best part is that we can use almost any dplyr command with this! It queries the database, and does not do the manipulation in R. All of the familiar syntax of dplyr, but with databases. Let’s use <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to get all of the rows after January 1, 2009.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(apple_table, date <span class="sc">&gt;</span> <span class="st">"2009-01-01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">apple_table</span>, <span class="va">date</span> <span class="op">&gt;</span> <span class="st">"2009-01-01"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To do any serious manipulation outside of <code>dplyr</code>, you’ll likely have pull the data into memory to be able to use it with other R functions. Here, I’ll use the <code>dplyr</code> equivalent to <code>dbWriteTable()</code> to add the stock prices for IBM to the database.</p>
+<p>To do any serious manipulation outside of <code>dplyr</code>, you’ll likely have pull the data into memory to be able to use it with other R functions. Here, I’ll use the <code>dplyr</code> equivalent to <code><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable()</a></code> to add the stock prices for IBM to the database.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ibm <span class="ot">&lt;-</span> <span class="fu">tq_get</span>(<span class="st">"IBM"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_to</span>(cn, <span class="at">df =</span> ibm, <span class="at">temporary =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">ibm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op">(</span><span class="st">"IBM"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/copy_to.html">copy_to</a></span><span class="op">(</span><span class="va">cn</span>, df <span class="op">=</span> <span class="va">ibm</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To actually retrieve the data to memory, first make the connection using <code>tbl()</code> like before, and then use <code>collect()</code> to create the in memory tibble. Unfortunately, dates are stored as characters in the table, and <code>collect()</code> won’t try to fix that, so I’ll also take advantage of the <code>readr</code> package’s <code>type_convert()</code> function to do the thinking for me.</p>
-<p>Once we have the data in memory, we can calculate the daily return with <code>tidyquant</code> and <code>tq_mutate()</code>.</p>
+<p>To actually retrieve the data to memory, first make the connection using <code><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl()</a></code> like before, and then use <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code> to create the in memory tibble. Unfortunately, dates are stored as characters in the table, and <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code> won’t try to fix that, so I’ll also take advantage of the <code>readr</code> package’s <code>type_convert()</code> function to do the thinking for me.</p>
+<p>Once we have the data in memory, we can calculate the daily return with <code>tidyquant</code> and <code><a href="https://rdrr.io/pkg/tidyquant/man/tq_mutate.html">tq_mutate()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connection</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ibm_table <span class="ot">&lt;-</span> <span class="fu">tbl</span>(cn, <span class="st">"ibm"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect to tibble</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>real_tibble <span class="ot">&lt;-</span> <span class="fu">collect</span>(ibm_table) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">type_convert</span>()</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily return</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>real_tibble <span class="ot">&lt;-</span> real_tibble <span class="sc">%&gt;%</span> </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tq_mutate</span>(<span class="at">select     =</span> adjusted, </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">mutate_fun =</span> periodReturn, </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">period     =</span> <span class="st">"daily"</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>real_tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Connection</span>
+<span class="va">ibm_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">cn</span>, <span class="st">"ibm"</span><span class="op">)</span>
+
+<span class="co"># Collect to tibble</span>
+<span class="va">real_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">collect</a></span><span class="op">(</span><span class="va">ibm_table</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span>
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/type_convert.html">type_convert</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Daily return</span>
+<span class="va">real_tibble</span> <span class="op">&lt;-</span> <span class="va">real_tibble</span> <span class="op"><a href="https://rdrr.io/pkg/tidyquant/man/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_mutate.html">tq_mutate</a></span><span class="op">(</span>select     <span class="op">=</span> <span class="va">adjusted</span>, 
+            mutate_fun <span class="op">=</span> <span class="va">periodReturn</span>, 
+            period     <span class="op">=</span> <span class="st">"daily"</span><span class="op">)</span>
+
+<span class="va">real_tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Always disconnect when you’re finished!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(cn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">cn</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="last-words" class="level3">
-<h3 class="anchored" data-anchor-id="last-words">Last words</h3>
+</section><section id="last-words" class="level3"><h3 class="anchored" data-anchor-id="last-words">Last words</h3>
 <p>Hopefully I’ve been able to show you the power of <code>DBI</code> + <code>dplyr</code> with Amazon RDS. This integration has come a long way, and is just one of the huge advancements that the RStudio team has been working on in collaboration with other R users in the community.</p>
 <p>Until next time!</p>
 
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
