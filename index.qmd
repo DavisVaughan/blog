@@ -7,6 +7,7 @@ listing:
   categories: true
   sort-ui: false
   filter-ui: false
+  fields: [date, author, title]
 page-layout: full
 title-block-banner: true
 ---
