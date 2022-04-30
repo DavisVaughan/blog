@@ -10,3 +10,10 @@ $theme: "litera" !default;
 // Use Roboto for prose, and Fira Mono for code
 $font-family-sans-serif: Roboto !default;
 $font-family-monospace: "Fira Mono" !default;
+
+// Tweak color of inline code to match the color of function calls in code blocks
+$code-color: #4758AB;
+
+// Add a bit more vertical space between lines of text.
+// quarto uses 1.5 but that seems a bit cramped in places.
+$line-height-base: 1.75;
