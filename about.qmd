@@ -1,18 +1,35 @@
 ---
 title: "About"
-image: profile.jpg
+image: about.jpg
 about:
-  template: jolla
+  template: solana
   links:
     - icon: twitter
       text: Twitter
-      href: https://twitter.com
-    - icon: linkedin
-      text: LinkedIn
-      href: https://linkedin.com
+      href: https://twitter.com/dvaughan32
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/DavisVaughan
 ---
 
-About this blog
+## Who am I?
+
+I'm Davis, a Software Engineer at [RStudio](https://www.rstudio.com/) working on creating user friendly R packages with the rest of the [tidyverse](https://github.com/tidyverse) team.
+
+## What else?
+
+I've developed a few R packages:
+
+-   [furrr](https://furrr.futureverse.org)
+-   [slider](https://davisvaughan.github.io/slider)
+-   [clock](https://clock.r-lib.org)
+-   [almanac](https://davisvaughan.github.io/almanac)
+-   [hardhat](http://hardhat.tidymodels.org)
+-   [workflows](http://workflows.tidymodels.org)
+-   [probably](https://probably.tidymodels.org)
+
+And I work on many more, including:
+
+-   [tidyr](https://tidyr.tidyverse.org)
+-   [vctrs](https://vctrs.r-lib.org)
+-   [yardstick](https://yardstick.tidymodels.org)

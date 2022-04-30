@@ -18,6 +18,13 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog"
+    "text": "I’m Davis, a Software Engineer at RStudio working on creating user friendly R packages with the rest of the tidyverse team."
+  },
+  {
+    "objectID": "about.html#what-else",
+    "href": "about.html#what-else",
+    "title": "About",
+    "section": "What else?",
+    "text": "What else?\nI’ve developed a few R packages:\n\nfurrr\nslider\nclock\nalmanac\nhardhat\nworkflows\nprobably\n\nAnd I work on many more, including:\n\ntidyr\nvctrs\nyardstick"
   }
 ]
