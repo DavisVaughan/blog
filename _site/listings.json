@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2017-08-26-numerical-methods-for-finance-part-1/index.html",
       "/posts/2017-08-16-hadley-pleased/index.html",
       "/posts/2017-05-15-rstudio-shiny-server-and-aws/index.html",
       "/posts/2017-05-10-aws-rds-r/index.html"
