@@ -1,0 +1,463 @@
+---
+title: "Which RStudio blog posts “pleased” Hadley? A tidytext + web scraping analysis"
+author: "Davis Vaughan"
+date: '2017-08-16'
+---
+
+### Introduction
+
+Awhile back, I saw a conversation on twitter about how Hadley uses the word "pleased" very often when introducing a new blog post (I couldn't seem to find this tweet anymore. Can anyone help?).
+Out of curiousity, and to flex my R web scraping muscles a bit, I've decided to analyze the 240+ blog posts that RStudio has put out since 2011.
+This post will do a few things:
+
+-   Scrape the RStudio blog archive page to construct URL links to each blog post
+-   Scrape the blog post text and metadata from each post
+-   Use a bit of `tidytext` for some exploratory analysis
+-   Perform a statistical test to compare Hadley's use of "pleased" to the other blog post authors
+
+Spoiler alert: Hadley uses "pleased" ALOT.
+
+### Required packages
+
+```{r packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tidytext)
+library(rvest)
+library(xml2)
+```
+
+### Extract the HTML from the RStudio blog archive
+
+To be able to extract the text from each blog post, we first need to have a link to that blog post.
+Luckily, RStudio keeps an up to date archive page that we can scrape.
+Using `xml2`, we can get the HTML off that page.
+
+```{r archive html, eval = FALSE}
+archive_page <- "https://blog.rstudio.com/archives/"
+
+archive_html <- read_html(archive_page)
+
+# Doesn't seem very useful...yet
+archive_html
+```
+
+```{r archive html cached, echo=FALSE}
+# xml is impossible to store as rds so mock the output
+
+# out <- capture.output(archive_html)
+# write_rds(out, "data/2017-08-16-hadley-pleased/archive_html.rds")
+cat(read_rds("./data/archive_html.rds"), sep = "\n")
+```
+
+Now we use a bit of `rvest` magic combined with the HTML inspector in Chrome to figure out which elements contain the info we need (I also highly recommend [SelectorGadget](http://selectorgadget.com/) for this kind of work).
+Looking at the image below, you can see that all of the links are contained within the `main` tag as `a` tags (links).
+
+![](./img/html-inspector.png)
+
+The code below extracts all of the links, and then adds the prefix containing the base URL of the site.
+
+```{r links, eval=FALSE}
+links <- archive_html %>%
+  
+  # Only the "main" body of the archive
+  html_nodes("main") %>%
+  
+  # Grab any node that is a link
+  html_nodes("a") %>%
+  
+  # Extract the hyperlink reference from those link tags
+  # The hyperlink is an attribute as opposed to a node
+  html_attr("href") %>%
+  
+  # Prefix them all with the base URL
+  paste0("http://blog.rstudio.com", .)
+
+head(links)
+```
+
+```{r, echo=FALSE}
+# write_rds(links, "data/2017-08-16-hadley-pleased/links.r
+# write_rds(head(blog_data$links), "data/2017-08-16-hadley-pleased/links.rds")
+head(read_rds("./data/links.rds"))
+```
+
+### HTML from each blog post
+
+Now that we have every link, we're ready to extract the HTML from each individual blog post.
+To make things more manageable, we start by creating a tibble, and then using the `mutate + map` combination to created a column of XML Nodesets (we will use this combination a lot).
+Each nodeset contains the HTML for that blog post (exactly like the HTML for the archive page).
+
+```{r, eval = FALSE}
+blog_data <- tibble(links)
+
+blog_data <- blog_data %>%
+  mutate(main = map(
+                    # Iterate through every link
+                    .x = links, 
+                    
+                    # For each link, read the HTML for that page, and return the main section 
+                    .f = ~read_html(.) %>%
+                            html_nodes("main")
+                    )
+         )
+
+blog_data$main[1]
+```
+
+```{r, echo=FALSE}
+# out <- capture.output(blog_data$main[1])
+# write_rds(out, "data/2017-08-16-hadley-pleased/blog-data.rds")
+cat(read_rds("./data/blog-data.rds"), sep ="\n")
+```
+
+### Meta information
+
+Before extracting the blog post itself, lets grab the meta information about each post, specifically:
+
+-   Author
+-   Title
+-   Date
+-   Category
+-   Tags
+
+In the exploratory analysis, we will use author and title, but the other information might be useful for future analysis.
+
+Looking at the first blog post, the Author, Date, and Title are all HTML class names that we can feed into `rvest` to extract that information.
+
+![](./img/date-author-title.png)
+
+In the code below, an example of extracting the author information is shown.
+To select a HTML class (like "author") as opposed to a tag (like "main"), we have to put a period in front of the class name.
+Once the html node we are interested in has been identified, we can extract the text for that node using `html_text()`.
+
+```{r, eval=FALSE}
+blog_data$main[[1]] %>%
+  html_nodes(".author") %>%
+  html_text()
+```
+
+```{r, echo=FALSE}
+"Roger Oberg"
+```
+
+To scale up to grab the author for all posts, we use `map_chr()` since we want a character of the author's name returned.
+
+```{r, eval=FALSE}
+map_chr(.x = blog_data$main,
+        .f = ~html_nodes(.x, ".author") %>%
+                html_text()) %>%
+  head(10)
+```
+
+```{r, echo=FALSE}
+# nms <- map_chr(.x = blog_data$main,
+#         .f = ~html_nodes(.x, ".author") %>%
+#                 html_text()) %>%
+#   head(10)
+# 
+# write_rds(nms, "data/2017-08-16-hadley-pleased/nms.rds")
+
+read_rds("./data/nms.rds")
+```
+
+Finally, notice that if we switch `".author"` with `".title"` or `".date"` then we can grab that information as well.
+This kind of thinking means that we should create a function for extracting these pieces of information!
+
+```{r, eval=FALSE}
+extract_info <- function(html, class_name) {
+  map_chr(
+          # Given the list of main HTMLs
+          .x = html,
+          
+          # Extract the text we are interested in for each one 
+          .f = ~html_nodes(.x, class_name) %>%
+                  html_text())
+}
+
+# Extract the data
+blog_data <- blog_data %>%
+  mutate(
+     author = extract_info(main, ".author"),
+     title  = extract_info(main, ".title"),
+     date   = extract_info(main, ".date")
+    )
+```
+
+```{r, eval = FALSE}
+select(blog_data, author, date)
+```
+
+```{r, echo = FALSE}
+# blog_data_no_xml <- select(blog_data, -main)
+# write_rds(blog_data_no_xml, "data/2017-08-16-hadley-pleased/blog-data-no-xml.rds")
+blog_data_no_xml <- read_rds("./data/blog-data-no-xml.rds")
+select(blog_data_no_xml, author, date)
+```
+
+```{r, eval = FALSE}
+select(blog_data, title)
+```
+
+```{r, echo = FALSE}
+select(blog_data_no_xml, title)
+```
+
+### Categories and tags
+
+The other bits of meta data that might be interesting are the categories and tags that the post falls under.
+This is a little bit more involved, because both the categories and tags fall under the same class, `".terms"`.
+To separate them, we need to look into the href to see if the information is either a tag or a category (href = "/categories/" VS href = "/tags/").
+
+![](./img/cat-tag.png)
+
+The function below extracts either the categories or the tags, depending on the argument, by:
+
+-   Extracting the `".terms"` class, and then all of the links inside of it (`a` tags).
+-   Checking each link to see if the hyperlink reference contains "categories" or "tags" depending on the one that we are interested in. If it does, it returns the text corresponding to that link, otherwise it returns NAs which are then removed.
+
+The final step results in two list columns containing character vectors of varying lengths corresponding to the categories and tags of each post.
+
+```{r, eval = FALSE}
+extract_tag_or_cat <- function(html, info_name) {
+  
+  # Extract the links under the terms class
+  cats_and_tags <- map(.x = html, 
+                       .f = ~html_nodes(.x, ".terms") %>%
+                              html_nodes("a"))
+  
+  # For each link, if the href contains the word categories/tags 
+  # return the text corresponding to that link
+  map(cats_and_tags, 
+    ~if_else(condition = grepl(info_name, html_attr(.x, "href")), 
+             true      = html_text(.x), 
+             false     = NA_character_) %>%
+      .[!is.na(.)])
+}
+
+# Apply our new extraction function
+blog_data <- blog_data %>%
+  mutate(
+    categories = extract_tag_or_cat(main, "categories"),
+    tags       = extract_tag_or_cat(main, "tags")
+  )
+```
+
+```{r, eval = FALSE}
+select(blog_data, categories, tags)
+```
+
+```{r, echo = FALSE}
+# write_rds(blog_data, "data/2017-08-16-hadley-pleased/blog-data-cat-tag.rds")
+blog_data_cat_tags <- read_rds("./data/blog-data-cat-tag.rds")
+select(blog_data_cat_tags, categories, tags)
+```
+
+```{r, eval = FALSE}
+blog_data %>%
+  filter(title == "Building tidy tools workshop") %>%
+  pull(categories)
+```
+
+```{r, echo=FALSE}
+blog_data_cat_tags %>%
+  filter(title == "Building tidy tools workshop") %>%
+  pull(categories)
+```
+
+```{r, eval = FALSE}
+blog_data %>%
+  filter(title == "Building tidy tools workshop") %>%
+  pull(tags)
+```
+
+```{r, echo = FALSE}
+blog_data_cat_tags %>%
+  filter(title == "Building tidy tools workshop") %>%
+  pull(tags)
+```
+
+### The blog post itself
+
+Finally, to extract the blog post itself, we can notice that each piece of text in the post is inside of a paragraph tag (`p`).
+Being careful to avoid the `".terms"` class that contained the categories and tags, which also happens to be in a paragraph tag, we can extract the full blog posts.
+To ignore the `".terms"` class, use the `:not()` selector.
+
+```{r, eval = FALSE}
+blog_data <- blog_data %>%
+  mutate(
+    text = map_chr(main, ~html_nodes(.x, "p:not(.terms)") %>%
+                 html_text() %>%
+                 # The text is returned as a character vector. 
+                 # Collapse them all into 1 string.
+                 paste0(collapse = " "))
+  )
+```
+
+```{r, echo = FALSE}
+# # at this point, we dont need the xml anymore so overwrite blog_data
+# blog_data <- select(blog_data, -main)
+# write_rds(blog_data, "data/2017-08-16-hadley-pleased/blog-data-final.rds")
+blog_data <- read_rds("./data/blog-data-final.rds")
+```
+
+```{r}
+select(blog_data, text)
+```
+
+### Who writes the most posts?
+
+Now that we have all of this data, what can we do with it?
+To start with, who writes the most posts?
+
+```{r, fig.width=8.25}
+blog_data %>%
+  group_by(author) %>%
+  summarise(count = n()) %>%
+  mutate(author = reorder(author, count)) %>%
+  
+  # Create a bar graph of author counts
+  ggplot(mapping = aes(x = author, y = count)) + 
+  geom_col() +
+  coord_flip() +
+  labs(title    = "Who writes the most RStudio blog posts?",
+       subtitle = "By a huge margin, Hadley!") +
+  # Shoutout to Bob Rudis for the always fantastic themes
+  hrbrthemes::theme_ipsum(grid = "Y")
+  
+```
+
+### Tidytext
+
+I've never used `tidytext` before today, but to get our feet wet, let's create a tokenized tidy version of our data.
+By using `unnest_tokens()` the data will be reshaped to a long format holding 1 word per row, for each blog post.
+This tidy format lends itself to all manner of analysis, and a number of them are outlined in Julia Silge and David Robinson's [Text Mining with R](http://tidytextmining.com/).
+
+```{r}
+tokenized_blog <- blog_data %>%
+  mutate(short_title = str_sub(title, end = 15)) %>%
+  select(title, short_title, author, date, text) %>%
+  unnest_tokens(output = word, input = text)
+
+select(tokenized_blog, short_title, word)
+```
+
+### Remove stop words
+
+A number of words like "a" or "the" are included in the blog that don't really add value to a text analysis.
+These stop words can be removed using an `anti_join()` with the `stop_words` dataset that comes with `tidytext`.
+After removing stop words, the number of rows was cut in half!
+
+```{r}
+tokenized_blog <- tokenized_blog %>%
+  anti_join(stop_words, by = "word") %>%
+  arrange(desc(date))
+
+select(tokenized_blog, short_title, word)
+```
+
+### Top 15 words overall
+
+Out of pure curiousity, what are the top 15 words for all of the blog posts?
+
+```{r, fig.width=8.25}
+tokenized_blog %>%
+  count(word, sort = TRUE) %>%
+  slice(1:15) %>%
+  mutate(word = reorder(word, n)) %>%
+  
+  ggplot(aes(word, n)) +
+  geom_col() + 
+  coord_flip() + 
+  labs(title = "Top 15 words overall") +
+  hrbrthemes::theme_ipsum(grid = "Y")
+```
+
+### Is Hadley more "pleased" than everyone else?
+
+As mentioned at the beginning of the post, Hadley apparently uses the word "pleased" in his blog posts an above average number of times.
+Can we verify this statistically?
+
+*Our null hypothesis is that the proportion of blog posts that use the word "pleased" written by Hadley is less than or equal to the proportion of those written by the rest of the RStudio team.*
+
+More simply, our null is that Hadley uses "pleased" less than or the same as the rest of the team.
+
+Let's check visually to compare the two groups of posts.
+
+```{r, fig.width=8.25}
+pleased <- tokenized_blog %>%
+  
+  # Group by blog post
+  group_by(title) %>%
+  
+  # If the blog post contains "pleased" put yes, otherwise no
+  # Add a column checking if the author was Hadley
+  mutate(
+    contains_pleased = case_when(
+      "pleased" %in% word ~ "Yes",
+      TRUE                ~ "No"),
+    
+    is_hadley = case_when(
+      author == "Hadley Wickham" ~ "Hadley",
+      TRUE                       ~ "Not Hadley")
+    ) %>%
+  
+  # Remove all duplicates now
+  distinct(title, contains_pleased, is_hadley)
+
+pleased %>%
+  ggplot(aes(x = contains_pleased)) +
+  geom_bar() +
+  facet_wrap(~is_hadley, scales = "free_y") +
+  labs(title    = "Does this blog post contain 'pleased'?", 
+       subtitle = "Nearly half of Hadley's do!",
+       x        = "Contains 'pleased'",
+       y        = "Count") +
+  hrbrthemes::theme_ipsum(grid = "Y")
+```
+
+### Is there a statistical difference here?
+
+To check if there is a statistical difference, we will use a test for difference in proportions contained in the R function, `prop.test()`.
+First, we need a continency table of the counts.
+Given the current form of our dataset, this isn't too hard with the `table()` function from base R.
+
+```{r}
+contingency_table <- pleased %>%
+  ungroup() %>%
+  select(is_hadley, contains_pleased) %>%
+  # Order the factor so Yes is before No for easy interpretation
+  mutate(contains_pleased = factor(contains_pleased, levels = c("Yes", "No"))) %>%
+  table()
+
+contingency_table
+```
+
+From our null hypothesis, we want to perform a *one sided* test.
+The alternative to our null is that Hadley uses "pleased" *more* than the rest of the RStudio team.
+For this reason, we specify `alternative = "greater"`.
+
+```{r}
+test_prop <- contingency_table %>%
+  prop.test(alternative = "greater")
+
+test_prop
+```
+
+We could also tidy this up with `broom` if we were inclined to.
+
+```{r}
+broom::tidy(test_prop)
+```
+
+### Test conclusion
+
+-   `r paste0(round(test_prop$estimate[[1]]*100,2),"%")` of Hadley's posts contain "pleased"
+-   `r paste0(round(test_prop$estimate[[2]]*100,2),"%")` of the rest of the RStudio team's posts contain "pleased"
+-   With a p-value of `r test_prop$p.value`, we reject the null that Hadley uses "pleased" less than or the same as the rest of the team. The evidence supports the idea that he has a much higher preference for it!
+
+Hadley uses "pleased" quite a bit!
+
+### Conclusion
+
+This post used a lot of different tools, but that's the beauty of having over 12,000 R packages at our disposal.
+I think that this dataset could be used in a number of other ways, so be on the lookout for more posts!
