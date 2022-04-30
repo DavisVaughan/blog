@@ -2,14 +2,14 @@ project:
   type: website
 
 website:
-  title: "blog-quarto"
+  title: "Davis Vaughan's Blog"
   navbar:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/DavisVaughan
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/dvaughan32
 format:
   html:
     theme: cosmo
