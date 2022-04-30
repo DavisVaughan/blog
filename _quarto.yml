@@ -5,7 +5,10 @@ website:
   title: "Davis Vaughan"
   navbar:
     right:
-      - about.qmd
+      - text: "Posts"
+        file: index.qmd
+      - text: "About"
+        file: about.qmd
       - icon: github
         href: https://github.com/DavisVaughan
       - icon: twitter
