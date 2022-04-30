@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2017-05-15-rstudio-shiny-server-and-aws/index.html",
       "/posts/2017-05-10-aws-rds-r/index.html"
     ]
   }
