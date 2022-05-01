@@ -174,7 +174,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#optional-git" id="toc-optional-git" class="nav-link" data-scroll-target="#optional-git">Optional git</a></li>
   <li><a href="#roxygen2" id="toc-roxygen2" class="nav-link" data-scroll-target="#roxygen2">roxygen2</a></li>
   <li><a href="#can-you-c" id="toc-can-you-c" class="nav-link" data-scroll-target="#can-you-c">Can you C?</a></li>
-  <li><a href="#addr_add_one" id="toc-addr_add_one" class="nav-link" data-scroll-target="#addr_add_one">addr_add_one()</a></li>
+  <li>
+<a href="#addr_add_one" id="toc-addr_add_one" class="nav-link" data-scroll-target="#addr_add_one">addr_add_one()</a>
+  <ul class="collapse">
+<li><a href="#what-is-a-sexp" id="toc-what-is-a-sexp" class="nav-link" data-scroll-target="#what-is-a-sexp">What is a SEXP?</a></li>
+  <li><a href="#why-are-there-so-many-explicit-types" id="toc-why-are-there-so-many-explicit-types" class="nav-link" data-scroll-target="#why-are-there-so-many-explicit-types">Why are there so many explicit types?</a></li>
+  <li><a href="#allocation-and-protection" id="toc-allocation-and-protection" class="nav-link" data-scroll-target="#allocation-and-protection">Allocation and protection</a></li>
+  <li><a href="#autocomplete" id="toc-autocomplete" class="nav-link" data-scroll-target="#autocomplete">Autocomplete ❤️</a></li>
+  <li><a href="#addition" id="toc-addition" class="nav-link" data-scroll-target="#addition">Addition</a></li>
+  <li><a href="#return" id="toc-return" class="nav-link" data-scroll-target="#return">Return</a></li>
+  </ul>
+</li>
   <li><a href="#registration" id="toc-registration" class="nav-link" data-scroll-target="#registration">Registration</a></li>
   <li><a href="#call-it" id="toc-call-it" class="nav-link" data-scroll-target="#call-it">.Call() it!</a></li>
   <li><a href="#now-what" id="toc-now-what" class="nav-link" data-scroll-target="#now-what">Now what?</a></li>
@@ -185,17 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><section id="introduction" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><section id="introduction" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <div class="page-columns page-full"><p>This post is designed to help you get up and running with an R package that uses C code, teaching the absolute minimum required to get going. Over the past few days, I learned a lot about working with packages that call C. It’s not quite as pleasant as working with C++ and <a href="https://github.com/RcppCore/Rcpp">Rcpp</a>, but as you start to figure it out, it really feels like a superpower. </p><div class="no-row-height column-margin column-container"><span class="aside">Superpower or not, as <a href="https://twitter.com/jimhester_/status/1102270352057614338">Jim Hester says</a>, if you have the choice it is much easier to use Rcpp, and my advice would also be to start there. I created this guide because I was contributing to a project that used C, and was frustrated by the lack of resources for beginners.</span></div></div>
 <p>That said, it’s a steep learning curve. Yes, <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a> has much of what you need to know, but I’m not big on the whole <a href="https://en.wikipedia.org/wiki/RTFM">RTFM</a> idea, and I think posts that actually get you up and running so you can start exploring on your own are valuable.</p>
-</section><section id="package" class="level3"><h3 class="anchored" data-anchor-id="package">Package</h3>
+</section><section id="package" class="level2"><h2 class="anchored" data-anchor-id="package">Package</h2>
 <p>So let’s go. I’m going to create a C function that takes one numeric argument of length 1, and adds 1 to it. Then, I’ll show how to call it from R so users of the package can actually interface with it. Exciting.</p>
 <p>We need the structure for a package, so let’s use some <a href="https://github.com/r-lib/usethis"><code>usethis</code></a> helpers to get started. We’ll call the package <code>addr</code>, and you should replace <code>path</code> with the path to the location you want the package created at.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"~/path/to/addr"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you work with RStudio, this should open a new RStudio instance with the <code>addr</code> package opened up. Switch over to that.</p>
-</section><section id="optional-git" class="level3"><h3 class="anchored" data-anchor-id="optional-git">Optional git</h3>
+</section><section id="optional-git" class="level2"><h2 class="anchored" data-anchor-id="optional-git">Optional git</h2>
 <p>If you are so inclined and have everything hooked up (you’ve used git before on your computer), you can set up git and GitHub for this repo. I’ll do it so you can see the final product, along with all of the commits along the way. You can find my end result <a href="https://github.com/DavisVaughan/addr">here</a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># This will restart RStudio</span>
@@ -205,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co"># for this package</span>
 <span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_github.html">use_github</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="roxygen2" class="level3"><h3 class="anchored" data-anchor-id="roxygen2">roxygen2</h3>
+</section><section id="roxygen2" class="level2"><h2 class="anchored" data-anchor-id="roxygen2">roxygen2</h2>
 <p>Some of the <code>usethis</code> functions we are going to call require <code>roxygen2</code> to be used for creating documentation (and it makes our lives a heck of a lot easier). Let’s set that up next. The easiest way is to just call:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -227,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="cn">NULL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>usethis</code> information is going to be inserted between the <code>usethis namespace: start</code> and <code>usethis namespace: end</code> lines as we go along.</p>
-</section><section id="can-you-c" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="can-you-c">Can you C?</h3>
+</section><section id="can-you-c" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="can-you-c">Can you C?</h2>
 <p>Let’s work on our first C function. Assuming you are in RStudio and in the current <code>addr</code> project, let’s create our first C file. There’s a <code>usethis</code> helper for that too.</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_rcpp.html">use_c</a></span><span class="op">(</span><span class="st">"add"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -265,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">useDynLib</span><span class="op">(</span><span class="va">addr</span>, .registration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="addr_add_one" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="addr_add_one">addr_add_one()</h3>
+</section><section id="addr_add_one" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="addr_add_one">addr_add_one()</h2>
 <p>Now we are ready to work on our C function. Open up that <code>add.c</code> file if it isn’t open already. You should see this at the top:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define R_NO_REMAP</span></span>
@@ -299,19 +309,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Unprotect our result, <code>out</code>, as we are about to return it.</li>
 <li>Return the result.</li>
 </ul>
-<section id="what-is-a-sexp" class="level4"><h4 class="anchored" data-anchor-id="what-is-a-sexp">What is a SEXP?</h4>
+<section id="what-is-a-sexp" class="level3"><h3 class="anchored" data-anchor-id="what-is-a-sexp">What is a SEXP?</h3>
 <p>Good question. It’s called an S-Expression, don’t ask me how to pronounce the shorthand notation, and I think it originated in the functional language, Lisp.</p>
 <p>Just think of a SEXP as a container that is able to represent <em>any</em> kind of R object, but at the C level. This means that an R list can be a SEXP, so can a matrix, so can a single logical value.</p>
-</section><section id="why-are-there-so-many-explicit-types" class="level4"><h4 class="anchored" data-anchor-id="why-are-there-so-many-explicit-types">Why are there so many explicit types?</h4>
+</section><section id="why-are-there-so-many-explicit-types" class="level3"><h3 class="anchored" data-anchor-id="why-are-there-so-many-explicit-types">Why are there so many explicit types?</h3>
 <p>Meaning, why is the argument <code>SEXP a</code> and not just <code>a</code>? Why is the return value, <code>out</code>, created as <code>SEXP out =</code> not just <code>out =</code>?</p>
 <p>C is a statically typed language, unlike R. Whereas in R we have the flexibility to create variables of any type without specifying the type in advance, in C we have to specify the type of every single variable ahead of time. This comes with the benefit of speed, and is one of the reasons C is so much faster than R.</p>
-</section><section id="allocation-and-protection" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="allocation-and-protection">Allocation and protection</h4>
+</section><section id="allocation-and-protection" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="allocation-and-protection">Allocation and protection</h3>
 <p>In C, creating new R objects is a bit more complicated than what you’d do at the R level. We know that we are going to take in a numeric vector of length 1, <code>a</code>, and we want to add 1 to it and return that result, which is also a numeric vector of length 1. So we need a place to put that result.</p>
 <p>To do so, we have to create a new numeric vector of length 1 at the C level. The easiest way to do this is using a function from the R API, <code>Rf_allocVector()</code>. It takes in two arguments, a <code>SEXPTYPE</code> (the type of the SEXP to make) and a <code>R_xlen_t</code> (the length of the SEXP) and returns a SEXP of the type and length requested.</p>
 <p>There are 7 <code>SEXPTYPE</code>s you can use, and you can find information about them at Hadley’s <a href="https://github.com/hadley/r-internals/blob/master/vectors.md">R Internals</a> documentation repo. We used the type for a “real” (numeric) vector, <code>REALSXP</code>. We also specified the length to be 1.</p>
 <p>Great, so we used <code>Rf_allocVector(REALSXP, 1)</code> to create a numeric vector of length 1. All good? Not quite. We also have to <em>protect</em> that numeric vector. From what? Well, if we don’t protect it by wrapping it in <code>PROTECT()</code> immediately, then when R’s garbage collector runs (which I think of as happening randomly), then that object gets cleaned up and removed 😢. If not managed correctly, this can cause great heartache.</p>
 <div class="page-columns page-full"><p>As if it wasn’t difficult enough, we also have to manage <em>unprotecting</em> all of these objects. We do that here by calling <code>UNPROTECT(1)</code> at the end of the function, right before we return our result. <code>UNPROTECT()</code> takes an integer value of the number of things to unprotect, so if you had created 3 new objects, you could call <code>UNPROTECT(3)</code> instead. </p><div class="no-row-height column-margin column-container"><span class="aside">We don’t have to protect and unprotect the <em>arguments</em> to the function, as R knows to protect these automatically.</span></div></div>
-</section><section id="autocomplete" class="level4"><h4 class="anchored" data-anchor-id="autocomplete">Autocomplete ❤️</h4>
+</section><section id="autocomplete" class="level3"><h3 class="anchored" data-anchor-id="autocomplete">Autocomplete ❤️</h3>
 <p>You might be wondering, “How did he know about <code>Rf_allocVector()</code>?” Or, “How do I find more of these neat C level API functions?” Great question! Luckily, RStudio’s autocomplete has your back. By typing <code>Rf_</code> and pressing tab, we get the following pop up that we can scroll through.</p>
 <p><img src="img/autocomplete.png" class="img-fluid"></p>
 <p>Using this, we can find new functions to <del>research</del> google and learn about.</p>
@@ -320,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The popup we get from RStudio tells us not only the name of the C function, but also the types of the arguments and return value!</p>
 <p>In a moment, we will use <code>Rf_asReal()</code>.</p>
 <p><img src="img/types.png" class="img-fluid"></p>
-</section><section id="addition" class="level4"><h4 class="anchored" data-anchor-id="addition">Addition</h4>
+</section><section id="addition" class="level3"><h3 class="anchored" data-anchor-id="addition">Addition</h3>
 <p>Okay, so about the actual addition line…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>REAL<span class="op">(</span>out<span class="op">)[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> Rf_asReal<span class="op">(</span>a<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -331,10 +341,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>out</code> is a SEXP, and we can’t assign a <code>double</code> straight to a SEXP. What we actually need is a way to access the <code>double</code> <em>underlying</em> the <code>out</code> SEXP we created. That is what <code>REAL(out)</code> gets us. Technically, it gives us a <code>double*</code> (a double pointer) that points to the actual double array that <code>out</code> abstracts away into an R numeric vector. Jargon aside, it gives us something that we can kind of treat like an R vector, where we can index into it with <code>[]</code> and assign values to those slots.</p>
 <p>One more note is that C is 0-index based, while R is 1-index based, so rather than doing <code>REAL(out)[1]</code> to access the first position, we really do <code>REAL(out)[0]</code>.</p>
 <p>Alright, so <code>REAL(out)</code> gave us access to the <code>double*</code>, and <code>REAL(out)[0]</code> gave us access to the actual <code>double</code> at the 1st position in the vector. This is a <code>double</code>, so we can assign our result to this.</p>
-</section><section id="return" class="level4"><h4 class="anchored" data-anchor-id="return">Return</h4>
+</section><section id="return" class="level3"><h3 class="anchored" data-anchor-id="return">Return</h3>
 <p>Finally, after calling <code>UNPROTECT(1)</code> as described above, we return <code>out</code> with <code>return out</code>. Unlike R, you actually have to specify the <code>return</code> in C (it’s generally optional in R).</p>
 <p>Note that in the function signature, we specified <code>SEXP addr_add_one(...)</code>. The <code>SEXP</code> at the beginning there was our way of telling C that we are going to be returning a SEXP object.</p>
-</section></section><section id="registration" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="registration">Registration</h3>
+</section></section><section id="registration" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="registration">Registration</h2>
 <div class="page-columns page-full"><p><em>Update) I have since learned that this registration section can be generated automatically! I highly recommend still reading this post in order to understand what the registration piece does, but check out the Automatic Registration section at the end of the post to learn how to do it automatically.</em> </p><div class="no-row-height column-margin column-container"><span class="aside">Thanks, <a href="https://twitter.com/hadleywickham/status/1102200089773256704">Hadley &amp; Jim</a> and <a href="https://twitter.com/strboul/status/1102207504405139456">Metin</a>.</span></div></div>
 <p>Great, so we have a C function that can add 1. Can we call this from R yet? Almost, but still no. If you run a <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>, then you <em>should</em> see the code compile. For me that looks like this, but I’ve manually trimmed it so you aren’t overloaded with output:</p>
 <div class="cell">
@@ -405,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note how we pass the <code>CallEntries</code> into <code>R_registerRoutines()</code>. This seems to be passing along all of the information required about how to create the entry points into the C code that we will call from the R side.</p>
-</section><section id="call-it" class="level3"><h3 class="anchored" data-anchor-id="call-it">.Call() it!</h3>
+</section><section id="call-it" class="level2"><h2 class="anchored" data-anchor-id="call-it">.Call() it!</h2>
 <p>Try running <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> one more time. You should now have access to <code>addr::addr_add_one</code>. It’s not a function, so don’t try and call it with <code>addr_add_one()</code>. Let’s print it out.</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">addr</span><span class="fu">::</span><span class="va">addr_add_one</span>
@@ -435,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; [1] 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Woah! So that just called our C function to add 1 to 2, so we get 3.</p>
-</section><section id="now-what" class="level3"><h3 class="anchored" data-anchor-id="now-what">Now what?</h3>
+</section><section id="now-what" class="level2"><h2 class="anchored" data-anchor-id="now-what">Now what?</h2>
 <p>Well, we need a better way to expose this to our users. The best way is to create a function that wraps this that we can export and document. Also, <em>we did no error checking</em> at the C level, so if we pass any bad or unexpected inputs in to this <code><a href="https://rdrr.io/r/base/CallExternal.html">.Call()</a></code>, it could actually crash R completely. Not just error, <em>crash</em>. This isn’t the worst thing in the world, and it’s a pretty normal part of the development process of connecting R and C (I do it <em>all</em> the time), but it isn’t fun for the user. To fix that, we will also add some error checking to our function.</p>
 <p>Create a file named <code>add.R</code>.</p>
 <div class="cell">
@@ -479,7 +489,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>which will create a <code>.Rd</code> help page for the file, and will add <code>export(add_one)</code> to the <code>NAMESPACE</code> file.</p>
-</section><section id="cran-check" class="level3"><h3 class="anchored" data-anchor-id="cran-check">CRAN Check!</h3>
+</section><section id="cran-check" class="level2"><h2 class="anchored" data-anchor-id="cran-check">CRAN Check!</h2>
 <p>The only thing left is to see if it passes a cran check! Plot twist, it won’t quite yet. We need to add a license first.</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Davis Vaughan"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -491,14 +501,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; 0 errors ✔ | 0 warnings ✔ | 0 notes ✔</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>😎</p>
-</section><section id="resources" class="level3"><h3 class="anchored" data-anchor-id="resources">Resources</h3>
+</section><section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
 <p>If you want to learn more about R’s C interface, there are a few resources out there for you!</p>
 <ul>
 <li><p>Hadley’s <a href="https://github.com/hadley/r-internals">R Internals documentation</a></p></li>
 <li><p>Advanced R’s old <a href="http://adv-r.had.co.nz/C-interface.html">section on C</a></p></li>
 <li><p>The massive but thorough <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>. I would focus on section 5.9 on <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Handling-R-objects-in-C">Handling R objects in C</a>.</p></li>
 <li><p>The full <code>addr</code> package is <a href="https://github.com/DavisVaughan/addr">on GitHub</a>. The commit history attempts to follow this post.</p></li>
-</ul></section><section id="automatic-registration" class="level3"><h3 class="anchored" data-anchor-id="automatic-registration">Automatic Registration</h3>
+</ul></section><section id="automatic-registration" class="level2"><h2 class="anchored" data-anchor-id="automatic-registration">Automatic Registration</h2>
 <p>As mentioned in the <em>Registration</em> section, you don’t actually have to create the <code>init.c</code> file “by hand,” which is great because it’s the thing I forget to do most. I’ve left this section until the end, rather than replacing the current <em>Registration</em> section, because I think the order of how you link things up makes more sense when done the manual way (expose to R with the <code>init.c</code> file, then <code><a href="https://rdrr.io/r/base/CallExternal.html">.Call()</a></code> it). So if you saw that note in <em>Registration</em> and instantly skipped to here, I’d advice going back and reading the rest of that section and the rest of the blog post first. As you get more familiar with working in C, you can use the methods described here.</p>
 <p>To work with automatic registration, follow the blog post like usual, but skip the <em>Registration</em> and <em>.Call it!</em> sections and go straight to the <em>Now What?</em> section. Generate the <code>add.R</code> file that looks like this:</p>
 <div class="cell">

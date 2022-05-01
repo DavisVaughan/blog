@@ -4,7 +4,7 @@ author: Davis Vaughan
 date: '2017-12-09'
 ---
 
-### Intro
+## Intro
 
 This semester I had to write a paper for my Financial Econometrics class.
 My topic was on analyzing the volatility of Bitcoin using GARCH modeling.
@@ -18,7 +18,7 @@ Yes.
 
 I figured I would outline a few issues I had along the way, and talk about the experience for anyone that might do something similar.
 
-### Github
+## Github
 
 If you want to go view the entire paper and analysis, it's on Github.
 Check out the repo [here](https://github.com/DavisVaughan/fin-econ-project-bitcoin).
@@ -28,7 +28,7 @@ If you really want to follow the analysis steps, look in `R/` to see the code th
 Do note that I had to keep the raw data zipped to get it on Github, so to run the data cleaning script, you will have to unzip the file in `data/raw/`.
 The paper is written in `paper/`.
 
-### Tooling
+## Tooling
 
 To even begin thinking about this, I needed two R packages.
 One that allowed me to write the post in RMarkdown and render it into a journal style format, and one that created nice looking and customizable tables.
@@ -52,7 +52,7 @@ That was easily fixed by adding the following to the top of the YAML header prov
 I'll also add in there that I used the `rugarch` package for all of my GARCH modeling, and it exceeded my expectations.
 Its author Alexios has created a fantastic S4 class system that makes trying different versions of GARCH models dead simple.
 
-### Huxtable
+## Huxtable
 
 I really wish `huxtable` had more publicity.
 It is a highly underused package for everything that it can do.
@@ -129,7 +129,7 @@ This saves more time than you might think!
 I find the pipeable syntax very intuitive, and the family of `set_*()` functions allow for endless combinations.
 I didn't even venture into the world of conditional cell formatting, but I hear that that is pretty powerful too.
 
-### Adding images
+## Adding images
 
 I had created a script in my analysis that generated a number of graphics that I wanted to include in the paper.
 The `pinp` vignette is an excellent source of examples for these common use cases, and the following allowed me to embed my images in the paper and add a caption with minimal effort:
@@ -158,7 +158,7 @@ My file structure looked a bit like this:
 Ideally, I would have set my directory to be the RStudio Project directory so I could have just done `visualizations/returns`, but `pinp` and `rticles` both dump a large number of files into whatever directory you render it from, and I didn't want that cluttering things up.
 Perhaps specifying the location of that file dump can be a separate feature?
 
-### Adding equations
+## Adding equations
 
 Adding mathematical equations can be done in two main ways.
 
@@ -202,7 +202,7 @@ $$
 
 Nice!
 
-### Overall
+## Overall
 
 For the most part, I enjoyed writing the paper straight from RStudio.
 Once I figured out a few of the pain points with directory locations, images, equations, and dependencies, the process was pretty smooth.
@@ -211,6 +211,6 @@ I doubt this has too much to do with the implementation, but more with the under
 I wish there was some way to have Live Rendering like with `blogdown` so that I could just keep a rendered version of the paper up and have it reload every time I save.
 That would be the dream!
 
-### Update
+## Update
 
 Thanks to Dirk, [the dream has come true](https://twitter.com/eddelbuettel/status/939607571673075712?s=20&t=lQDzDBBjklmF7zeDl78FCA).

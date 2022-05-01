@@ -179,13 +179,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="warning" class="level3"><h3 class="anchored" data-anchor-id="warning">Warning</h3>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="warning" class="level2"><h2 class="anchored" data-anchor-id="warning">Warning</h2>
 <p>The code and advice in this post is still valid, but I have shut down the AWS database that this post pulled from, so it no longer runs. Additionally, the output is no longer shown.</p>
-</section><section id="intro" class="level3"><h3 class="anchored" data-anchor-id="intro">Intro</h3>
+</section><section id="intro" class="level2"><h2 class="anchored" data-anchor-id="intro">Intro</h2>
 <p>Welcome to my first post! To start things off at Data Insights, I’m going to show you how to connect to an AWS RDS instance from R.</p>
 <p>For those of you who don’t know, RDS is an easy way to create a database in the cloud. In this post, I won’t be showing you how to setup an RDS instance, but I will show you how to connect to it if you have one running.</p>
 <p>Let’s get started.</p>
-</section><section id="step-1-the-one-where-you-got-connected" class="level3"><h3 class="anchored" data-anchor-id="step-1-the-one-where-you-got-connected">Step 1: The one where you got connected</h3>
+</section><section id="step-1-the-one-where-you-got-connected" class="level2"><h2 class="anchored" data-anchor-id="step-1-the-one-where-you-got-connected">Step 1: The one where you got connected</h2>
 <p>You’ll need a few packages to get started.</p>
 <ul>
 <li>
@@ -225,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p><code>port</code> - The rest of the Endpoint shows the port that you’ll need to access your RDS instance through. That goes here.</p></li>
 <li><p><code>dbname</code> - Finally, you’ll need the DB Name you used when setting up the instance. This can be found by clicking Instance Actions -&gt; See Details, and then under Configuration Details you’ll find DB Name.</p></li>
-</ul></section><section id="step-2-the-one-where-you-take-it-for-a-test-spin" class="level3"><h3 class="anchored" data-anchor-id="step-2-the-one-where-you-take-it-for-a-test-spin">Step 2: The one where you take it for a test spin</h3>
+</ul></section><section id="step-2-the-one-where-you-take-it-for-a-test-spin" class="level2"><h2 class="anchored" data-anchor-id="step-2-the-one-where-you-take-it-for-a-test-spin">Step 2: The one where you take it for a test spin</h2>
 <p>Well, alright…that was…cool? How do we know it’s working? Let’s get some data to load into the database. We will use some Apple stock data retrieved through <code>tidyquant</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op">(</span><span class="st">"AAPL"</span><span class="op">)</span>
@@ -249,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">apple_from_db</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are a huge number of functions from <code>DBI</code> that you can use to communicate with databases. Maybe I will cover more in a separate post, but for now, let’s move on to <code>dplyr</code>.</p>
-</section><section id="step-3-the-one-with-the-pliers" class="level3"><h3 class="anchored" data-anchor-id="step-3-the-one-with-the-pliers">Step 3: The one with the pliers</h3>
+</section><section id="step-3-the-one-with-the-pliers" class="level2"><h2 class="anchored" data-anchor-id="step-3-the-one-with-the-pliers">Step 3: The one with the pliers</h2>
 <p>Before <code>dplyr</code> 0.6.0 was announced, you’d have to disconnect, and then reconnect through a <code>dplyr</code> specific function, <code><a href="https://dplyr.tidyverse.org/reference/src_dbi.html">src_mysql()</a></code>. That would look something like the code below. Since then, however, you can now use the <code>DBI</code> connection with <code>dplyr</code>!</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># There is no need for this code anymore!</span>
@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">cn</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="last-words" class="level3"><h3 class="anchored" data-anchor-id="last-words">Last words</h3>
+</section><section id="last-words" class="level2"><h2 class="anchored" data-anchor-id="last-words">Last words</h2>
 <p>Hopefully I’ve been able to show you the power of <code>DBI</code> + <code>dplyr</code> with Amazon RDS. This integration has come a long way, and is just one of the huge advancements that the RStudio team has been working on in collaboration with other R users in the community.</p>
 <p>Until next time!</p>
 

@@ -4,7 +4,7 @@ author: "Davis Vaughan"
 date: '2017-08-16'
 ---
 
-### Introduction
+## Introduction
 
 Awhile back, I saw a conversation on twitter about how Hadley uses the word "pleased" very often when introducing a new blog post (I couldn't seem to find this tweet anymore. Can anyone help?).
 Out of curiousity, and to flex my R web scraping muscles a bit, I've decided to analyze the 240+ blog posts that RStudio has put out since 2011.
@@ -17,7 +17,7 @@ This post will do a few things:
 
 Spoiler alert: Hadley uses "pleased" ALOT.
 
-### Required packages
+## Required packages
 
 ```{r packages, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -26,7 +26,7 @@ library(rvest)
 library(xml2)
 ```
 
-### Extract the HTML from the RStudio blog archive
+## Extract the HTML from the RStudio blog archive
 
 To be able to extract the text from each blog post, we first need to have a link to that blog post.
 Luckily, RStudio keeps an up to date archive page that we can scrape.
@@ -81,7 +81,7 @@ head(links)
 head(read_rds("./data/links.rds"))
 ```
 
-### HTML from each blog post
+## HTML from each blog post
 
 Now that we have every link, we're ready to extract the HTML from each individual blog post.
 To make things more manageable, we start by creating a tibble, and then using the `mutate + map` combination to created a column of XML Nodesets (we will use this combination a lot).
@@ -110,7 +110,7 @@ blog_data$main[1]
 cat(read_rds("./data/blog-data.rds"), sep ="\n")
 ```
 
-### Meta information
+## Meta information
 
 Before extracting the blog post itself, lets grab the meta information about each post, specifically:
 
@@ -202,7 +202,7 @@ select(blog_data, title)
 select(blog_data_no_xml, title)
 ```
 
-### Categories and tags
+## Categories and tags
 
 The other bits of meta data that might be interesting are the categories and tags that the post falls under.
 This is a little bit more involved, because both the categories and tags fall under the same class, `".terms"`.
@@ -276,7 +276,7 @@ blog_data_cat_tags %>%
   pull(tags)
 ```
 
-### The blog post itself
+## The blog post itself
 
 Finally, to extract the blog post itself, we can notice that each piece of text in the post is inside of a paragraph tag (`p`).
 Being careful to avoid the `".terms"` class that contained the categories and tags, which also happens to be in a paragraph tag, we can extract the full blog posts.
@@ -304,7 +304,7 @@ blog_data <- read_rds("./data/blog-data-final.rds")
 select(blog_data, text)
 ```
 
-### Who writes the most posts?
+## Who writes the most posts?
 
 Now that we have all of this data, what can we do with it?
 To start with, who writes the most posts?
@@ -326,7 +326,7 @@ blog_data %>%
   
 ```
 
-### Tidytext
+## Tidytext
 
 I've never used `tidytext` before today, but to get our feet wet, let's create a tokenized tidy version of our data.
 By using `unnest_tokens()` the data will be reshaped to a long format holding 1 word per row, for each blog post.
@@ -341,7 +341,7 @@ tokenized_blog <- blog_data %>%
 select(tokenized_blog, short_title, word)
 ```
 
-### Remove stop words
+## Remove stop words
 
 A number of words like "a" or "the" are included in the blog that don't really add value to a text analysis.
 These stop words can be removed using an `anti_join()` with the `stop_words` dataset that comes with `tidytext`.
@@ -355,7 +355,7 @@ tokenized_blog <- tokenized_blog %>%
 select(tokenized_blog, short_title, word)
 ```
 
-### Top 15 words overall
+## Top 15 words overall
 
 Out of pure curiousity, what are the top 15 words for all of the blog posts?
 
@@ -372,7 +372,7 @@ tokenized_blog %>%
   hrbrthemes::theme_ipsum(grid = "Y")
 ```
 
-### Is Hadley more "pleased" than everyone else?
+## Is Hadley more "pleased" than everyone else?
 
 As mentioned at the beginning of the post, Hadley apparently uses the word "pleased" in his blog posts an above average number of times.
 Can we verify this statistically?
@@ -415,7 +415,7 @@ pleased %>%
   hrbrthemes::theme_ipsum(grid = "Y")
 ```
 
-### Is there a statistical difference here?
+## Is there a statistical difference here?
 
 To check if there is a statistical difference, we will use a test for difference in proportions contained in the R function, `prop.test()`.
 First, we need a continency table of the counts.
@@ -449,7 +449,7 @@ We could also tidy this up with `broom` if we were inclined to.
 broom::tidy(test_prop)
 ```
 
-### Test conclusion
+## Test conclusion
 
 -   `r paste0(round(test_prop$estimate[[1]]*100,2),"%")` of Hadley's posts contain "pleased"
 -   `r paste0(round(test_prop$estimate[[2]]*100,2),"%")` of the rest of the RStudio team's posts contain "pleased"
@@ -457,7 +457,7 @@ broom::tidy(test_prop)
 
 Hadley uses "pleased" quite a bit!
 
-### Conclusion
+## Conclusion
 
 This post used a lot of different tools, but that's the beauty of having over 12,000 R packages at our disposal.
 I think that this dataset could be used in a number of other ways, so be on the lookout for more posts!

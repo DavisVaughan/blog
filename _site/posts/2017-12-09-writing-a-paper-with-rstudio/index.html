@@ -181,15 +181,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="intro" class="level3"><h3 class="anchored" data-anchor-id="intro">Intro</h3>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="intro" class="level2"><h2 class="anchored" data-anchor-id="intro">Intro</h2>
 <p>This semester I had to write a paper for my Financial Econometrics class. My topic was on analyzing the volatility of Bitcoin using GARCH modeling. I’m not particularly interested in Bitcoin, but with all the recent news around it, and with its highly volatile characteristics, I figured it would be a good candidate for analysis.</p>
 <p>I did the analysis in R, but I wanted to take it a step further. Could I write the entire paper in R and RStudio in a fairly professional format? Yes.</p>
 <p><img src="./img/paper-sample.png" class="img-fluid"></p>
 <p>I figured I would outline a few issues I had along the way, and talk about the experience for anyone that might do something similar.</p>
-</section><section id="github" class="level3"><h3 class="anchored" data-anchor-id="github">Github</h3>
+</section><section id="github" class="level2"><h2 class="anchored" data-anchor-id="github">Github</h2>
 <p>If you want to go view the entire paper and analysis, it’s on Github. Check out the repo <a href="https://github.com/DavisVaughan/fin-econ-project-bitcoin">here</a>. The PDF paper itself is buried <a href="https://github.com/DavisVaughan/fin-econ-project-bitcoin/blob/master/paper/Forecasting%20daily%20Bitcoin%20volatility%20using%20Garch%20models%20with%20intraday%20data/Forecasting_daily_Bitcoin_volatility_using_Garch_models_with_intraday_data.pdf">here</a>.</p>
 <p>If you really want to follow the analysis steps, look in <code>R/</code> to see the code that generates everything else. Do note that I had to keep the raw data zipped to get it on Github, so to run the data cleaning script, you will have to unzip the file in <code>data/raw/</code>. The paper is written in <code>paper/</code>.</p>
-</section><section id="tooling" class="level3"><h3 class="anchored" data-anchor-id="tooling">Tooling</h3>
+</section><section id="tooling" class="level2"><h2 class="anchored" data-anchor-id="tooling">Tooling</h2>
 <p>To even begin thinking about this, I needed two R packages. One that allowed me to write the post in RMarkdown and render it into a journal style format, and one that created nice looking and customizable tables.</p>
 <p>For the first, I initially looked into the <a href="https://cran.r-project.org/web/packages/rticles/index.html"><code>rticles</code></a> package from the RStudio team, which is amazing, but I wasn’t satisfied with the journal styles that they had as options. I then remembered that Dirk Eddelbuettel and James Balamuta had created <a href="https://cran.r-project.org/web/packages/pinp/index.html"><code>pinp</code></a>, or, Pinp Is Not PNAS, as an extension of <code>rticles</code> and in particular the PNAS journal format. This one fit the bill for me, as it provided an uncluttered journal layout with a bit of nice coloring as well.</p>
 <p>For the second, there are plenty of options out there for creating LaTeX tables in R, <code>xtable</code>, <code>stargazer</code>, etc. However, I recently had found <a href="https://hughjonesd.github.io/huxtable/"><code>huxtable</code></a> and was instantly drawn to its intuitive pipeable syntax for creating tables from data frames. Now that I have a good bit of experience with it, I can say for certain that it is incredibly flexible, and I doubt I’ll ever use another package for table creation.</p>
@@ -197,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>header-includes:
    - \usepackage{tabularx,colortbl,multirow,hhline,mathtools}</code></pre>
 <p>I’ll also add in there that I used the <code>rugarch</code> package for all of my GARCH modeling, and it exceeded my expectations. Its author Alexios has created a fantastic S4 class system that makes trying different versions of GARCH models dead simple.</p>
-</section><section id="huxtable" class="level3"><h3 class="anchored" data-anchor-id="huxtable">Huxtable</h3>
+</section><section id="huxtable" class="level2"><h2 class="anchored" data-anchor-id="huxtable">Huxtable</h2>
 <p>I really wish <code>huxtable</code> had more publicity. It is a highly underused package for everything that it can do. For example, the following table was created using <code>huxtable</code>. Notice the math symbols in the first column, the fact that the standard errors are closer to the row above them due to smaller margins, and the bolding of certain cells.</p>
 <p><img src="./img/huxtable-example.png" class="img-fluid"></p>
 <p>The <code>tibble</code> used to create the core table looked like this:</p>
@@ -276,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><br></p>
 <p>I find the pipeable syntax very intuitive, and the family of <code>set_*()</code> functions allow for endless combinations. I didn’t even venture into the world of conditional cell formatting, but I hear that that is pretty powerful too.</p>
-</section><section id="adding-images" class="level3"><h3 class="anchored" data-anchor-id="adding-images">Adding images</h3>
+</section><section id="adding-images" class="level2"><h2 class="anchored" data-anchor-id="adding-images">Adding images</h2>
 <p>I had created a script in my analysis that generated a number of graphics that I wanted to include in the paper. The <code>pinp</code> vignette is an excellent source of examples for these common use cases, and the following allowed me to embed my images in the paper and add a caption with minimal effort:</p>
 <pre><code>\begin{figure*}
   \begin{center}
@@ -296,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     - forecasting-volatility/
         - forecasting-volatility.Rmd</code></pre>
 <p>Ideally, I would have set my directory to be the RStudio Project directory so I could have just done <code>visualizations/returns</code>, but <code>pinp</code> and <code>rticles</code> both dump a large number of files into whatever directory you render it from, and I didn’t want that cluttering things up. Perhaps specifying the location of that file dump can be a separate feature?</p>
-</section><section id="adding-equations" class="level3"><h3 class="anchored" data-anchor-id="adding-equations">Adding equations</h3>
+</section><section id="adding-equations" class="level2"><h2 class="anchored" data-anchor-id="adding-equations">Adding equations</h2>
 <p>Adding mathematical equations can be done in two main ways.</p>
 <p>As usual, you can add inline math with the use of a dollar sign, then the equation, then end with a dollar sign, it ends up looking like this: <span class="math inline">\(x + y = z\)</span>. Make sure that you <em>don’t</em> leave a space between the dollar signs and the equation, otherwise it doesn’t render and you end up with: $ x + y = z $.</p>
 <p>Larger chunks of equations that need their own lines can be specified using two dollar signs on each side:</p>
@@ -327,9 +327,9 @@ $$</code></pre>
 \end{aligned}
 \]</span></p>
 <p>Nice!</p>
-</section><section id="overall" class="level3"><h3 class="anchored" data-anchor-id="overall">Overall</h3>
+</section><section id="overall" class="level2"><h2 class="anchored" data-anchor-id="overall">Overall</h2>
 <p>For the most part, I enjoyed writing the paper straight from RStudio. Once I figured out a few of the pain points with directory locations, images, equations, and dependencies, the process was pretty smooth. The only other comment I have is that the <code>pinp</code> Knit process is a bit slow. I doubt this has too much to do with the implementation, but more with the underlying rendering engines. I wish there was some way to have Live Rendering like with <code>blogdown</code> so that I could just keep a rendered version of the paper up and have it reload every time I save. That would be the dream!</p>
-</section><section id="update" class="level3"><h3 class="anchored" data-anchor-id="update">Update</h3>
+</section><section id="update" class="level2"><h2 class="anchored" data-anchor-id="update">Update</h2>
 <p>Thanks to Dirk, <a href="https://twitter.com/eddelbuettel/status/939607571673075712?s=20&amp;t=lQDzDBBjklmF7zeDl78FCA">the dream has come true</a>.</p>
 
 

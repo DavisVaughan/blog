@@ -4,14 +4,14 @@ author: "Davis Vaughan"
 date: '2017-08-28'
 ---
 
-### Why am I posting about this?
+## Why am I posting about this?
 
 School has started up, and I'm in a class called *Financial Computing*.
 I thought it might be interesting to share some of my assignments and explain what I learn along the way.
 Most of the posts won't be describing the [Stochastic Calculus](https://www.quantstart.com/articles/Introduction-to-Stochastic-Calculus) involved in each assignment, but will instead focus on the details of the implementation in R.
 I don't claim to have the best way for any of these assignments, but perhaps you can learn something!
 
-### What are we doing today?
+## What are we doing today?
 
 In this post, I'll work through simulating paths of a stock that follows the log normal distribution used in the [Black Scholes model](https://www.coursera.org/learn/financial-engineering-1/lecture/pPqjt/the-black-scholes-model).
 Importantly, I'll explain my thought process as I tried to optimize the implementation from loops to vectors.
@@ -19,7 +19,7 @@ Importantly, I'll explain my thought process as I tried to optimize the implemen
 As an added bonus, at the very bottom is some extra content on a basic function that I have created to replicate the concept of *broadcasting* from Python.
 Someone could (should?) probably create an entire package out of this idea.
 
-### The Model
+## The Model
 
 Under the Black Scholes model, the stock price, $S_t$, at time `t` follows a Geometric Brownian Motion, which means that it satisfies the Stochastic Differential Equation:
 
@@ -41,7 +41,7 @@ $$ S_{t_i} = S_{t_{i-1}} \times e^{(r - \frac{1}{2} \sigma^2) ({t_i - t_{i-1}}) 
 
 If you want to know how to get the solution, [this](https://www.quantstart.com/articles/Geometric-Brownian-Motion) is a pretty good explanation, but be prepared to learn about [Ito's Lemma](http://www.math.tamu.edu/~stecher/425/Sp12/brownianMotion.pdf).
 
-### Really, dude?
+## Really, dude?
 
 Okay, that's a lot without any explanation, and I get that.
 But the point of this post is more to explain how to simulate paths of $S_t$.
@@ -71,7 +71,7 @@ Where `time_T` and `dt` mean each simulation path will go from time 0 to `time_T
 Dividing `time_T / dt` gets us the total number of time steps required.
 `N` is the number of paths to simulate.
 
-### First attempt
+## First attempt
 
 We all know loops are to be avoided when you can in R, and that you should instead vectorize the operations.
 At first, I thought this wasn't going to be possible, as this is a recursive type of formula where the next value relies on the previous one.
@@ -124,7 +124,7 @@ And that does work!
 But can we avoid the loop?
 YES WE CAN!
 
-### MATH
+## MATH
 
 To avoid the loop, we are going to manipulate a simple case, and then apply it generally.
 One key element for this vectorization is that *brownian motion increments are independent*.
@@ -199,7 +199,7 @@ Just as a sanity check, this should have produced the same results as the for lo
 all.equal(s, s_t, check.attributes = FALSE)
 ```
 
-### Now what?
+## Now what?
 
 There are a number of interesting things we could do with these results.
 One is to calculate the [fair price of a European Option](http://finance.bi.no/~bernt/gcc_prog/recipes/recipes/node12.html) on this stock.
@@ -237,7 +237,7 @@ as_tibble(s_t) %>%
   labs(x = "Time", y = "Stock Price", title = "100 Simulated Paths")
 ```
 
-### Conclusion + Extra Content
+## Conclusion + Extra Content
 
 If I haven't bored you to tears yet, allow me to thank you for sticking around this long.
 I think these posts are useful because they force me to try and understand a concept a bit more than if I was just reading it from a book.

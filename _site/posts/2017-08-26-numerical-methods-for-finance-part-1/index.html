@@ -181,12 +181,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="why-am-i-posting-about-this" class="level3"><h3 class="anchored" data-anchor-id="why-am-i-posting-about-this">Why am I posting about this?</h3>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="why-am-i-posting-about-this" class="level2"><h2 class="anchored" data-anchor-id="why-am-i-posting-about-this">Why am I posting about this?</h2>
 <p>School has started up, and I’m in a class called <em>Financial Computing</em>. I thought it might be interesting to share some of my assignments and explain what I learn along the way. Most of the posts won’t be describing the <a href="https://www.quantstart.com/articles/Introduction-to-Stochastic-Calculus">Stochastic Calculus</a> involved in each assignment, but will instead focus on the details of the implementation in R. I don’t claim to have the best way for any of these assignments, but perhaps you can learn something!</p>
-</section><section id="what-are-we-doing-today" class="level3"><h3 class="anchored" data-anchor-id="what-are-we-doing-today">What are we doing today?</h3>
+</section><section id="what-are-we-doing-today" class="level2"><h2 class="anchored" data-anchor-id="what-are-we-doing-today">What are we doing today?</h2>
 <p>In this post, I’ll work through simulating paths of a stock that follows the log normal distribution used in the <a href="https://www.coursera.org/learn/financial-engineering-1/lecture/pPqjt/the-black-scholes-model">Black Scholes model</a>. Importantly, I’ll explain my thought process as I tried to optimize the implementation from loops to vectors.</p>
 <p>As an added bonus, at the very bottom is some extra content on a basic function that I have created to replicate the concept of <em>broadcasting</em> from Python. Someone could (should?) probably create an entire package out of this idea.</p>
-</section><section id="the-model" class="level3"><h3 class="anchored" data-anchor-id="the-model">The Model</h3>
+</section><section id="the-model" class="level2"><h2 class="anchored" data-anchor-id="the-model">The Model</h2>
 <p>Under the Black Scholes model, the stock price, <span class="math inline">\(S_t\)</span>, at time <code>t</code> follows a Geometric Brownian Motion, which means that it satisfies the Stochastic Differential Equation:</p>
 <p><span class="math display">\[ dS_t = r S_t dt + \sigma S_t dW_t \]</span></p>
 <p>Where:</p>
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>More generally, this can be written as a formula providing us with the recursive equation:</p>
 <p><span class="math display">\[ S_{t_i} = S_{t_{i-1}} \times e^{(r - \frac{1}{2} \sigma^2) ({t_i - t_{i-1}}) + \sigma (W_{t_i} - W_{t_{i-1}}) } \]</span></p>
 <p>If you want to know how to get the solution, <a href="https://www.quantstart.com/articles/Geometric-Brownian-Motion">this</a> is a pretty good explanation, but be prepared to learn about <a href="http://www.math.tamu.edu/~stecher/425/Sp12/brownianMotion.pdf">Ito’s Lemma</a>.</p>
-</section><section id="really-dude" class="level3"><h3 class="anchored" data-anchor-id="really-dude">Really, dude?</h3>
+</section><section id="really-dude" class="level2"><h2 class="anchored" data-anchor-id="really-dude">Really, dude?</h2>
 <p>Okay, that’s a lot without any explanation, and I get that. But the point of this post is more to explain how to simulate paths of <span class="math inline">\(S_t\)</span>. So how do we do that?</p>
 <ul>
 <li>We will start from time 0 with an initial stock price, then we will generate the next stock price from that using the recursive formula, and so on.</li>
@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="va">N</span>       <span class="op">&lt;-</span> <span class="fl">10000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Where <code>time_T</code> and <code>dt</code> mean each simulation path will go from time 0 to <code>time_T</code> by increments of <code>dt</code>. Dividing <code>time_T / dt</code> gets us the total number of time steps required. <code>N</code> is the number of paths to simulate.</p>
-</section><section id="first-attempt" class="level3"><h3 class="anchored" data-anchor-id="first-attempt">First attempt</h3>
+</section><section id="first-attempt" class="level2"><h2 class="anchored" data-anchor-id="first-attempt">First attempt</h2>
 <p>We all know loops are to be avoided when you can in R, and that you should instead vectorize the operations. At first, I thought this wasn’t going to be possible, as this is a recursive type of formula where the next value relies on the previous one. With that in mind, I created the following implementation.</p>
 <p>First off, set up a matrix to fill with the 10000 simulations (one per row), each one having 6 time steps (7 columns total including the initial stock price).</p>
 <div class="cell">
@@ -280,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; [6,]  100 113.41388 123.22299 108.96314 108.79196 107.01479 126.30943</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And that does work! But can we avoid the loop? YES WE CAN!</p>
-</section><section id="math" class="level3"><h3 class="anchored" data-anchor-id="math">MATH</h3>
+</section><section id="math" class="level2"><h2 class="anchored" data-anchor-id="math">MATH</h2>
 <p>To avoid the loop, we are going to manipulate a simple case, and then apply it generally. One key element for this vectorization is that <em>brownian motion increments are independent</em>. Let’s think about what actually happens from time 0-&gt;1 and from 1-&gt;2.</p>
 <p><span class="math display">\[ S_1 = S_0 \times e^{(r - \frac{1}{2} \sigma^2) (t_1 - t_0) + \sigma (W_1 - W_0)} \]</span> <span class="math display">\[ S_2 = S_1 \times e^{(r - \frac{1}{2} \sigma^2) (t_2 - t_1) + \sigma (W_2 - W_1)} \]</span></p>
 <p>If we plug the equation for <code>S_1</code> into the equation for <code>S_2</code>…</p>
@@ -348,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">s</span>, <span class="va">s_t</span>, check.attributes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="now-what" class="level3"><h3 class="anchored" data-anchor-id="now-what">Now what?</h3>
+</section><section id="now-what" class="level2"><h2 class="anchored" data-anchor-id="now-what">Now what?</h2>
 <p>There are a number of interesting things we could do with these results. One is to calculate the <a href="http://finance.bi.no/~bernt/gcc_prog/recipes/recipes/node12.html">fair price of a European Option</a> on this stock. I think I’ll save that for the next post.</p>
 <p>Something else we might do is visualize the distribution of <span class="math inline">\(S_T\)</span>, the stock price at the terminal (final) time. Because the stock price is modeled as an exponential of a normal random variable (<code>W_t</code>), the stock price itself has a log-normal distribution. For practicality, this means that it is right tailed and can’t drop below 0 (good properties of a stock).</p>
 <div class="cell">
@@ -381,7 +381,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="792"></p>
 </div>
 </div>
-</section><section id="conclusion-extra-content" class="level3"><h3 class="anchored" data-anchor-id="conclusion-extra-content">Conclusion + Extra Content</h3>
+</section><section id="conclusion-extra-content" class="level2"><h2 class="anchored" data-anchor-id="conclusion-extra-content">Conclusion + Extra Content</h2>
 <p>If I haven’t bored you to tears yet, allow me to thank you for sticking around this long. I think these posts are useful because they force me to try and understand a concept a bit more than if I was just reading it from a book.</p>
 <p>As you may have noted in the post above, I had to create a large matrix <code>time_steps</code> for R to perform the matrix addition I wanted correctly. I thought it would have been simple. Ideally I could create a <code>1x6</code> matrix of times, and add it to a <code>10000x6</code> matrix of the brownian motions and have the times matrix <em>broadcasted</em> to each row of the brownian motion matrix, adding element by element to each row. This works in Python and Matlab, but R has a mind of it’s own.</p>
 <div class="cell">

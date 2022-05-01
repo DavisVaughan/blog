@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="introduction" class="level3"><h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Awhile back, I saw a conversation on twitter about how Hadley uses the word “pleased” very often when introducing a new blog post (I couldn’t seem to find this tweet anymore. Can anyone help?). Out of curiousity, and to flex my R web scraping muscles a bit, I’ve decided to analyze the 240+ blog posts that RStudio has put out since 2011. This post will do a few things:</p>
 <ul>
 <li>Scrape the RStudio blog archive page to construct URL links to each blog post</li>
@@ -197,14 +197,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Perform a statistical test to compare Hadley’s use of “pleased” to the other blog post authors</li>
 </ul>
 <p>Spoiler alert: Hadley uses “pleased” ALOT.</p>
-</section><section id="required-packages" class="level3"><h3 class="anchored" data-anchor-id="required-packages">Required packages</h3>
+</section><section id="required-packages" class="level2"><h2 class="anchored" data-anchor-id="required-packages">Required packages</h2>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/tidytext">tidytext</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/">xml2</a></span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="extract-the-html-from-the-rstudio-blog-archive" class="level3"><h3 class="anchored" data-anchor-id="extract-the-html-from-the-rstudio-blog-archive">Extract the HTML from the RStudio blog archive</h3>
+</section><section id="extract-the-html-from-the-rstudio-blog-archive" class="level2"><h2 class="anchored" data-anchor-id="extract-the-html-from-the-rstudio-blog-archive">Extract the HTML from the RStudio blog archive</h2>
 <p>To be able to extract the text from each blog post, we first need to have a link to that blog post. Luckily, RStudio keeps an up to date archive page that we can scrape. Using <code>xml2</code>, we can get the HTML off that page.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">archive_page</span> <span class="op">&lt;-</span> <span class="st">"https://blog.rstudio.com/archives/"</span>
@@ -249,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt; [5] "http://blog.rstudio.com/2017/08/15/contributed-talks-diversity-scholarships/"
 #&gt; [6] "http://blog.rstudio.com/2017/08/15/shiny-1-0-4/"</code></pre>
 </div>
-</section><section id="html-from-each-blog-post" class="level3"><h3 class="anchored" data-anchor-id="html-from-each-blog-post">HTML from each blog post</h3>
+</section><section id="html-from-each-blog-post" class="level2"><h2 class="anchored" data-anchor-id="html-from-each-blog-post">HTML from each blog post</h2>
 <p>Now that we have every link, we’re ready to extract the HTML from each individual blog post. To make things more manageable, we start by creating a tibble, and then using the <code>mutate + map</code> combination to created a column of XML Nodesets (we will use this combination a lot). Each nodeset contains the HTML for that blog post (exactly like the HTML for the archive page).</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">blog_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">links</span><span class="op">)</span>
@@ -272,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt; {xml_nodeset (1)}
 #&gt; [1] &lt;main&gt;&lt;div class="article-meta"&gt;\n&lt;h1&gt;&lt;span class="title"&gt;Newer to R? rstudio::conf 2018 is fo ...</code></pre>
 </div>
-</section><section id="meta-information" class="level3"><h3 class="anchored" data-anchor-id="meta-information">Meta information</h3>
+</section><section id="meta-information" class="level2"><h2 class="anchored" data-anchor-id="meta-information">Meta information</h2>
 <p>Before extracting the blog post itself, lets grab the meta information about each post, specifically:</p>
 <ul>
 <li>Author</li>
@@ -364,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt; 10 sparklyr 0.6                                                                 
 #&gt; # … with 243 more rows</code></pre>
 </div>
-</section><section id="categories-and-tags" class="level3"><h3 class="anchored" data-anchor-id="categories-and-tags">Categories and tags</h3>
+</section><section id="categories-and-tags" class="level2"><h2 class="anchored" data-anchor-id="categories-and-tags">Categories and tags</h2>
 <p>The other bits of meta data that might be interesting are the categories and tags that the post falls under. This is a little bit more involved, because both the categories and tags fall under the same class, <code>".terms"</code>. To separate them, we need to look into the href to see if the information is either a tag or a category (href = “/categories/” VS href = “/tags/”).</p>
 <p><img src="./img/cat-tag.png" class="img-fluid"></p>
 <p>The function below extracts either the categories or the tags, depending on the argument, by:</p>
@@ -435,7 +435,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt; [1] "Advanced R"       "data science"     "ggplot2"          "Hadley Wickham"  
 #&gt; [5] "R"                "RStudio Workshop" "r training"       "tutorial"</code></pre>
 </div>
-</section><section id="the-blog-post-itself" class="level3"><h3 class="anchored" data-anchor-id="the-blog-post-itself">The blog post itself</h3>
+</section><section id="the-blog-post-itself" class="level2"><h2 class="anchored" data-anchor-id="the-blog-post-itself">The blog post itself</h2>
 <p>Finally, to extract the blog post itself, we can notice that each piece of text in the post is inside of a paragraph tag (<code>p</code>). Being careful to avoid the <code>".terms"</code> class that contained the categories and tags, which also happens to be in a paragraph tag, we can extract the full blog posts. To ignore the <code>".terms"</code> class, use the <code>:not()</code> selector.</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">blog_data</span> <span class="op">&lt;-</span> <span class="va">blog_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; 10 "We’re excited to announce a new release of the sparklyr package, available …</span>
 <span class="co">#&gt; # … with 243 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="who-writes-the-most-posts" class="level3"><h3 class="anchored" data-anchor-id="who-writes-the-most-posts">Who writes the most posts?</h3>
+</section><section id="who-writes-the-most-posts" class="level2"><h2 class="anchored" data-anchor-id="who-writes-the-most-posts">Who writes the most posts?</h2>
 <p>Now that we have all of this data, what can we do with it? To start with, who writes the most posts?</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">blog_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -487,7 +487,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="792"></p>
 </div>
 </div>
-</section><section id="tidytext" class="level3"><h3 class="anchored" data-anchor-id="tidytext">Tidytext</h3>
+</section><section id="tidytext" class="level2"><h2 class="anchored" data-anchor-id="tidytext">Tidytext</h2>
 <p>I’ve never used <code>tidytext</code> before today, but to get our feet wet, let’s create a tokenized tidy version of our data. By using <code><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens()</a></code> the data will be reshaped to a long format holding 1 word per row, for each blog post. This tidy format lends itself to all manner of analysis, and a number of them are outlined in Julia Silge and David Robinson’s <a href="http://tidytextmining.com/">Text Mining with R</a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">tokenized_blog</span> <span class="op">&lt;-</span> <span class="va">blog_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -511,7 +511,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; 10 Newer to R? rst any      </span>
 <span class="co">#&gt; # … with 85,751 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="remove-stop-words" class="level3"><h3 class="anchored" data-anchor-id="remove-stop-words">Remove stop words</h3>
+</section><section id="remove-stop-words" class="level2"><h2 class="anchored" data-anchor-id="remove-stop-words">Remove stop words</h2>
 <p>A number of words like “a” or “the” are included in the blog that don’t really add value to a text analysis. These stop words can be removed using an <code><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join()</a></code> with the <code>stop_words</code> dataset that comes with <code>tidytext</code>. After removing stop words, the number of rows was cut in half!</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">tokenized_blog</span> <span class="op">&lt;-</span> <span class="va">tokenized_blog</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -534,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; 10 Newer to R? rst rare     </span>
 <span class="co">#&gt; # … with 40,305 more rows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="top-15-words-overall" class="level3"><h3 class="anchored" data-anchor-id="top-15-words-overall">Top 15 words overall</h3>
+</section><section id="top-15-words-overall" class="level2"><h2 class="anchored" data-anchor-id="top-15-words-overall">Top 15 words overall</h2>
 <p>Out of pure curiousity, what are the top 15 words for all of the blog posts?</p>
 <div class="cell">
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">tokenized_blog</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -551,7 +551,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="792"></p>
 </div>
 </div>
-</section><section id="is-hadley-more-pleased-than-everyone-else" class="level3"><h3 class="anchored" data-anchor-id="is-hadley-more-pleased-than-everyone-else">Is Hadley more “pleased” than everyone else?</h3>
+</section><section id="is-hadley-more-pleased-than-everyone-else" class="level2"><h2 class="anchored" data-anchor-id="is-hadley-more-pleased-than-everyone-else">Is Hadley more “pleased” than everyone else?</h2>
 <p>As mentioned at the beginning of the post, Hadley apparently uses the word “pleased” in his blog posts an above average number of times. Can we verify this statistically?</p>
 <p><em>Our null hypothesis is that the proportion of blog posts that use the word “pleased” written by Hadley is less than or equal to the proportion of those written by the rest of the RStudio team.</em></p>
 <p>More simply, our null is that Hadley uses “pleased” less than or the same as the rest of the team.</p>
@@ -590,7 +590,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="792"></p>
 </div>
 </div>
-</section><section id="is-there-a-statistical-difference-here" class="level3"><h3 class="anchored" data-anchor-id="is-there-a-statistical-difference-here">Is there a statistical difference here?</h3>
+</section><section id="is-there-a-statistical-difference-here" class="level2"><h2 class="anchored" data-anchor-id="is-there-a-statistical-difference-here">Is there a statistical difference here?</h2>
 <p>To check if there is a statistical difference, we will use a test for difference in proportions contained in the R function, <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>. First, we need a continency table of the counts. Given the current form of our dataset, this isn’t too hard with the <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> function from base R.</p>
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">contingency_table</span> <span class="op">&lt;-</span> <span class="va">pleased</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -633,14 +633,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="co">#&gt; 1     0.489     0.103      45.1 9.54e-12         1    0.281         1 2-sample …</span>
 <span class="co">#&gt; # … with 1 more variable: alternative &lt;chr&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="test-conclusion" class="level3"><h3 class="anchored" data-anchor-id="test-conclusion">Test conclusion</h3>
+</section><section id="test-conclusion" class="level2"><h2 class="anchored" data-anchor-id="test-conclusion">Test conclusion</h2>
 <ul>
 <li>48.86% of Hadley’s posts contain “pleased”</li>
 <li>10.3% of the rest of the RStudio team’s posts contain “pleased”</li>
 <li>With a p-value of 9.5414477^{-12}, we reject the null that Hadley uses “pleased” less than or the same as the rest of the team. The evidence supports the idea that he has a much higher preference for it!</li>
 </ul>
 <p>Hadley uses “pleased” quite a bit!</p>
-</section><section id="conclusion" class="level3"><h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+</section><section id="conclusion" class="level2"><h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>This post used a lot of different tools, but that’s the beauty of having over 12,000 R packages at our disposal. I think that this dataset could be used in a number of other ways, so be on the lookout for more posts!</p>
 
 

@@ -8,12 +8,12 @@ date: '2017-05-10'
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
-### Warning
+## Warning
 
 The code and advice in this post is still valid, but I have shut down the AWS database that this post pulled from, so it no longer runs.
 Additionally, the output is no longer shown.
 
-### Intro
+## Intro
 
 Welcome to my first post!
 To start things off at Data Insights, I'm going to show you how to connect to an AWS RDS instance from R.
@@ -23,7 +23,7 @@ In this post, I won't be showing you how to setup an RDS instance, but I will sh
 
 Let's get started.
 
-### Step 1: The one where you got connected
+## Step 1: The one where you got connected
 
 You'll need a few packages to get started.
 
@@ -73,7 +73,7 @@ Let's go through the arguments to `dbConnect()`, the function from `DBI` that we
 -   `dbname` - Finally, you'll need the DB Name you used when setting up the instance.
     This can be found by clicking Instance Actions -\> See Details, and then under Configuration Details you'll find DB Name.
 
-### Step 2: The one where you take it for a test spin
+## Step 2: The one where you take it for a test spin
 
 Well, alright...that was...cool?
 How do we know it's working?
@@ -116,7 +116,7 @@ slice(apple_from_db, 1:10)
 There are a huge number of functions from `DBI` that you can use to communicate with databases.
 Maybe I will cover more in a separate post, but for now, let's move on to `dplyr`.
 
-### Step 3: The one with the pliers
+## Step 3: The one with the pliers
 
 Before `dplyr` 0.6.0 was announced, you'd have to disconnect, and then reconnect through a `dplyr` specific function, `src_mysql()`.
 That would look something like the code below.
@@ -191,7 +191,7 @@ Always disconnect when you're finished!
 dbDisconnect(cn)
 ```
 
-### Last words
+## Last words
 
 Hopefully I've been able to show you the power of `DBI` + `dplyr` with Amazon RDS. This integration has come a long way, and is just one of the huge advancements that the RStudio team has been working on in collaboration with other R users in the community.
 

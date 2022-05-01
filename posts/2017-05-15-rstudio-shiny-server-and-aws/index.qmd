@@ -24,7 +24,7 @@ It's definitely worth it, though, so that you can have your own RStudio and Shin
 In this post, I will walk you through getting up and running with an RStudio server.
 In the next post, you'll learn to get Shiny server working.
 
-### Step 1: Setup an AWS Account
+## Step 1: Setup an AWS Account
 
 Amazon is nice enough to provide 1 year's worth of access to their [Free Tier](https://aws.amazon.com/free/) for AWS.
 There are a huge number of options available, but the important one is that they provide a free 750 hours/month to deploy an EC2 instance.
@@ -44,7 +44,7 @@ If all goes well, you'll be at the console.
 
 We won't do anything else yet, just stay signed in.
 
-### Step 2: Setup the RStudio Amazon Machine Image
+## Step 2: Setup the RStudio Amazon Machine Image
 
 It's worth it to get familiar with setting up your own EC2 server, but we won't have to do that here.
 Luckily, Louis Aslett has created an Amazon Machine Image (AMI) to take care of all of the hard work for us.
@@ -125,7 +125,7 @@ If it worked, you should see this.
 
 ![](./img/logged-in.png)
 
-### Step 3: New password for RStudio Server
+## Step 3: New password for RStudio Server
 
 It's advised that you immediately change the password.
 There are two ways to do so.
@@ -183,7 +183,7 @@ Then follow the prompts.
 Type `exit` to disconnect from the server, and go back to your RStudio Server site.
 Try and login with the new password.
 
-### Step 4: Update everything
+## Step 4: Update everything
 
 Unfortunately, the Amazon Images are only updated every few releases of RStudio Server.
 However, it's not too hard to get the newest release installed straight from RStudio's site.
@@ -278,7 +278,7 @@ Great!
 `exit` out of your Linux server, and reload your RStudio Server in the browser.
 When you login, you should be able to run `version` to see the latest version of R, and go to Help -\> About RStudio to see the updated version of RStudio Server!
 
-### Last words
+## Last words
 
 This was quite the struggle.
 There are a few other resources out there to help, but I still struggled through some pieces of this one.

@@ -8,7 +8,7 @@ date: '2019-03-02'
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-### Introduction
+## Introduction
 
 This post is designed to help you get up and running with an R package that uses C code, teaching the absolute minimum required to get going.
 Over the past few days, I learned a lot about working with packages that call C.
@@ -18,7 +18,7 @@ It's not quite as pleasant as working with C++ and [Rcpp](https://github.com/Rcp
 That said, it's a steep learning curve.
 Yes, [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html) has much of what you need to know, but I'm not big on the whole [RTFM](https://en.wikipedia.org/wiki/RTFM) idea, and I think posts that actually get you up and running so you can start exploring on your own are valuable.
 
-### Package
+## Package
 
 So let's go.
 I'm going to create a C function that takes one numeric argument of length 1, and adds 1 to it.
@@ -35,7 +35,7 @@ usethis::create_package(path = "~/path/to/addr")
 If you work with RStudio, this should open a new RStudio instance with the `addr` package opened up.
 Switch over to that.
 
-### Optional git
+## Optional git
 
 If you are so inclined and have everything hooked up (you've used git before on your computer), you can set up git and GitHub for this repo.
 I'll do it so you can see the final product, along with all of the commits along the way.
@@ -50,7 +50,7 @@ usethis::use_git()
 usethis::use_github()
 ```
 
-### roxygen2
+## roxygen2
 
 Some of the `usethis` functions we are going to call require `roxygen2` to be used for creating documentation (and it makes our lives a heck of a lot easier).
 Let's set that up next.
@@ -86,7 +86,7 @@ NULL
 
 The `usethis` information is going to be inserted between the `usethis namespace: start` and `usethis namespace: end` lines as we go along.
 
-### Can you C?
+## Can you C?
 
 Let's work on our first C function.
 Assuming you are in RStudio and in the current `addr` project, let's create our first C file.
@@ -152,7 +152,7 @@ Check out the `NAMESPACE` file and you should see:
 useDynLib(addr, .registration = TRUE)
 ```
 
-### addr_add_one()
+## addr_add_one()
 
 Now we are ready to work on our C function.
 Open up that `add.c` file if it isn't open already.
@@ -201,7 +201,7 @@ First, a broad overview of what this code does:
 -   Unprotect our result, `out`, as we are about to return it.
 -   Return the result.
 
-#### What is a SEXP?
+### What is a SEXP?
 
 Good question.
 It's called an S-Expression, don't ask me how to pronounce the shorthand notation, and I think it originated in the functional language, Lisp.
@@ -209,7 +209,7 @@ It's called an S-Expression, don't ask me how to pronounce the shorthand notatio
 Just think of a SEXP as a container that is able to represent *any* kind of R object, but at the C level.
 This means that an R list can be a SEXP, so can a matrix, so can a single logical value.
 
-#### Why are there so many explicit types?
+### Why are there so many explicit types?
 
 Meaning, why is the argument `SEXP a` and not just `a`?
 Why is the return value, `out`, created as `SEXP out =` not just `out =`?
@@ -218,7 +218,7 @@ C is a statically typed language, unlike R.
 Whereas in R we have the flexibility to create variables of any type without specifying the type in advance, in C we have to specify the type of every single variable ahead of time.
 This comes with the benefit of speed, and is one of the reasons C is so much faster than R.
 
-#### Allocation and protection
+### Allocation and protection
 
 In C, creating new R objects is a bit more complicated than what you'd do at the R level.
 We know that we are going to take in a numeric vector of length 1, `a`, and we want to add 1 to it and return that result, which is also a numeric vector of length 1.
@@ -245,7 +245,7 @@ We do that here by calling `UNPROTECT(1)` at the end of the function, right befo
 `UNPROTECT()` takes an integer value of the number of things to unprotect, so if you had created 3 new objects, you could call `UNPROTECT(3)` instead.
 [We don't have to protect and unprotect the *arguments* to the function, as R knows to protect these automatically.]{.aside}
 
-#### Autocomplete `r emo::ji("heart")`
+### Autocomplete `r emo::ji("heart")`
 
 You might be wondering, "How did he know about `Rf_allocVector()`?" Or, "How do I find more of these neat C level API functions?" Great question!
 Luckily, RStudio's autocomplete has your back.
@@ -266,7 +266,7 @@ In a moment, we will use `Rf_asReal()`.
 
 ![](img/types.png)
 
-#### Addition
+### Addition
 
 Okay, so about the actual addition line...
 
@@ -295,7 +295,7 @@ One more note is that C is 0-index based, while R is 1-index based, so rather th
 Alright, so `REAL(out)` gave us access to the `double*`, and `REAL(out)[0]` gave us access to the actual `double` at the 1st position in the vector.
 This is a `double`, so we can assign our result to this.
 
-#### Return
+### Return
 
 Finally, after calling `UNPROTECT(1)` as described above, we return `out` with `return out`.
 Unlike R, you actually have to specify the `return` in C (it's generally optional in R).
@@ -303,7 +303,7 @@ Unlike R, you actually have to specify the `return` in C (it's generally optiona
 Note that in the function signature, we specified `SEXP addr_add_one(...)`.
 The `SEXP` at the beginning there was our way of telling C that we are going to be returning a SEXP object.
 
-### Registration
+## Registration
 
 *Update) I have since learned that this registration section can be generated automatically! I highly recommend still reading this post in order to understand what the registration piece does, but check out the Automatic Registration section at the end of the post to learn how to do it automatically.* [Thanks, [Hadley & Jim](https://twitter.com/hadleywickham/status/1102200089773256704) and [Metin](https://twitter.com/strboul/status/1102207504405139456).]{.aside}
 
@@ -413,7 +413,7 @@ void R_init_addr(DllInfo *dll) {
 Note how we pass the `CallEntries` into `R_registerRoutines()`.
 This seems to be passing along all of the information required about how to create the entry points into the C code that we will call from the R side.
 
-### .Call() it!
+## .Call() it!
 
 Try running `devtools::load_all()` one more time.
 You should now have access to `addr::addr_add_one`.
@@ -456,7 +456,7 @@ Try the following:
 Woah!
 So that just called our C function to add 1 to 2, so we get 3.
 
-### Now what?
+## Now what?
 
 Well, we need a better way to expose this to our users.
 The best way is to create a function that wraps this that we can export and document.
@@ -518,7 +518,7 @@ devtools::document()
 
 which will create a `.Rd` help page for the file, and will add `export(add_one)` to the `NAMESPACE` file.
 
-### CRAN Check!
+## CRAN Check!
 
 The only thing left is to see if it passes a cran check!
 Plot twist, it won't quite yet.
@@ -538,7 +538,7 @@ devtools::check()
 
 `r emo::ji("sunglasses")`
 
-### Resources
+## Resources
 
 If you want to learn more about R's C interface, there are a few resources out there for you!
 
@@ -552,7 +552,7 @@ If you want to learn more about R's C interface, there are a few resources out t
 -   The full `addr` package is [on GitHub](https://github.com/DavisVaughan/addr).
     The commit history attempts to follow this post.
 
-### Automatic Registration
+## Automatic Registration
 
 As mentioned in the *Registration* section, you don't actually have to create the `init.c` file "by hand," which is great because it's the thing I forget to do most.
 I've left this section until the end, rather than replacing the current *Registration* section, because I think the order of how you link things up makes more sense when done the manual way (expose to R with the `init.c` file, then `.Call()` it).
