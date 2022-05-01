@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.333">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Davis Vaughan">
+<meta name="dcterms.date" content="2019-03-02">
+<title>Davis Vaughan - Now You C Me</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Davis Vaughan</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html">Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DavisVaughan"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/dvaughan32"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Now You C Me</h1>
+                </div>
+  </div>
+    
+  
+
+
+
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Davis Vaughan </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 2, 2019</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#package" id="toc-package" class="nav-link" data-scroll-target="#package">Package</a></li>
+  <li><a href="#optional-git" id="toc-optional-git" class="nav-link" data-scroll-target="#optional-git">Optional git</a></li>
+  <li><a href="#roxygen2" id="toc-roxygen2" class="nav-link" data-scroll-target="#roxygen2">roxygen2</a></li>
+  <li><a href="#can-you-c" id="toc-can-you-c" class="nav-link" data-scroll-target="#can-you-c">Can you C?</a></li>
+  <li><a href="#addr_add_one" id="toc-addr_add_one" class="nav-link" data-scroll-target="#addr_add_one">addr_add_one()</a></li>
+  <li><a href="#registration" id="toc-registration" class="nav-link" data-scroll-target="#registration">Registration</a></li>
+  <li><a href="#call-it" id="toc-call-it" class="nav-link" data-scroll-target="#call-it">.Call() it!</a></li>
+  <li><a href="#now-what" id="toc-now-what" class="nav-link" data-scroll-target="#now-what">Now what?</a></li>
+  <li><a href="#cran-check" id="toc-cran-check" class="nav-link" data-scroll-target="#cran-check">CRAN Check!</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#automatic-registration" id="toc-automatic-registration" class="nav-link" data-scroll-target="#automatic-registration">Automatic Registration</a></li>
+  </ul></nav>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><section id="introduction" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<div class="page-columns page-full"><p>This post is designed to help you get up and running with an R package that uses C code, teaching the absolute minimum required to get going. Over the past few days, I learned a lot about working with packages that call C. It’s not quite as pleasant as working with C++ and <a href="https://github.com/RcppCore/Rcpp">Rcpp</a>, but as you start to figure it out, it really feels like a superpower. </p><div class="no-row-height column-margin column-container"><span class="aside">Superpower or not, as <a href="https://twitter.com/jimhester_/status/1102270352057614338">Jim Hester says</a>, if you have the choice it is much easier to use Rcpp, and my advice would also be to start there. I created this guide because I was contributing to a project that used C, and was frustrated by the lack of resources for beginners.</span></div></div>
+<p>That said, it’s a steep learning curve. Yes, <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a> has much of what you need to know, but I’m not big on the whole <a href="https://en.wikipedia.org/wiki/RTFM">RTFM</a> idea, and I think posts that actually get you up and running so you can start exploring on your own are valuable.</p>
+</section><section id="package" class="level3"><h3 class="anchored" data-anchor-id="package">Package</h3>
+<p>So let’s go. I’m going to create a C function that takes one numeric argument of length 1, and adds 1 to it. Then, I’ll show how to call it from R so users of the package can actually interface with it. Exciting.</p>
+<p>We need the structure for a package, so let’s use some <a href="https://github.com/r-lib/usethis"><code>usethis</code></a> helpers to get started. We’ll call the package <code>addr</code>, and you should replace <code>path</code> with the path to the location you want the package created at.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"~/path/to/addr"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you work with RStudio, this should open a new RStudio instance with the <code>addr</code> package opened up. Switch over to that.</p>
+</section><section id="optional-git" class="level3"><h3 class="anchored" data-anchor-id="optional-git">Optional git</h3>
+<p>If you are so inclined and have everything hooked up (you’ve used git before on your computer), you can set up git and GitHub for this repo. I’ll do it so you can see the final product, along with all of the commits along the way. You can find my end result <a href="https://github.com/DavisVaughan/addr">here</a>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># This will restart RStudio</span>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git.html">use_git</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Then call this to use github</span>
+<span class="co"># for this package</span>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_github.html">use_github</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="roxygen2" class="level3"><h3 class="anchored" data-anchor-id="roxygen2">roxygen2</h3>
+<p>Some of the <code>usethis</code> functions we are going to call require <code>roxygen2</code> to be used for creating documentation (and it makes our lives a heck of a lot easier). Let’s set that up next. The easiest way is to just call:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternatively, on a Mac I can call CMD+Shift+D. This should just add some information about roxygen2 to the <code>DESCRIPTION</code> file.</p>
+<p>The other thing we will want to do is create a “package doc” <code>.R</code> file. Other <code>usethis</code> functions called later will use this file to store useful information automatically. Basically, this is just a <code>.R</code> file named <code>addr-package.R</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_package_doc.html">use_package_doc</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The contents of this look like:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#' @keywords internal</span>
+<span class="st">"_PACKAGE"</span>
+
+<span class="co"># The following block is used by usethis to automatically manage</span>
+<span class="co"># roxygen namespace tags. Modify with care!</span>
+<span class="co">## usethis namespace: start</span>
+<span class="co">## usethis namespace: end</span>
+<span class="cn">NULL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>usethis</code> information is going to be inserted between the <code>usethis namespace: start</code> and <code>usethis namespace: end</code> lines as we go along.</p>
+</section><section id="can-you-c" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="can-you-c">Can you C?</h3>
+<p>Let’s work on our first C function. Assuming you are in RStudio and in the current <code>addr</code> project, let’s create our first C file. There’s a <code>usethis</code> helper for that too.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_rcpp.html">use_c</a></span><span class="op">(</span><span class="st">"add"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wow. That did a lot more than just create a C file. I get something like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#&gt; ✔ Creating 'src/'</span>
+<span class="co">#&gt; ✔ Adding '*.o', '*.so', '*.dll' to 'src/.gitignore'</span>
+<span class="co">#&gt; ✔ Adding '@useDynLib addr, .registration = TRUE' to 'R/addr-package.R'</span>
+<span class="co">#&gt; ● Run `devtools::document()` to update 'NAMESPACE'</span>
+<span class="co">#&gt; ✔ Writing 'src/add.c'</span>
+<span class="co">#&gt; ● Modify 'src/add.c'</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So what happened here?</p>
+<ol type="1">
+<li><p>A new directory was created, <code>src/</code>. This is where all of your C files go.</p></li>
+<li><p>Multiple types of files were added to a <code>.gitignore</code> in <code>src/</code>. This is very helpful, as these 3 types of files, <code>.o</code>, <code>.so</code> and <code>.dll</code> are ones that would be created by our package when the C code is compiled, or “built” if you are familiar with R packages. In the same way that we wouldn’t commit a built R package to github, we don’t commit these files either.</p></li>
+<li><p>Some information was added to <code>addr-package.R</code>, and we get a suggestion to <code>document()</code>.</p></li>
+<li><p>A new file, <code>src/add.c</code> was added, and then it opened in RStudio. Great! We will work on this file in a moment.</p></li>
+</ol>
+<p>What’s this information that got added to <code>addr-package.R</code>? If we open up <code>addr-package.R</code> right now, we will see:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">## usethis namespace: start</span>
+<span class="co">#' @useDynLib addr, .registration = TRUE</span>
+<span class="co">## usethis namespace: end</span>
+<span class="cn">NULL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The second line here is a roxygen comment added by <code>use_c()</code>, and it is an important one! Basically, it is the way we eventually tell R that we should be looking for any C routines (functions) that we have “registered” (i.e.&nbsp;exposed to the R side), so we can actually call them from R.</p>
+<p>Really, this information needs to be in the package NAMESPACE file, which contains the information on what functions are imported to and exported from your package, along with information about external code like this. That’s why a suggestion to document popped up, as roxygen2 will take care of that for you:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">If you got an error while documenting that looked like <code><a href="https://rdrr.io/r/base/getDLLRegisteredRoutines.html">getDLLRegisteredRoutines.DLLInfo()</a></code>, don’t be alarmed. We just don’t have any C code for it to load.</span></div></div>
+<p>Check out the <code>NAMESPACE</code> file and you should see:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">useDynLib</span><span class="op">(</span><span class="va">addr</span>, .registration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="addr_add_one" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="addr_add_one">addr_add_one()</h3>
+<p>Now we are ready to work on our C function. Open up that <code>add.c</code> file if it isn’t open already. You should see this at the top:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define R_NO_REMAP</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;R.h&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rinternals.h&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The second two <code>#include</code> lines give us access to the C-level R API. If you aren’t familiar with includes or header files, for now think of them as calling <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> on a package to get access to its functions for your own use.</p>
+<p>The first line, <code>#define R_NO_REMAP</code>, purposefully comes before the other two, and prevents a “re-mapping” of the API functions from a standardized name of <code>Rf_&lt;fn&gt;</code> to just <code>&lt;fn&gt;</code>. I think it’s pretty good practice to prevent this remapping, as it makes it clear to us what functions are from the R API (and it works really well for finding new functions with auto-complete!).</p>
+<p>OKAY, now let’s write some C code. Go ahead and add these lines to the file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define R_NO_REMAP</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;R.h&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rinternals.h&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>SEXP addr_add_one<span class="op">(</span>SEXP a<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  SEXP out <span class="op">=</span> PROTECT<span class="op">(</span>Rf_allocVector<span class="op">(</span>REALSXP<span class="op">,</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  REAL<span class="op">(</span>out<span class="op">)[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> Rf_asReal<span class="op">(</span>a<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  UNPROTECT<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> out<span class="op">;</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>…okay. This looks foreign. So many questions, I know, I had them too. I’ll tackle as many as I can think of. First, a broad overview of what this code does:</p>
+<ul>
+<li>Take in a single argument, <code>a</code>.</li>
+<li>Create an object that we will assign the result to, <code>out</code>. This is a numeric vector of length 1. We also protect that object from the garbage collector.</li>
+<li>Add 1 to <code>a</code> and assign it to <code>out</code>.</li>
+<li>Unprotect our result, <code>out</code>, as we are about to return it.</li>
+<li>Return the result.</li>
+</ul>
+<section id="what-is-a-sexp" class="level4"><h4 class="anchored" data-anchor-id="what-is-a-sexp">What is a SEXP?</h4>
+<p>Good question. It’s called an S-Expression, don’t ask me how to pronounce the shorthand notation, and I think it originated in the functional language, Lisp.</p>
+<p>Just think of a SEXP as a container that is able to represent <em>any</em> kind of R object, but at the C level. This means that an R list can be a SEXP, so can a matrix, so can a single logical value.</p>
+</section><section id="why-are-there-so-many-explicit-types" class="level4"><h4 class="anchored" data-anchor-id="why-are-there-so-many-explicit-types">Why are there so many explicit types?</h4>
+<p>Meaning, why is the argument <code>SEXP a</code> and not just <code>a</code>? Why is the return value, <code>out</code>, created as <code>SEXP out =</code> not just <code>out =</code>?</p>
+<p>C is a statically typed language, unlike R. Whereas in R we have the flexibility to create variables of any type without specifying the type in advance, in C we have to specify the type of every single variable ahead of time. This comes with the benefit of speed, and is one of the reasons C is so much faster than R.</p>
+</section><section id="allocation-and-protection" class="level4 page-columns page-full"><h4 class="anchored" data-anchor-id="allocation-and-protection">Allocation and protection</h4>
+<p>In C, creating new R objects is a bit more complicated than what you’d do at the R level. We know that we are going to take in a numeric vector of length 1, <code>a</code>, and we want to add 1 to it and return that result, which is also a numeric vector of length 1. So we need a place to put that result.</p>
+<p>To do so, we have to create a new numeric vector of length 1 at the C level. The easiest way to do this is using a function from the R API, <code>Rf_allocVector()</code>. It takes in two arguments, a <code>SEXPTYPE</code> (the type of the SEXP to make) and a <code>R_xlen_t</code> (the length of the SEXP) and returns a SEXP of the type and length requested.</p>
+<p>There are 7 <code>SEXPTYPE</code>s you can use, and you can find information about them at Hadley’s <a href="https://github.com/hadley/r-internals/blob/master/vectors.md">R Internals</a> documentation repo. We used the type for a “real” (numeric) vector, <code>REALSXP</code>. We also specified the length to be 1.</p>
+<p>Great, so we used <code>Rf_allocVector(REALSXP, 1)</code> to create a numeric vector of length 1. All good? Not quite. We also have to <em>protect</em> that numeric vector. From what? Well, if we don’t protect it by wrapping it in <code>PROTECT()</code> immediately, then when R’s garbage collector runs (which I think of as happening randomly), then that object gets cleaned up and removed 😢. If not managed correctly, this can cause great heartache.</p>
+<div class="page-columns page-full"><p>As if it wasn’t difficult enough, we also have to manage <em>unprotecting</em> all of these objects. We do that here by calling <code>UNPROTECT(1)</code> at the end of the function, right before we return our result. <code>UNPROTECT()</code> takes an integer value of the number of things to unprotect, so if you had created 3 new objects, you could call <code>UNPROTECT(3)</code> instead. </p><div class="no-row-height column-margin column-container"><span class="aside">We don’t have to protect and unprotect the <em>arguments</em> to the function, as R knows to protect these automatically.</span></div></div>
+</section><section id="autocomplete" class="level4"><h4 class="anchored" data-anchor-id="autocomplete">Autocomplete ❤️</h4>
+<p>You might be wondering, “How did he know about <code>Rf_allocVector()</code>?” Or, “How do I find more of these neat C level API functions?” Great question! Luckily, RStudio’s autocomplete has your back. By typing <code>Rf_</code> and pressing tab, we get the following pop up that we can scroll through.</p>
+<p><img src="img/autocomplete.png" class="img-fluid"></p>
+<p>Using this, we can find new functions to <del>research</del> google and learn about.</p>
+<p>Similarly, how did I know what type <code>Rf_allocVector()</code> took and returned? Well…</p>
+<p><img src="img/types-alloc.png" class="img-fluid"></p>
+<p>The popup we get from RStudio tells us not only the name of the C function, but also the types of the arguments and return value!</p>
+<p>In a moment, we will use <code>Rf_asReal()</code>.</p>
+<p><img src="img/types.png" class="img-fluid"></p>
+</section><section id="addition" class="level4"><h4 class="anchored" data-anchor-id="addition">Addition</h4>
+<p>Okay, so about the actual addition line…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>REAL<span class="op">(</span>out<span class="op">)[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> Rf_asReal<span class="op">(</span>a<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That seems like a lot of work to add 1.</p>
+<p><code>Rf_asReal()</code> takes a SEXP, and returns a single <code>double</code> value corresponding to the first element in the SEXP. A <code>double</code> is the C type that is somewhat equivalent to an R numeric. So this converts our numeric vector of length 1, <code>a</code>, into an object that can be manipulated at the C level with C operations like addition.</p>
+<p>Next, we add 1 to that <code>double</code> that <code>Rf_asReal()</code> gives us. After that, we have to put it somewhere. If you thought we could just do <code>out = Rf_asReal(a) + 1</code>, well, haven’t you learned by now that it isn’t ever that simple?</p>
+<p><code>out</code> is a SEXP, and we can’t assign a <code>double</code> straight to a SEXP. What we actually need is a way to access the <code>double</code> <em>underlying</em> the <code>out</code> SEXP we created. That is what <code>REAL(out)</code> gets us. Technically, it gives us a <code>double*</code> (a double pointer) that points to the actual double array that <code>out</code> abstracts away into an R numeric vector. Jargon aside, it gives us something that we can kind of treat like an R vector, where we can index into it with <code>[]</code> and assign values to those slots.</p>
+<p>One more note is that C is 0-index based, while R is 1-index based, so rather than doing <code>REAL(out)[1]</code> to access the first position, we really do <code>REAL(out)[0]</code>.</p>
+<p>Alright, so <code>REAL(out)</code> gave us access to the <code>double*</code>, and <code>REAL(out)[0]</code> gave us access to the actual <code>double</code> at the 1st position in the vector. This is a <code>double</code>, so we can assign our result to this.</p>
+</section><section id="return" class="level4"><h4 class="anchored" data-anchor-id="return">Return</h4>
+<p>Finally, after calling <code>UNPROTECT(1)</code> as described above, we return <code>out</code> with <code>return out</code>. Unlike R, you actually have to specify the <code>return</code> in C (it’s generally optional in R).</p>
+<p>Note that in the function signature, we specified <code>SEXP addr_add_one(...)</code>. The <code>SEXP</code> at the beginning there was our way of telling C that we are going to be returning a SEXP object.</p>
+</section></section><section id="registration" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="registration">Registration</h3>
+<div class="page-columns page-full"><p><em>Update) I have since learned that this registration section can be generated automatically! I highly recommend still reading this post in order to understand what the registration piece does, but check out the Automatic Registration section at the end of the post to learn how to do it automatically.</em> </p><div class="no-row-height column-margin column-container"><span class="aside">Thanks, <a href="https://twitter.com/hadleywickham/status/1102200089773256704">Hadley &amp; Jim</a> and <a href="https://twitter.com/strboul/status/1102207504405139456">Metin</a>.</span></div></div>
+<p>Great, so we have a C function that can add 1. Can we call this from R yet? Almost, but still no. If you run a <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>, then you <em>should</em> see the code compile. For me that looks like this, but I’ve manually trimmed it so you aren’t overloaded with output:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#&gt; Loading addr</span>
+<span class="co">#&gt; Re-compiling addr</span>
+<span class="co">#&gt; ─  installing *source* package ‘addr’ ...</span>
+<span class="co">#&gt;    ** libs</span>
+<span class="co">#&gt;    clang &lt;trimmed&gt;  -c add.c -o add.o</span>
+<span class="co">#&gt;    clang -dynamiclib &lt;trimmed&gt; -o addr.so add.o</span>
+<span class="co">#&gt;    installing to /private/var/&lt;trimmed&gt;/addr/libs</span>
+<span class="co">#&gt; ─  DONE (addr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is telling us that the:</p>
+<ul>
+<li>
+<code>add.c</code> was compiled into an “object” file, <code>add.o</code>.</li>
+<li>That one object file was used to make an <code>addr.so</code> “shared object”. You can maybe think of this kind of like a “built” R package.</li>
+</ul>
+<p>Nevertheless, if you try and do <code>addr::</code> after running <code>load_all()</code>, you will be disappointed, and you won’t see <code>addr_add_one</code> anywhere! This is because we still have to <em>register the routine</em>, aka expose these functions to the R side. This is related to that <code>@useDynLib</code> roxygen2 tag we added at the beginning. That tells R to <em>look</em> for the C functions, but we still have to actually expose them too. Let’s do that.</p>
+<p>Create a new file, <code>init.c</code>. This is the standard name for the file where this “routine registration” happens:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_rcpp.html">use_c</a></span><span class="op">(</span><span class="st">"init"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Add the following to what is already there:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define R_NO_REMAP</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;R.h&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rinternals.h&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span><span class="pp"> </span><span class="co">// for NULL</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;R_ext/Rdynload.h&gt;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* .Call calls */</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> SEXP addr_add_one<span class="op">(</span>SEXP<span class="op">);</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">const</span> R_CallMethodDef CallEntries<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="st">"addr_add_one"</span><span class="op">,</span> <span class="op">(</span>DL_FUNC<span class="op">)</span> <span class="op">&amp;</span>addr_add_one<span class="op">,</span> <span class="dv">1</span><span class="op">},</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>NULL<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">}</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> R_init_addr<span class="op">(</span>DllInfo <span class="op">*</span>dll<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  R_registerRoutines<span class="op">(</span>dll<span class="op">,</span> NULL<span class="op">,</span> CallEntries<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  R_useDynamicSymbols<span class="op">(</span>dll<span class="op">,</span> FALSE<span class="op">);</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is the how C level functions are registered as something that can be called from the R side. Ugly, right? I won’t go into much detail here (I don’t know everything about it myself anyways), and you’ll generally only ever change 3 things. First, take a look at the section starting with “.Call calls”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* .Call calls */</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> SEXP addr_add_one<span class="op">(</span>SEXP<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we have to list all of our C level functions that we want to expose to the R side, along with their full function signature (the argument types and return type), and we have to prefix it with <code>extern</code>. Our function takes 1 SEXP, <code>a</code>, as an argument, so we only have 1 SEXP specified here. If your function has 2 arguments, you would do <code>extern SEXP my_fun(SEXP, SEXP)</code>. Generally the only things you will pass back and forth between R and C will be SEXP objects. If you have another function to export, you just add another <code>extern</code> call below this one.</p>
+<p>Next, we have to construct an “array of call method definitions”, named <code>CallEntries</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">const</span> R_CallMethodDef CallEntries<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="st">"addr_add_one"</span><span class="op">,</span> <span class="op">(</span>DL_FUNC<span class="op">)</span> <span class="op">&amp;</span>addr_add_one<span class="op">,</span> <span class="dv">1</span><span class="op">},</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span>NULL<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">}</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this, you’ll specify the address of the function you specified above (that’s what <code>&amp;addr_add_one</code> does), and from what I understand you convert it into a dynamically loadable function. Basically, you’ll add one line per function you are exporting, and it is of the form:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span><span class="st">"&lt;function-name&gt;"</span><span class="op">,</span> <span class="op">(</span>DL_FUNC<span class="op">)</span> <span class="op">&amp;&lt;</span>function<span class="op">-</span>name<span class="op">&gt;,</span> num_args<span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you have a second function to export, add another line after the first one, but before the <code>{NULL, NULL, 0}</code>.</p>
+<p>Lastly, there is a function that R will automatically call for you that actually does the registration of these functions. R looks for a C function called <code>R_init_&lt;pkg&gt;()</code> to call to register these routines. So the only thing you’d ever change here is to change <code>&lt;pkg&gt;</code> to your current package name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> R_init_addr<span class="op">(</span>DllInfo <span class="op">*</span>dll<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  R_registerRoutines<span class="op">(</span>dll<span class="op">,</span> NULL<span class="op">,</span> CallEntries<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  R_useDynamicSymbols<span class="op">(</span>dll<span class="op">,</span> FALSE<span class="op">);</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note how we pass the <code>CallEntries</code> into <code>R_registerRoutines()</code>. This seems to be passing along all of the information required about how to create the entry points into the C code that we will call from the R side.</p>
+</section><section id="call-it" class="level3"><h3 class="anchored" data-anchor-id="call-it">.Call() it!</h3>
+<p>Try running <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> one more time. You should now have access to <code>addr::addr_add_one</code>. It’s not a function, so don’t try and call it with <code>addr_add_one()</code>. Let’s print it out.</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">addr</span><span class="fu">::</span><span class="va">addr_add_one</span>
+<span class="co">#&gt; $name</span>
+<span class="co">#&gt; [1] "addr_add_one"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $address</span>
+<span class="co">#&gt; &lt;pointer: 0x7fea6b4da160&gt;</span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "RegisteredNativeSymbol"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dll</span>
+<span class="co">#&gt; DLL name: addr</span>
+<span class="co">#&gt; Filename: /Users/davis/Desktop/r/projects/data-insights-package/addr/src/addr.so</span>
+<span class="co">#&gt; Dynamic lookup: FALSE</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $numParameters</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "CallRoutine"      "NativeSymbolInfo"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So this is really just a list of class <code>"CallRoutine"</code> holding information about where to find the actual C function we need.</p>
+<p>Since you can’t call this like a function, how do you use it? The magic is with the function <code><a href="https://rdrr.io/r/base/CallExternal.html">.Call()</a></code>, which serves as the function that let’s us call this <code>addr_add_one</code> entry point along with any arguments that we might need to pass through. Try the following:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/CallExternal.html">.Call</a></span><span class="op">(</span><span class="va">addr_add_one</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt; [1] 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Woah! So that just called our C function to add 1 to 2, so we get 3.</p>
+</section><section id="now-what" class="level3"><h3 class="anchored" data-anchor-id="now-what">Now what?</h3>
+<p>Well, we need a better way to expose this to our users. The best way is to create a function that wraps this that we can export and document. Also, <em>we did no error checking</em> at the C level, so if we pass any bad or unexpected inputs in to this <code><a href="https://rdrr.io/r/base/CallExternal.html">.Call()</a></code>, it could actually crash R completely. Not just error, <em>crash</em>. This isn’t the worst thing in the world, and it’s a pretty normal part of the development process of connecting R and C (I do it <em>all</em> the time), but it isn’t fun for the user. To fix that, we will also add some error checking to our function.</p>
+<p>Create a file named <code>add.R</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html">use_r</a></span><span class="op">(</span><span class="st">"add"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now add the following:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#' Add 1 to a single numeric</span>
+<span class="co">#'</span>
+<span class="co">#' `add_one()` adds 1 to a single numeric value.</span>
+<span class="co">#'</span>
+<span class="co">#' @param a A single numeric value.</span>
+<span class="co">#'</span>
+<span class="co">#' @examples</span>
+<span class="co">#'</span>
+<span class="co">#' add_one(2)</span>
+<span class="co">#'</span>
+<span class="co">#' @export</span>
+<span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">{</span>
+
+  <span class="va">ok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1L</span>
+
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">ok</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`a` must be a single numeric value."</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="op">}</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/CallExternal.html">.Call</a></span><span class="op">(</span><span class="va">addr_add_one</span>, <span class="va">a</span><span class="op">)</span>
+<span class="op">}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>At this point, call <code>load_all()</code> again and you should have access to <code>add_one()</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">add_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt; [1] 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">add_one</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error: `a` must be a single numeric value.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Awesome! Since we have added the <code>@export</code> tag, to actually export this function we just need to call:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>which will create a <code>.Rd</code> help page for the file, and will add <code>export(add_one)</code> to the <code>NAMESPACE</code> file.</p>
+</section><section id="cran-check" class="level3"><h3 class="anchored" data-anchor-id="cran-check">CRAN Check!</h3>
+<p>The only thing left is to see if it passes a cran check! Plot twist, it won’t quite yet. We need to add a license first.</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Davis Vaughan"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Okay, now try it:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html">check</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co">#&gt; 0 errors ✔ | 0 warnings ✔ | 0 notes ✔</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>😎</p>
+</section><section id="resources" class="level3"><h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<p>If you want to learn more about R’s C interface, there are a few resources out there for you!</p>
+<ul>
+<li><p>Hadley’s <a href="https://github.com/hadley/r-internals">R Internals documentation</a></p></li>
+<li><p>Advanced R’s old <a href="http://adv-r.had.co.nz/C-interface.html">section on C</a></p></li>
+<li><p>The massive but thorough <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>. I would focus on section 5.9 on <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Handling-R-objects-in-C">Handling R objects in C</a>.</p></li>
+<li><p>The full <code>addr</code> package is <a href="https://github.com/DavisVaughan/addr">on GitHub</a>. The commit history attempts to follow this post.</p></li>
+</ul></section><section id="automatic-registration" class="level3"><h3 class="anchored" data-anchor-id="automatic-registration">Automatic Registration</h3>
+<p>As mentioned in the <em>Registration</em> section, you don’t actually have to create the <code>init.c</code> file “by hand,” which is great because it’s the thing I forget to do most. I’ve left this section until the end, rather than replacing the current <em>Registration</em> section, because I think the order of how you link things up makes more sense when done the manual way (expose to R with the <code>init.c</code> file, then <code><a href="https://rdrr.io/r/base/CallExternal.html">.Call()</a></code> it). So if you saw that note in <em>Registration</em> and instantly skipped to here, I’d advice going back and reading the rest of that section and the rest of the blog post first. As you get more familiar with working in C, you can use the methods described here.</p>
+<p>To work with automatic registration, follow the blog post like usual, but skip the <em>Registration</em> and <em>.Call it!</em> sections and go straight to the <em>Now What?</em> section. Generate the <code>add.R</code> file that looks like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#' Add 1 to a single numeric</span>
+<span class="co">#'</span>
+<span class="co">#' `add_one()` adds 1 to a single numeric value.</span>
+<span class="co">#'</span>
+<span class="co">#' @param a A single numeric value.</span>
+<span class="co">#'</span>
+<span class="co">#' @examples</span>
+<span class="co">#'</span>
+<span class="co">#' add_one(2)</span>
+<span class="co">#'</span>
+<span class="co">#' @export</span>
+<span class="va">add_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">{</span>
+
+  <span class="va">ok</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1L</span>
+
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">ok</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`a` must be a single numeric value."</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="op">}</span>
+
+  <span class="fu"><a href="https://rdrr.io/r/base/CallExternal.html">.Call</a></span><span class="op">(</span><span class="va">addr_add_one</span>, <span class="va">a</span><span class="op">)</span>
+<span class="op">}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>At this point you should have an <code>add.R</code> file, <em>but no <code>init.c</code> file</em>. Try running:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html">load_all</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should have access to <code>add_one()</code>, but if you call it, you get…</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; Error in add_one(1) : object 'addr_add_one' not found</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This makes sense, because we have no <code>init.c</code> file, so the C function was not exposed to the R side.</p>
+<p>At this point, we can generate the <code>init.c</code> file automatically using <code><a href="https://rdrr.io/pkg/pkgbuild/man/compile_dll.html">pkgbuild::compile_dll()</a></code>. The key is to run it with <code>register_routines = TRUE</code>, which will take care of automatically setting up <code>init.c</code>. You may also have to run it with <code>force = TRUE</code>. If you have previously compiled all of the C code already and nothing has changed, it won’t try and do it again (this is generally a good thing!), and the function will exit early. But we want to trigger the recompilation to make it generate the <code>init.c</code> file for us, so we should force it.</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">pkgbuild</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pkgbuild/man/compile_dll.html">compile_dll</a></span><span class="op">(</span>force <span class="op">=</span> <span class="cn">TRUE</span>, register_routines <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; Re-compiling addr</span>
+<span class="co">#&gt; ─  installing *source* package ‘addr’ ...</span>
+<span class="co">#&gt;    ** libs</span>
+<span class="co">#&gt;    clang &lt;trimmed&gt;  -c init.c -o init.o</span>
+<span class="co">#&gt;    clang &lt;trimmed&gt; -o addr.so add.o init.o</span>
+<span class="co">#&gt;    installing to /private/var/&lt;trimmed&gt;/addr/libs</span>
+<span class="co">#&gt; ─  DONE (addr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This output looks similar to what was generated with <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>, and that’s because this function is called from it. But this time, you can see that it compiled an <code>init.c</code> file as well, one that it created for us! Let’s take a look at <code>init.c</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;R.h&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rinternals.h&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span><span class="pp"> </span><span class="co">// for NULL</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;R_ext/Rdynload.h&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* Section generated by pkgbuild, do not edit */</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">/* .Call calls */</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> SEXP addr_add_one<span class="op">(</span>SEXP<span class="op">);</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">const</span> R_CallMethodDef CallEntries<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span><span class="st">"addr_add_one"</span><span class="op">,</span> <span class="op">(</span>DL_FUNC<span class="op">)</span> <span class="op">&amp;</span>addr_add_one<span class="op">,</span> <span class="dv">1</span><span class="op">},</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span>NULL<span class="op">,</span> NULL<span class="op">,</span> <span class="dv">0</span><span class="op">}</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co">/* End section generated by pkgbuild */</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> R_init_addr<span class="op">(</span>DllInfo <span class="op">*</span>dll<span class="op">)</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    R_registerRoutines<span class="op">(</span>dll<span class="op">,</span> NULL<span class="op">,</span> CallEntries<span class="op">,</span> NULL<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    R_useDynamicSymbols<span class="op">(</span>dll<span class="op">,</span> FALSE<span class="op">);</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Awesome, so this entire file was created automatically, and looks essentially the same as the one that we made manually. Now that we have all the pieces, call <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> one more time, which will sync everything up. Then you should be able to do:</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">add_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You’ll also want to call <code><a href="https://devtools.r-lib.org/reference/document.html">devtools::document()</a></code> again as well to add <code>export(add_one)</code> to the <code>NAMESPACE</code> file if you haven’t already.</p>
+<p>The reason we have to create <code>add_one()</code> first, before calling <code><a href="https://rdrr.io/pkg/pkgbuild/man/compile_dll.html">pkgbuild::compile_dll()</a></code>, is because of the way the information is found to generate the <code>init.c</code> file. It looks into your <code>.R</code> files, and scans for any calls to <code><a href="https://rdrr.io/r/base/CallExternal.html">.Call()</a></code>. The information there, along with the name of your package, is enough to completely generate the <code>init.c</code> file! Internally, <code>compile_dll()</code> calls <code><a href="https://rdrr.io/r/tools/package_native_routine_registration_skeleton.html">tools::package_native_routine_registration_skeleton()</a></code> (yes, this is a mouthful), which is what generates the skeleton for <code>init.c</code>, using the information it located. <code>compile_dll()</code> performs a few extra steps on top of that to clean up.</p>
+<p>If you add another C based function to your package, just call <code>compile_dll(register_routines = TRUE)</code> again, and it will update the information in the <code>init.c</code> file.</p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
