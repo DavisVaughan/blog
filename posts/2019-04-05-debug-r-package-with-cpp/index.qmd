@@ -1,0 +1,1083 @@
+---
+title: Debugging an R Package with C++
+author: Davis Vaughan
+date: '2019-04-05'
+slug: debug-r-package-with-cpp
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Introduction
+
+This post is dedicated to teaching you how to debug an R package that has C++ code in it.
+I had no clue how to do this in a formal way, and honestly this post is for future me.
+This post is long, because this stuff is finicky, and I wanted to document things as explictly as possible.
+
+The method of debugging you will learn here has advantages and drawbacks:
+
+<ul style="list-style: none;">
+
+<li>
+
+`r emo::ji("white_check_mark")` It is great because you can jump right to places where R would generally crash and shut down, and instead have a chance to figure out why things broke.
+
+</li>
+
+<li>
+
+`r emo::ji("white_check_mark")` You can print out any R variables at the C++ level.
+
+</li>
+
+<li>
+
+`r emo::ji("white_check_mark")` You can step forward through your code, one line at a time, just like how you do from RStudio.
+
+</li>
+
+<li>
+
+`r emo::ji("white_check_mark")` You can even step *up* into the function that called the one you are currently in, which is very valuable if you have a guess as to where something went wrong, and then want to backtrack to where the wrong result came from.
+
+</li>
+
+<li>
+
+`r emo::ji("white_check_mark")` You can run arbitrary C++ code interactively while inside a function to help you interrogate objects.
+
+</li>
+
+<li>
+
+`r emo::ji("x")` It is painful to get going, and requires a decent amount of time investment.
+
+</li>
+
+<li>
+
+`r emo::ji("x")` Not every C++ expression works as you might expect when running it interactively.
+For example, you can't easily use `std::cout`.
+
+</li>
+
+</ul>
+
+Because this method is a pain to get going, my recommendation would be to start with printing out objects using some combination of:
+
+-   `Rcpp::Rcout << obj << std::endl` for Rcpp objects.
+-   `Rf_PrintValue()` for SEXP objects.
+-   `R_inspect()` for other details about SEXP objects (like attributes).
+
+If you've tried that, and still can't seem to figure it out, it might be time for a true debugger.
+
+## OS
+
+I am using a MacOS running Mojave.
+I am also using R 3.5.1.
+I will be generally be using the Terminal to run R, rather than run it from RStudio.
+
+For Windows users, you can probably use the Windows Command Prompt, but you might have to tweak your PATH variable, or explicitly specify the path to R to get it to run.
+See [this Stack Overflow post](https://stackoverflow.com/questions/6940022/running-r-interactively-from-windows-command-prompt) for some potentially helpful info.
+(I'll pray for you).
+
+## gdb and lldb
+
+There are two main C++ debuggers out there, as far as I know.
+`gdb` works alongside the `g++` compiler, and `lldb` works with the `clang++` compiler.
+The one that you will use will depend on what compiler you use to compile the C/C++ code in your package with.
+If you aren't sure what you are using, I'll show you an easy way to find out which one you have later on.
+I compile with `clang++`, so I'll be showing `lldb`.
+
+There are a number of commands that will be useful.
+Don't worry about understanding them all now, this will serve as a nice reference for you later on:
+
+-   `run` (or `process launch`): Run R and drop me at the console.
+-   `next` (or `n`): Run the next line of C++ code.
+-   `step` (or `s`): Step *into* a function.
+-   `up`: Step *up* into the previous function call.
+-   `down`: Step *down* into the next function call.
+-   `finish`: Run the rest of the code.
+-   `frame variable`: Print the value of all of the variables in the current frame.
+-   `exit`: Exists lldb.
+-   `breakpoint set --name <function_name>`: Set a breakpoint that will be triggered whenever that function is called.
+-   `process continue`: Jump back into an already running R process you started with `run`.
+
+It's also useful to know that when you are working at the R console in `lldb`, you can press `Ctrl + C` to exit the R process (without killing it) and jump back to the lldb console.
+Pressing `CTRL + Z` at any point will kill lldb and the attached R process.
+
+If you use `gdb`, there is a nice [command map](https://lldb.llvm.org/lldb-gdb.html) from gdb \<-\> lldb that will be useful to you as you follow along.
+
+The general workflow is going to look like:
+
+-   Start the debugger with R attached
+-   Set a breakpoint
+-   `run` to start R
+-   Run some setup R code to activate breakpoints
+-   Trigger the error
+-   Debug!
+
+## Telling prompts apart
+
+In my code blocks, I'll use the following conventions to tell apart the terminal, lldb, and R consoles:
+
+-   Terminal: `(term) <code>`
+-   lldb: `(lldb) <code>`
+-   R: `(R) <code>`
+
+## Example package
+
+Eventually for these examples we will be using a mini package I created called `debugit`.
+It lives on github [here](https://github.com/DavisVaughan/debugit).
+Hop into RStudio and install it with devtools:
+
+```{r, eval=FALSE}
+devtools::install_github("DavisVaughan/debugit")
+```
+
+```{r, eval=FALSE}
+Downloading GitHub repo DavisVaughan/debugit@master
+✔  checking for file ‘<stuff>’ ...
+─  preparing ‘debugit’:
+✔  checking DESCRIPTION meta-information ...
+─  cleaning src
+─  checking for LF line-endings in source and make files and shell scripts
+─  checking for empty or unneeded directories
+─  building ‘debugit_0.0.0.9000.tar.gz’
+   
+* installing *source* package ‘debugit’ ...
+** libs
+clang++  <stuff> -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+clang++  <stuff> -fPIC  -Wall -g -O2  -c buggy.cpp -o buggy.o
+clang++  <stuff> -fPIC  -Wall -g -O2  -c stack.cpp -o stack.o
+clang++ -dynamiclib <stuff> -o debugit.so RcppExports.o buggy.o stack.o
+installing to /Library/Frameworks/R.framework/Versions/3.5/Resources/library/debugit/libs
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (debugit)
+Adding ‘debugit_0.0.0.9000.tgz’ to the cache
+```
+
+Because I don't hate you, I trimmed some of the output.
+Do you see the section starting with `* installing *source* package ‘debugit’ ...`?
+There are two important things I want you to notice here:
+
+1)  `clang++` is at the front of those 4 lines. That's our compiler! So we should be using lldb.
+2)  These two "flags" `-g -O2`. These are important flags that can make you either very happy or very miserable as you try and debug. `-g` tells the compiler to "compile with debug information". `-O2` is the level of "optimization" that the compiler should use. `O0` is the lowest, and `O3` is the highest. With a lower level of optimization, more information is left lying around to help us debug. Higher levels of optimization can sometimes result in faster code. `O2` is what R defaults to when setting flags for your code. Unfortunately, this will come back to haunt us: *insert epic foreshadowing omen*.
+
+Now that we know what debugger we should be using, let's play around with attaching that debugger to R.
+We will come back to the package after we are more comfortable with lldb.
+
+## Starting R with a debugger
+
+To run R with a debugger, you'll need to run it from the command line.
+Open up Terminal.
+First, just type `R`:
+
+```{bash}
+(term) R
+```
+
+```{bash}
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[master]> 
+```
+
+[You can ignore the fact that my R prompt says `[master]>`. I've customized it using Gabor Csardi's [prompt](https://github.com/gaborcsardi/prompt) package! I promise it is the normal R prompt.]{.aside}
+
+This started R from Terminal, and let's you work interactively from the R console.
+Let's close it back up.
+Type `q()` then `n` and press Enter.
+You should end up back at the terminal prompt.
+
+```{bash}
+(R) q()
+Save workspace image? [y/n/c]: n
+```
+
+To start R with a debugger, run:
+
+```{bash}
+(term) R -d lldb
+```
+
+```{bash}
+(lldb) target create "/Library/Frameworks/R.framework/Resources/bin/exec/R"
+Current executable set to '/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64).
+(lldb) 
+```
+
+Well that's different!
+It looks like it dropped us into the lldb prompt, and is using R as the "executable".
+This means that when we call `run`, it will run that executable, starting R.
+Let's do that.
+Type `run` at the `lldb` prompt and hit enter.
+
+```{bash}
+(lldb) run
+```
+
+```{bash}
+Process 52472 launched: '/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64)
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[master]> 
+```
+
+[If you get an error here rather than getting R to start, you might need clang4. Skip down to the `clang4 Required` section and then come back.]{.aside}
+
+So this looks like what happened when we called `R`, but also has an extra line at the top about "Process launched".
+This is now an R process that our debugger is "attached" to.
+Run the following R code at the R console:
+
+```{bash}
+(R) x <- 1 + 1
+```
+
+Now, rather than running `q()` to quit, let's exit the process without quitting and jump back into our debugger.
+Press `CTRL + C` and you should see:
+
+```{bash}
+Process 53060 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP
+    frame #0: 0x00007fff5af7ae82 libsystem_kernel.dylib`__select + 10
+libsystem_kernel.dylib`__select:
+->  0x7fff5af7ae82 <+10>: jae    0x7fff5af7ae8c            ; <+20>
+    0x7fff5af7ae84 <+12>: movq   %rax, %rdi
+    0x7fff5af7ae87 <+15>: jmp    0x7fff5af73e31            ; cerror
+    0x7fff5af7ae8c <+20>: retq   
+Target 0: (R) stopped.
+(lldb) 
+```
+
+You may or may not get all that unintelligible garbage about "libsystem_kernel.dylib\_\_select:".
+It doesn't seem to hurt me thought so let's continue.
+The main thing is that we got a `Target 0: (R) stopped.` and we are now back at the `(lldb)` prompt.
+
+If you try and call `run` now you get this because you already have an R process running:
+
+```{bash}
+(lldb) run
+
+There is a running process, kill it and restart?: [Y/n]
+```
+
+So let's jump back into that R process with `process continue` and the lldb prompt:
+
+```{bash}
+(lldb) process continue
+
+Process 53060 resuming
+```
+
+I get this message...and then it kind of hangs.
+I don't see the R console prompt.
+For some reason, you have to help it along.
+Press Enter if nothing shows up.
+
+```{bash}
+Process 53060 resuming
+
+[master]> 
+```
+
+That's better.
+Here we can run R commands again in that same process we started in.
+To prove that it is the same process, print `x`.
+
+```{bash}
+(R) x
+
+[1] 2
+```
+
+Now that you have a bit of the basics down, let's shut down and start over.
+Press `CTRL + C` and then run:
+
+```{bash}
+(lldb) exit
+```
+
+You should be back at the Terminal prompt.
+
+## clang4
+
+*Only read this section if you couldn't get the debugger to start R. Otherwise skip on to the next section.*
+
+When trying to run the debugger with `R -d lldb` and then a call to `run`, at least on:
+
+-   R 3.5.1
+-   MacOS Mojave
+-   Compiling with clang
+
+I immediately hit something like:
+
+```{bash}
+(lldb) run 
+
+Process 74239 launched: 
+'/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64) 
+dyld: Library not loaded: /usr/local/clang4/lib/libomp.dylib 
+  Referenced from: /Library/Frameworks/R.framework/Resources/bin/exec/R 
+  Reason: image not found 
+Process 74239 stopped 
+* thread #1, stop reason = signal SIGABRT 
+    frame #0: 0x000000010002c9ee dyld`__abort_with_payload + 10 
+dyld`__abort_with_payload: 
+->  0x10002c9ee <+10>: jae    0x10002c9f8               ; <+20> 
+    0x10002c9f0 <+12>: movq   %rax, %rdi 
+    0x10002c9f3 <+15>: jmp    0x10002c300               ; cerror_nocancel 
+    0x10002c9f8 <+20>: retq 
+```
+
+I believe this was a bug that was fixed in December 2018.
+You can read about that [here](http://r-sig-mac.29524.n8.nabble.com/R-SIG-Mac-CRAN-build-of-R-linking-to-usr-local-clang4-td228.html).
+It's trying to tell you it can't find `/usr/local/clang4`, even though `clang6` is the recommended clang build nowadays.
+If you hit this, ensure that you don't have `clang4` by opening a Terminal window and running:
+
+```{bash}
+(term) cd /usr/local
+(term) ls
+```
+
+If you see clang6 there but not clang4, you need to get clang4 to continue.
+Luckily the research group at AT&T has you covered.
+Go to [this page](https://r.research.att.com/libs/) to see the libraries they provide.
+One is clang4 (it's in alphabetical order).
+At the bottom, they tell you how to install it.
+If the version you see for clang 4.00 is the same as the one in the code below, you can open up a Terminal window and run this, otherwise, tweak it a bit as needed:
+
+```{bash}
+(term) curl -O http://r.research.att.com/libs/clang-4.0.0-darwin15.6-Release.tar.gz
+(term) sudo tar fvxz clang-4.0.0-darwin15.6-Release.tar.gz -C /
+```
+
+I *think* I got an error of some kind from this, but it didn't seem to affect anything in the end and ran fine.
+Check `/usr/local` again and look for clang4.
+
+Note that it specifies `darwin15`, and their key specifies that this means you need MacOS El Capitan or higher for this to work.
+
+## The package
+
+Now that we know how to use the debugger, let's look at this package.
+Here is some real R code, run in RStudio and not at the command prompt:
+
+```{r, eval = TRUE}
+library(debugit)
+library(rlang)
+
+# What are the names of the functions in the package?
+names(pkg_env("debugit"))
+```
+
+There are two functions here.
+`add_one()` takes a numeric input and supposedly adds 1 to it.
+
+```{r, eval = TRUE}
+# Or maybe not...
+add_one(5)
+```
+
+`buggy_fun()` is supposed to create an integer vector holding `0` and return it to you.
+Instead, it crashes R so you might not want to run it right away.
+
+## Debugging buggy_fun() - Round 1
+
+So at this point, you've installed the package, and can use R with a debugger.
+Now it's time to learn how to debug a crashing R session.
+Let's demonstrate the problem.
+Start R from the command line:
+
+```{bash}
+(term) R
+```
+
+Now run:
+
+```{bash}
+(R) debugit::buggy_fun()
+```
+
+```{bash}
+ *** caught segfault ***
+address 0x7f84fe68fd40, cause 'memory not mapped'
+
+Traceback:
+ 1: buggy_fun_impl()
+ 2: debugit::buggy_fun()
+
+Possible actions:
+1: abort (with core dump, if enabled)
+2: normal R exit
+3: exit R without saving workspace
+4: exit R saving workspace
+```
+
+R crashes!
+We get a `"memory not mapped"` reason for the crash, and a traceback telling us that we called `debugit::buggy_fun()` and then the error happened in a function called `buggy_fun_impl()`.
+This is the C++ function that is causing the issues (technically this is the R function that Rcpp exposed the C++ function of the same name as, but either way you think about it is fine).
+It looks like this:
+
+```{c}
+bool buggy_fun_impl() {
+
+  NumericVector x(1);
+
+  int n = INT_MAX;
+
+  x[n] = 0;
+
+  return true;
+}
+```
+
+It creates `x`, an Rcpp numeric vector with length 1 (by default filled with the value `0`).
+But then tries to assign `0` to a memory location at `INT_MAX` (a really big number).
+Since `x` doesn't "own" that memory, we crash.
+But say we don't know all that...
+
+How do we debug this?
+Well, we at least know we should be looking into `buggy_fun_impl()`, so lets start there.
+What we need to do is set a *breakpoint*.
+This is a spot in the C++ code that we tell the debugger to stop at, so we can have a look around before everything implodes.
+You can do that in a few ways with lldb.
+
+```{bash}
+# breakpoint on a specific line
+breakpoint set --file <file.cpp> --line <line-number>
+
+# breakpoint on a object/function name
+breakpoint set --name <function_name>
+
+# breakpoint for any errors that are thrown
+breakpoint set -E c++
+```
+
+The last one is super useful when you have no idea where the error is happening, but usually you have a guess.
+Let's try setting it on the name `buggy_fun_impl`.
+Back in Terminal...
+
+```{bash}
+(term) R -d lldb
+
+(lldb) breakpoint set --name buggy_fun_impl
+
+Breakpoint 1: no locations (pending).
+WARNING:  Unable to resolve breakpoint to any actual locations.
+```
+
+So we set the breakpoint, but it didn't actually find anything named `"buggy_fun_impl"`, so it set the breakpoint to `pending`.
+This shouldn't be too surprising, we haven't started an R process yet (we haven't run `run`), and more importantly *we need to load the package that holds the buggy functions*.
+We can confirm that the breakpoint exists with `breakpoint list`:
+
+```{bash}
+(lldb) breakpoint list
+
+Current breakpoints:
+1: name = 'buggy_fun_impl', locations = 0 (pending)
+```
+
+Let's start our R session and library the package.
+
+```{bash}
+(lldb) run
+
+(R) library(debugit)
+
+1 location added to breakpoint 1
+```
+
+Immediately as we loaded the package the breakpoint was set!
+Great, now we just trigger the bug.
+
+```{bash}
+(R) buggy_fun()
+
+Process 57494 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x00000001087c45e0 debugit.so`buggy_fun_impl()
+debugit.so`buggy_fun_impl:
+->  0x1087c45e0 <+0>: pushq  %rbp
+    0x1087c45e1 <+1>: movq   %rsp, %rbp
+    0x1087c45e4 <+4>: pushq  %r15
+    0x1087c45e6 <+6>: pushq  %r14
+Target 0: (R) stopped.
+```
+
+Uh?
+Okay well it didn't crash.
+And it seems to be pointing us in the right direction:
+
+-   `stop reason = breakpoint 1.1` says that it stopped because it hit the breakpoint we requested
+-   `` debugit.so`buggy_fun_impl() `` is telling us it stopped at the function we are interested in
+
+But I promised you line by line debugging power!
+What is this garbage?
+Here's the thing.
+I don't know why, but I can't seem to effectively debug packages that I installed using `install.packages()` or `install_github()`.
+The information is just not there.
+Instead, you need to have the package locally on your computer (like you are a developer working on it), and you need to use `devtools::load_all()` rather than `library()` to load it.
+
+While this may seem frustrating, this is the probable state that you will be in when you are debugging.
+You'll be the maintainer of the package, so you will have it locally and will be used to the `load_all()` workflow.
+
+To get out of this, press `CTRL + Z` to kill `lldb`.
+
+## Debugging buggy_fun() - Round 2
+
+By whatever means necessary, get the files for the `debugit` package locally on your computer.
+I think the easiest way is:
+
+```{r, eval=FALSE}
+# you may have to set `protocol = "https"` as well depending on how you have
+# git set up
+usethis::create_from_github(
+  "DavisVaughan/debugit", 
+  destdir = "~/path/to/destination"
+)
+```
+
+You can also do a standard Fork + Clone github workflow.
+Or you can download the zip file if you are desparate.
+Here is the link to the [zip](https://github.com/DavisVaughan/debugit/archive/master.zip).
+
+I'm going to assume you now have it locally.
+Jump back in Terminal, and change to the directory where you placed the package.
+It is important that you start R from here!
+
+```{bash}
+(term) cd ~/path/to/debugit
+```
+
+You know you are in the right place if you see this:
+
+```{bash}
+(term) ls
+
+DESCRIPTION LICENSE     LICENSE.md  NAMESPACE   R       debugit.Rproj   man     src
+```
+
+Start the debugger, set a breakpoint, and jump back into R.
+
+```{bash}
+(term) R -d lldb
+
+(lldb) breakpoint set --name buggy_fun_impl
+(lldb) run
+```
+
+Now, run a `devtools::load_all()`.
+Because you are in the right working directory, it will automatically find the debugit package and install it.
+I see:
+
+```{bash}
+(R) devtools::load_all()
+
+Loading debugit
+Re-compiling debugit
+─  installing *source* package ‘debugit’ ...
+   ** libs
+   clang++  <stuff> -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+   clang++  <stuff> -fPIC  -Wall -g -O2  -c buggy.cpp -o buggy.o
+   clang++  <stuff> -fPIC  -Wall -g -O2  -c stack.cpp -o stack.o
+   clang++ -dynamiclib <stuff> -o debugit.so RcppExports.o buggy.o stack.o
+   installing to /private/var/folders/41/qx_9ygp112nfysdfgxcssgwc0000gn/T/Rtmpr8QYTT/devtools_install_e1c251df2215/debugit/libs
+─  DONE (debugit)
+1 location added to breakpoint 1
+```
+
+It recompiled the package, and then the breakpoint was set!
+Now trigger the bug.
+
+```{bash}
+(R) buggy_fun()
+
+Process 57912 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x00000001085ecbe4 debugit.so`buggy_fun_impl() at buggy.cpp:7
+   4    // [[Rcpp::export()]]
+   5    bool buggy_fun_impl() {
+   6    
+-> 7      NumericVector x(1);
+   8    
+   9      int n = INT_MAX;
+   10   
+Target 0: (R) stopped.
+(lldb)
+```
+
+Woah!
+Now it stopped right where we wanted it to.
+Just inside the `buggy_fun_impl()` function.
+What can we do with this?
+
+Type `next` and hit enter to run the current line, this moves us to line 9:
+
+```{bash}
+(lldb) next
+
+Process 57912 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step over
+    frame #0: 0x00000001085ecc03 debugit.so`buggy_fun_impl() at buggy.cpp:9
+   6    
+   7      NumericVector x(1);
+   8    
+-> 9      int n = INT_MAX;
+   10   
+   11     x[n] = 0;
+   12   
+Target 0: (R) stopped.
+```
+
+View the available variables with `frame variable`.
+We see `x`, which is a `NumericVector` with a more complicated structure, and `n` which is an `int`.
+Looks like `INT_MAX = 2147483647`.
+
+```{bash}
+(lldb) frame variable
+
+(Rcpp::NumericVector) x = {
+  Rcpp::PreserveStorage<Rcpp::Vector<14, Rcpp::PreserveStorage> > = (data = 0x00000001095c2b08)
+  cache = {
+    start = 0x00000001095c2b38
+  }
+}
+(int) n = 2147483647
+```
+
+We can even run arbitrary C++ code with `expr`
+
+```{bash}
+(lldb) expr 1 + 1
+
+(int) $2 = 2
+```
+
+If you want to store the result, use the special syntax of `$var_name` rather than just `var_name`.
+
+```{bash}
+(lldb) expr int $var = 1 + 1
+(lldb) expr $var
+
+(int) $var = 2
+```
+
+Here's a neat trick, what if I want to print out the value of `x`?
+Normally I'd use `Rcpp::Rcout << x << std::endl`, but that doesn't work.
+We have to call a function from the R API, `Rf_PrintValue()`, on the underlying SEXP that `x` stores.
+Normally I'd get at that with `SEXP(x)`, but that doesn't work either.
+We *really* have to be creative.
+If you look at what printed out for `x` earlier, you'll see a `data` member.
+That's the SEXP, and we can call `Rf_PrintValue()` on that.
+
+```{bash}
+(lldb) expr Rf_PrintValue(x.data)
+
+[1] 0
+```
+
+Nice!
+Now let's continue until we hit the bug:
+
+```{bash}
+(lldb) next
+
+Process 57912 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x5095c2b30)
+    frame #0: 0x00000001085ecc2b debugit.so`buggy_fun_impl() at buggy.cpp:11
+   8    
+   9      int n = INT_MAX;
+   10   
+-> 11     x[n] = 0;
+   12   
+   13     return true;
+   14   }
+Target 0: (R) stopped.
+```
+
+Ah, looks like that did it.
+See the `stop reason = EXC_BAD_ACCESS`?
+That's our error saying we are "badly accessing" a location in memory.
+Importantly, *we now know exactly where the problem is*.
+And we have the power to print `x` and `n` and see that we are assigning to a location much larger than the size of `x`.
+So, with that, we can fix our problem.
+Press `CTRL + Z` to exit.
+
+## Break on any errors
+
+Just for kicks and giggles, lets try setting the breakpoint a different way.
+This way says to break any time we hit an error.
+
+```{bash}
+(term) R -d lldb
+
+(lldb) breakpoint set -E c++
+(lldb) run
+
+(R) devtools::load_all()
+(R) buggy_fun()
+
+Process 58089 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x5012cc530)
+    frame #0: 0x000000010a327c2b debugit.so`buggy_fun_impl() at buggy.cpp:11
+   8    
+   9      int n = INT_MAX;
+   10   
+-> 11     x[n] = 0;
+   12   
+   13     return true;
+   14   }
+Target 0: (R) stopped.
+```
+
+This immediately takes us to the problem line, where we can now look around like before using `expr` and `frame variable`.
+
+## Debugging add_one() - Round 1
+
+Now let's try a different problem.
+`add_one()` doesn't error, but clearly gives the wrong results.
+We expect the result to be `6`.
+
+```{r, eval = TRUE}
+debugit::add_one(5)
+```
+
+Now, generally I'd try and use some print statements to figure out WTF is happening here.
+That's the quick way to do this and would probably work fine.
+
+But let's say you have no idea what is happening, but you think something is going on in the underlying `add_one_impl()` C++ function that powers `add_one()`.
+That looks like this:
+
+```{c}
+NumericVector add_one_impl(NumericVector x) {
+
+  NumericVector y = get_one();
+
+  NumericVector result = x + y;
+
+  return result;
+}
+```
+
+Let's use the same tactic as before to set a breakpoint on `add_one_impl`.
+
+```{bash}
+(term) R -d lldb
+
+(lldb) breakpoint set --name add_one_impl
+(lldb) run
+
+(R) devtools::load_all()
+(R) add_one(5)
+
+debugit.so was compiled with optimization - stepping may behave oddly; variables may not be available.
+Process 58425 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x00000001089d2693 debugit.so`add_one_impl(Rcpp::Vector<14, Rcpp::PreserveStorage>) [inlined] get_one() at stack.cpp:6 [opt]
+   3    
+   4    NumericVector get_one() {
+   5    
+-> 6      NumericVector one(1, 1.0);
+   7    
+   8      // Not 1!
+   9      one[0] = 100;
+Target 0: (R) stopped.
+```
+
+Agh, what?
+That's not right, somehow we ended up in the `get_one()` function instead.
+But wait, what is that first line at the top:
+
+    debugit.so was compiled with optimization - stepping may behave oddly; variables may not be available.
+
+Ah.
+Remember that bit at the beginning where I mentioned the "flags"?
+It is coming back to haunt us.
+R compiled this code with `O2`, but that stripped out some of the debugging info, so our debugger stopped in the wrong place.
+We need to recompile with `O0`.
+But how do we do that?
+We have to set `O0` as one of our `CXXFLAGS` in a `Makevars` file.
+That sounds ridiculous but it isn't too bad thanks to `usethis.`
+
+Open RStudio.
+Run:
+
+```{r, eval=FALSE}
+usethis::edit_r_makevars()
+```
+
+This should open a file located at `~/.R/Makevars`.
+Be careful here!
+This gets run whenever you install any packages with code that needs to be compiled.
+Add the following lines:
+
+```{bash}
+CXXFLAGS = -g -O0
+```
+
+Save and *make sure you add a new blank line after* the `CXXFLAGS` line.
+Now close out of RStudio again.
+
+## Debugging add_one() - Round 2
+
+Let's try this again:
+
+```{bash}
+(term) R -d lldb
+
+(lldb) breakpoint set --name add_one_impl
+(lldb) run
+```
+
+At this point, if we run `devtools::load_all()` it actually won't do anything, because we already compiled the code once and none of the code actually changed.
+We really need to force it to compile again by clearing out the old compiled code.
+You can do that with:
+
+```{bash}
+(R) devtools::clean_dll()
+```
+
+It will look like nothing happens, but if you run a `devtools::load_all()` it should compile:
+
+```{bash}
+(R) devtools::load_all()
+
+Loading debugit
+Re-compiling debugit
+─  installing *source* package ‘debugit’ ...
+   ** libs
+   clang++  <stuff> -g -O0 -c RcppExports.cpp -o RcppExports.o
+   clang++  <stuff> -g -O0 -c buggy.cpp -o buggy.o
+   clang++  <stuff> -g -O0 -c stack.cpp -o stack.o
+   clang++  <stuff> -o debugit.so RcppExports.o buggy.o stack.o
+   installing to <stuff>
+─  DONE (debugit)
+1 location added to breakpoint 1
+```
+
+Look!
+Do you see the `-g -O0` you set?
+If so, you should be good to go.
+
+```{bash}
+(R) add_one(5)
+
+Process 58576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x000000010b865ebf debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:17
+   14   // [[Rcpp::export()]]
+   15   NumericVector add_one_impl(NumericVector x) {
+   16   
+-> 17     NumericVector y = get_one();
+   18   
+   19     NumericVector result = x + y;
+   20   
+Target 0: (R) stopped.
+```
+
+Woop!
+We are now exactly where we wanted, and we don't get any of those annoying warnings about out package being compiled with optimization.
+Run `next` to have the `get_one()` line run.
+
+```{bash}
+(lldb) next
+
+Process 58576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step over
+    frame #0: 0x000000010b865ed7 debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:19
+   16   
+   17     NumericVector y = get_one();
+   18   
+-> 19     NumericVector result = x + y;
+   20   
+   21     return result;
+   22   }
+Target 0: (R) stopped.
+```
+
+What does `y` look like?
+
+```{bash}
+(lldb) expr Rf_PrintValue(y.data)
+
+[1] 100
+```
+
+That seems wrong.
+This should just be `1`.
+What is happening in `get_one()`?
+Let's run `finish` to run the rest of the lines and try again:
+
+```{bash}
+(lldb) finish
+```
+
+Run `process continue` to dump us back into the R session so we can try again:
+
+```{bash}
+(lldb) process continue
+
+Process 58576 resuming
+[1] 105
+[master]>
+```
+
+Oh look, there's the result of that call we debugged.
+Let's go back into the debugger by calling it again.
+
+```{bash}
+(R) add_one(5)
+
+Process 58576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x000000010b865ebf debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:17
+   14   // [[Rcpp::export()]]
+   15   NumericVector add_one_impl(NumericVector x) {
+   16   
+-> 17     NumericVector y = get_one();
+   18   
+   19     NumericVector result = x + y;
+   20   
+Target 0: (R) stopped.
+```
+
+Now since we know `get_one()` seems to be the issue, we can *step into* the function with `step`:
+
+```{bash}
+(lldb) step
+
+Process 58576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step in
+    frame #0: 0x000000010b865dcb debugit.so`get_one() at stack.cpp:6
+   3    
+   4    NumericVector get_one() {
+   5    
+-> 6      NumericVector one(1, 1.0);
+   7    
+   8      // Not 1!
+   9      one[0] = 100;
+Target 0: (R) stopped.
+```
+
+Okay, we are inside `get_one()`.
+Let's run this line creating `one` and take a look at it.
+
+```{bash}
+(lldb) next
+
+Process 58576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step over
+    frame #0: 0x000000010b865dff debugit.so`get_one() at stack.cpp:9
+   6      NumericVector one(1, 1.0);
+   7    
+   8      // Not 1!
+-> 9      one[0] = 100;
+   10   
+   11     return one;
+   12   }
+Target 0: (R) stopped.
+```
+
+Things look okay now...
+
+```{bash}
+(lldb) expr Rf_PrintValue(one.data)
+
+[1] 1
+```
+
+But then you run the next line...
+
+```{bash}
+(lldb) next
+
+Process 58576 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = step over
+    frame #0: 0x000000010b865e21 debugit.so`get_one() at stack.cpp:11
+   8      // Not 1!
+   9      one[0] = 100;
+   10   
+-> 11     return one;
+   12   }
+   13   
+   14   // [[Rcpp::export()]]
+Target 0: (R) stopped.
+```
+
+And as I am sure you can guess by now, you see that `one` now holds `100` because of the assignment we did there on line 9!
+
+```{bash}
+(lldb) expr Rf_PrintValue(one.data)
+
+[1] 100
+```
+
+Now *we know where the problem is*, so we can head back into our local copy of the package, fix the issue, and try again.
+At this point, `CTRL + Z` to quit.
+
+*Don't forget to go comment out or delete that line in the `~/.R/Makevars` file!*
+
+## Wrapping up
+
+This has been a *very* long winded post.
+But hopefully it can serve as a reference that anyone can look back on and use to understand how to debug compiled code in an R package.
+I think the main points are:
+
+-   Use the workflow:
+    -   `R -d lldb`
+    -   Set a breakpoint
+    -   `run` to start R
+    -   `devtools::load_all()` to activate breakpoint
+    -   Trigger bug
+    -   Debug!
+-   Remember to use `-g -O0` when compiling.
+-   Remember to use `Rf_PrintValue()` on SEXP objects to get a pretty view of what the R object actually looks like, and `Rf_PrintValue(x.data)` to print Rcpp objects.
+
+## Resources
+
+Here are some extra resources I found really useful as I was figuring all this out:
+
+-   The [R Packages](http://r-pkgs.had.co.nz/src.html#src-debugging) section on debugging compiled code.
+-   Section [4.4.2 Inspecting R objects when debugging](https://colinfay.me/writing-r-extensions/debugging.html) from R Core's Writing R Extensions (bookdown-ified by Colin Fay) is quite useful. It is where I learned about `Rf_PrintValue()`. See also `R_inspect()`, and `Rf_PrintValue(x->attrib)` to view attributes of a SEXP.
+-   Kevin Ushey has a great [blog post](http://kevinushey.github.io/blog/2015/04/13/debugging-with-lldb/) with some more pointers on using `lldb` with Rcpp functions created on the fly.
