@@ -138,7 +138,7 @@ Hop into RStudio and install it with devtools:
 devtools::install_github("DavisVaughan/debugit")
 ```
 
-```{r, eval=FALSE}
+``` default
 Downloading GitHub repo DavisVaughan/debugit@master
 ✔  checking for file ‘<stuff>’ ...
 ─  preparing ‘debugit’:
@@ -181,11 +181,11 @@ To run R with a debugger, you'll need to run it from the command line.
 Open up Terminal.
 First, just type `R`:
 
-```{bash}
+``` default
 (term) R
 ```
 
-```{bash}
+``` default
 R version 3.5.1 (2018-07-02) -- "Feather Spray"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
@@ -214,18 +214,18 @@ Let's close it back up.
 Type `q()` then `n` and press Enter.
 You should end up back at the terminal prompt.
 
-```{bash}
+``` default
 (R) q()
 Save workspace image? [y/n/c]: n
 ```
 
 To start R with a debugger, run:
 
-```{bash}
+``` default
 (term) R -d lldb
 ```
 
-```{bash}
+``` default
 (lldb) target create "/Library/Frameworks/R.framework/Resources/bin/exec/R"
 Current executable set to '/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64).
 (lldb) 
@@ -237,11 +237,11 @@ This means that when we call `run`, it will run that executable, starting R.
 Let's do that.
 Type `run` at the `lldb` prompt and hit enter.
 
-```{bash}
+``` default
 (lldb) run
 ```
 
-```{bash}
+``` default
 Process 52472 launched: '/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64)
 
 R version 3.5.1 (2018-07-02) -- "Feather Spray"
@@ -271,14 +271,14 @@ So this looks like what happened when we called `R`, but also has an extra line 
 This is now an R process that our debugger is "attached" to.
 Run the following R code at the R console:
 
-```{bash}
+``` default
 (R) x <- 1 + 1
 ```
 
 Now, rather than running `q()` to quit, let's exit the process without quitting and jump back into our debugger.
 Press `CTRL + C` and you should see:
 
-```{bash}
+``` default
 Process 53060 stopped
 * thread #1, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP
     frame #0: 0x00007fff5af7ae82 libsystem_kernel.dylib`__select + 10
@@ -297,7 +297,7 @@ The main thing is that we got a `Target 0: (R) stopped.` and we are now back at 
 
 If you try and call `run` now you get this because you already have an R process running:
 
-```{bash}
+``` default
 (lldb) run
 
 There is a running process, kill it and restart?: [Y/n]
@@ -305,7 +305,7 @@ There is a running process, kill it and restart?: [Y/n]
 
 So let's jump back into that R process with `process continue` and the lldb prompt:
 
-```{bash}
+``` default
 (lldb) process continue
 
 Process 53060 resuming
@@ -316,7 +316,7 @@ I don't see the R console prompt.
 For some reason, you have to help it along.
 Press Enter if nothing shows up.
 
-```{bash}
+``` default
 Process 53060 resuming
 
 [master]> 
@@ -326,7 +326,7 @@ That's better.
 Here we can run R commands again in that same process we started in.
 To prove that it is the same process, print `x`.
 
-```{bash}
+``` default
 (R) x
 
 [1] 2
@@ -335,7 +335,7 @@ To prove that it is the same process, print `x`.
 Now that you have a bit of the basics down, let's shut down and start over.
 Press `CTRL + C` and then run:
 
-```{bash}
+``` default
 (lldb) exit
 ```
 
@@ -353,7 +353,7 @@ When trying to run the debugger with `R -d lldb` and then a call to `run`, at le
 
 I immediately hit something like:
 
-```{bash}
+``` default
 (lldb) run 
 
 Process 74239 launched: 
@@ -376,7 +376,7 @@ You can read about that [here](http://r-sig-mac.29524.n8.nabble.com/R-SIG-Mac-CR
 It's trying to tell you it can't find `/usr/local/clang4`, even though `clang6` is the recommended clang build nowadays.
 If you hit this, ensure that you don't have `clang4` by opening a Terminal window and running:
 
-```{bash}
+``` default
 (term) cd /usr/local
 (term) ls
 ```
@@ -388,7 +388,7 @@ One is clang4 (it's in alphabetical order).
 At the bottom, they tell you how to install it.
 If the version you see for clang 4.00 is the same as the one in the code below, you can open up a Terminal window and run this, otherwise, tweak it a bit as needed:
 
-```{bash}
+``` default
 (term) curl -O http://r.research.att.com/libs/clang-4.0.0-darwin15.6-Release.tar.gz
 (term) sudo tar fvxz clang-4.0.0-darwin15.6-Release.tar.gz -C /
 ```
@@ -429,17 +429,17 @@ Now it's time to learn how to debug a crashing R session.
 Let's demonstrate the problem.
 Start R from the command line:
 
-```{bash}
+``` default
 (term) R
 ```
 
 Now run:
 
-```{bash}
+``` default
 (R) debugit::buggy_fun()
 ```
 
-```{bash}
+``` default
  *** caught segfault ***
 address 0x7f84fe68fd40, cause 'memory not mapped'
 
@@ -483,7 +483,7 @@ What we need to do is set a *breakpoint*.
 This is a spot in the C++ code that we tell the debugger to stop at, so we can have a look around before everything implodes.
 You can do that in a few ways with lldb.
 
-```{bash}
+``` default
 # breakpoint on a specific line
 breakpoint set --file <file.cpp> --line <line-number>
 
@@ -498,7 +498,7 @@ The last one is super useful when you have no idea where the error is happening,
 Let's try setting it on the name `buggy_fun_impl`.
 Back in Terminal...
 
-```{bash}
+``` default
 (term) R -d lldb
 
 (lldb) breakpoint set --name buggy_fun_impl
@@ -511,7 +511,7 @@ So we set the breakpoint, but it didn't actually find anything named `"buggy_fun
 This shouldn't be too surprising, we haven't started an R process yet (we haven't run `run`), and more importantly *we need to load the package that holds the buggy functions*.
 We can confirm that the breakpoint exists with `breakpoint list`:
 
-```{bash}
+``` default
 (lldb) breakpoint list
 
 Current breakpoints:
@@ -520,7 +520,7 @@ Current breakpoints:
 
 Let's start our R session and library the package.
 
-```{bash}
+``` default
 (lldb) run
 
 (R) library(debugit)
@@ -531,7 +531,7 @@ Let's start our R session and library the package.
 Immediately as we loaded the package the breakpoint was set!
 Great, now we just trigger the bug.
 
-```{bash}
+``` default
 (R) buggy_fun()
 
 Process 57494 stopped
@@ -586,13 +586,13 @@ I'm going to assume you now have it locally.
 Jump back in Terminal, and change to the directory where you placed the package.
 It is important that you start R from here!
 
-```{bash}
+``` default
 (term) cd ~/path/to/debugit
 ```
 
 You know you are in the right place if you see this:
 
-```{bash}
+``` default
 (term) ls
 
 DESCRIPTION LICENSE     LICENSE.md  NAMESPACE   R       debugit.Rproj   man     src
@@ -600,7 +600,7 @@ DESCRIPTION LICENSE     LICENSE.md  NAMESPACE   R       debugit.Rproj   man     
 
 Start the debugger, set a breakpoint, and jump back into R.
 
-```{bash}
+``` default
 (term) R -d lldb
 
 (lldb) breakpoint set --name buggy_fun_impl
@@ -611,7 +611,7 @@ Now, run a `devtools::load_all()`.
 Because you are in the right working directory, it will automatically find the debugit package and install it.
 I see:
 
-```{bash}
+``` default
 (R) devtools::load_all()
 
 Loading debugit
@@ -630,7 +630,7 @@ Re-compiling debugit
 It recompiled the package, and then the breakpoint was set!
 Now trigger the bug.
 
-```{bash}
+``` default
 (R) buggy_fun()
 
 Process 57912 stopped
@@ -654,7 +654,7 @@ What can we do with this?
 
 Type `next` and hit enter to run the current line, this moves us to line 9:
 
-```{bash}
+``` default
 (lldb) next
 
 Process 57912 stopped
@@ -674,7 +674,7 @@ View the available variables with `frame variable`.
 We see `x`, which is a `NumericVector` with a more complicated structure, and `n` which is an `int`.
 Looks like `INT_MAX = 2147483647`.
 
-```{bash}
+``` default
 (lldb) frame variable
 
 (Rcpp::NumericVector) x = {
@@ -688,7 +688,7 @@ Looks like `INT_MAX = 2147483647`.
 
 We can even run arbitrary C++ code with `expr`
 
-```{bash}
+``` default
 (lldb) expr 1 + 1
 
 (int) $2 = 2
@@ -696,7 +696,7 @@ We can even run arbitrary C++ code with `expr`
 
 If you want to store the result, use the special syntax of `$var_name` rather than just `var_name`.
 
-```{bash}
+``` default
 (lldb) expr int $var = 1 + 1
 (lldb) expr $var
 
@@ -711,7 +711,7 @@ We *really* have to be creative.
 If you look at what printed out for `x` earlier, you'll see a `data` member.
 That's the SEXP, and we can call `Rf_PrintValue()` on that.
 
-```{bash}
+``` default
 (lldb) expr Rf_PrintValue(x.data)
 
 [1] 0
@@ -720,7 +720,7 @@ That's the SEXP, and we can call `Rf_PrintValue()` on that.
 Nice!
 Now let's continue until we hit the bug:
 
-```{bash}
+``` default
 (lldb) next
 
 Process 57912 stopped
@@ -749,7 +749,7 @@ Press `CTRL + Z` to exit.
 Just for kicks and giggles, lets try setting the breakpoint a different way.
 This way says to break any time we hit an error.
 
-```{bash}
+``` default
 (term) R -d lldb
 
 (lldb) breakpoint set -E c++
@@ -802,7 +802,7 @@ NumericVector add_one_impl(NumericVector x) {
 
 Let's use the same tactic as before to set a breakpoint on `add_one_impl`.
 
-```{bash}
+``` default
 (term) R -d lldb
 
 (lldb) breakpoint set --name add_one_impl
@@ -852,7 +852,7 @@ Be careful here!
 This gets run whenever you install any packages with code that needs to be compiled.
 Add the following lines:
 
-```{bash}
+``` default
 CXXFLAGS = -g -O0
 ```
 
@@ -863,7 +863,7 @@ Now close out of RStudio again.
 
 Let's try this again:
 
-```{bash}
+``` default
 (term) R -d lldb
 
 (lldb) breakpoint set --name add_one_impl
@@ -874,13 +874,13 @@ At this point, if we run `devtools::load_all()` it actually won't do anything, b
 We really need to force it to compile again by clearing out the old compiled code.
 You can do that with:
 
-```{bash}
+``` default
 (R) devtools::clean_dll()
 ```
 
 It will look like nothing happens, but if you run a `devtools::load_all()` it should compile:
 
-```{bash}
+``` default
 (R) devtools::load_all()
 
 Loading debugit
@@ -900,7 +900,7 @@ Look!
 Do you see the `-g -O0` you set?
 If so, you should be good to go.
 
-```{bash}
+``` default
 (R) add_one(5)
 
 Process 58576 stopped
@@ -920,7 +920,7 @@ Woop!
 We are now exactly where we wanted, and we don't get any of those annoying warnings about out package being compiled with optimization.
 Run `next` to have the `get_one()` line run.
 
-```{bash}
+``` default
 (lldb) next
 
 Process 58576 stopped
@@ -938,7 +938,7 @@ Target 0: (R) stopped.
 
 What does `y` look like?
 
-```{bash}
+``` default
 (lldb) expr Rf_PrintValue(y.data)
 
 [1] 100
@@ -949,13 +949,13 @@ This should just be `1`.
 What is happening in `get_one()`?
 Let's run `finish` to run the rest of the lines and try again:
 
-```{bash}
+``` default
 (lldb) finish
 ```
 
 Run `process continue` to dump us back into the R session so we can try again:
 
-```{bash}
+``` default
 (lldb) process continue
 
 Process 58576 resuming
@@ -966,7 +966,7 @@ Process 58576 resuming
 Oh look, there's the result of that call we debugged.
 Let's go back into the debugger by calling it again.
 
-```{bash}
+``` default
 (R) add_one(5)
 
 Process 58576 stopped
@@ -984,7 +984,7 @@ Target 0: (R) stopped.
 
 Now since we know `get_one()` seems to be the issue, we can *step into* the function with `step`:
 
-```{bash}
+``` default
 (lldb) step
 
 Process 58576 stopped
@@ -1003,7 +1003,7 @@ Target 0: (R) stopped.
 Okay, we are inside `get_one()`.
 Let's run this line creating `one` and take a look at it.
 
-```{bash}
+``` default
 (lldb) next
 
 Process 58576 stopped
@@ -1021,7 +1021,7 @@ Target 0: (R) stopped.
 
 Things look okay now...
 
-```{bash}
+``` default
 (lldb) expr Rf_PrintValue(one.data)
 
 [1] 1
@@ -1029,7 +1029,7 @@ Things look okay now...
 
 But then you run the next line...
 
-```{bash}
+``` default
 (lldb) next
 
 Process 58576 stopped
@@ -1047,7 +1047,7 @@ Target 0: (R) stopped.
 
 And as I am sure you can guess by now, you see that `one` now holds `100` because of the assignment we did there on line 9!
 
-```{bash}
+``` default
 (lldb) expr Rf_PrintValue(one.data)
 
 [1] 100

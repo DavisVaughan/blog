@@ -277,32 +277,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"DavisVaughan/debugit"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Downloading GitHub repo DavisVaughan<span class="sc">/</span>debugit<span class="sc">@</span>master</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>✔  checking <span class="cf">for</span> file ‘<span class="sc">&lt;</span>stuff<span class="sc">&gt;</span>’ ...</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>─  preparing ‘debugit’<span class="sc">:</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>✔  checking DESCRIPTION meta<span class="sc">-</span>information ...</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Downloading GitHub repo DavisVaughan/debugit@master</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>✔  checking for file ‘&lt;stuff&gt;’ ...</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>─  preparing ‘debugit’:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>✔  checking DESCRIPTION meta-information ...</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>─  cleaning src</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> LF line<span class="sc">-</span>endings <span class="cf">in</span> source and make files and shell scripts</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>─  checking <span class="cf">for</span> empty or unneeded directories</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>─  building ‘debugit_0.<span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">9000.</span>tar.gz’</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>─  checking for LF line-endings in source and make files and shell scripts</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>─  checking for empty or unneeded directories</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>─  building ‘debugit_0.0.0.9000.tar.gz’</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> installing <span class="sc">*</span>source<span class="sc">*</span> package ‘debugit’ ...</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> libs</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>clang<span class="sc">++</span>  <span class="er">&lt;</span>stuff<span class="sc">&gt;</span> <span class="sc">-</span>fPIC  <span class="sc">-</span>Wall <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c RcppExports.cpp <span class="sc">-</span>o RcppExports.o</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>clang<span class="sc">++</span>  <span class="er">&lt;</span>stuff<span class="sc">&gt;</span> <span class="sc">-</span>fPIC  <span class="sc">-</span>Wall <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c buggy.cpp <span class="sc">-</span>o buggy.o</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>clang<span class="sc">++</span>  <span class="er">&lt;</span>stuff<span class="sc">&gt;</span> <span class="sc">-</span>fPIC  <span class="sc">-</span>Wall <span class="sc">-</span>g <span class="sc">-</span>O2  <span class="sc">-</span>c stack.cpp <span class="sc">-</span>o stack.o</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>clang<span class="sc">++</span> <span class="sc">-</span>dynamiclib <span class="sc">&lt;</span>stuff<span class="sc">&gt;</span> <span class="sc">-</span>o debugit.so RcppExports.o buggy.o stack.o</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>installing to <span class="sc">/</span>Library<span class="sc">/</span>Frameworks<span class="sc">/</span>R.framework<span class="sc">/</span>Versions<span class="sc">/</span><span class="fl">3.5</span><span class="sc">/</span>Resources<span class="sc">/</span>library<span class="sc">/</span>debugit<span class="sc">/</span>libs</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> R</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> byte<span class="sc">-</span>compile and prepare package <span class="cf">for</span> lazy loading</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> help</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span> installing help indices</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> building package indices</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span> testing <span class="cf">if</span> installed package can be loaded</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> <span class="fu">DONE</span> (debugit)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Adding ‘debugit_0.<span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">9000.</span>tgz’ to the cache</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>* installing *source* package ‘debugit’ ...</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>** libs</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>clang++  &lt;stuff&gt; -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>clang++  &lt;stuff&gt; -fPIC  -Wall -g -O2  -c buggy.cpp -o buggy.o</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>clang++  &lt;stuff&gt; -fPIC  -Wall -g -O2  -c stack.cpp -o stack.o</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>clang++ -dynamiclib &lt;stuff&gt; -o debugit.so RcppExports.o buggy.o stack.o</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>installing to /Library/Frameworks/R.framework/Versions/3.5/Resources/library/debugit/libs</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>** R</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>** byte-compile and prepare package for lazy loading</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>** help</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>*** installing help indices</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>** building package indices</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>** testing if installed package can be loaded</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>* DONE (debugit)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Adding ‘debugit_0.0.0.9000.tgz’ to the cache</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Because I don’t hate you, I trimmed some of the output. Do you see the section starting with <code>* installing *source* package ‘debugit’ ...</code>? There are two important things I want you to notice here:</p>
 <ol type="1">
 <li>
@@ -312,119 +310,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now that we know what debugger we should be using, let’s play around with attaching that debugger to R. We will come back to the package after we are more comfortable with lldb.</p>
 </section><section id="starting-r-with-a-debugger" class="level2 page-columns page-full"><h2 class="anchored" data-anchor-id="starting-r-with-a-debugger">Starting R with a debugger</h2>
 <p>To run R with a debugger, you’ll need to run it from the command line. Open up Terminal. First, just type <code>R</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> version 3.5.1 <span class="er">(</span><span class="ex">2018-07-02</span><span class="kw">)</span> <span class="ex">--</span> <span class="st">"Feather Spray"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Copyright</span> <span class="er">(</span><span class="ex">C</span><span class="kw">)</span> <span class="ex">2018</span> The R Foundation for Statistical Computing</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Platform:</span> x86_64-apple-darwin15.6.0 <span class="er">(</span><span class="ex">64-bit</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(term) R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>R version 3.5.1 (2018-07-02) -- "Feather Spray"</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Copyright (C) 2018 The R Foundation for Statistical Computing</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Platform: x86_64-apple-darwin15.6.0 (64-bit)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is free software and comes with ABSOLUTELY NO WARRANTY.</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> are welcome to redistribute it under certain conditions.</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'license()'</span> or <span class="st">'licence()'</span> for distribution details.</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>You are welcome to redistribute it under certain conditions.</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>Type 'license()' or 'licence()' for distribution details.</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Natural</span> language support but running in an English locale</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  Natural language support but running in an English locale</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is a collaborative project with many contributors.</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'contributors()'</span> for more information and</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages in publications.</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>R is a collaborative project with many contributors.</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>Type 'contributors()' for more information and</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>'citation()' on how to cite R or R packages in publications.</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'demo()'</span> for some demos, <span class="st">'help()'</span> for on-line help, or</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">'help.start()'</span> for an HTML browser interface to help.</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'q()'</span> to quit R.</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Type 'demo()' for some demos, 'help()' for on-line help, or</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>'help.start()' for an HTML browser interface to help.</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Type 'q()' to quit R.</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">[master]</span><span class="op">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>[master]&gt; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">You can ignore the fact that my R prompt says <code>[master]&gt;</code>. I’ve customized it using Gabor Csardi’s <a href="https://github.com/gaborcsardi/prompt">prompt</a> package! I promise it is the normal R prompt.</span></div></div>
 <p>This started R from Terminal, and let’s you work interactively from the R console. Let’s close it back up. Type <code><a href="https://rdrr.io/r/base/quit.html">q()</a></code> then <code>n</code> and press Enter. You should end up back at the terminal prompt.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">q()</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Save</span> workspace image<span class="pp">?</span> [y/n/c]: n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(R) q()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Save workspace image? [y/n/c]: n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To start R with a debugger, run:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span> <span class="at">-d</span> lldb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">target</span> create <span class="st">"/Library/Frameworks/R.framework/Resources/bin/exec/R"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Current</span> executable set to <span class="st">'/Library/Frameworks/R.framework/Resources/bin/exec/R'</span> <span class="er">(</span><span class="ex">x86_64</span><span class="kw">)</span><span class="bu">.</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(term) R -d lldb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(lldb) target create "/Library/Frameworks/R.framework/Resources/bin/exec/R"</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Current executable set to '/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64).</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>(lldb) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Well that’s different! It looks like it dropped us into the lldb prompt, and is using R as the “executable”. This means that when we call <code>run</code>, it will run that executable, starting R. Let’s do that. Type <code>run</code> at the <code>lldb</code> prompt and hit enter.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 52472 launched: <span class="st">'/Library/Frameworks/R.framework/Resources/bin/exec/R'</span> <span class="er">(</span><span class="ex">x86_64</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(lldb) run</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Process 52472 launched: '/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> version 3.5.1 <span class="er">(</span><span class="ex">2018-07-02</span><span class="kw">)</span> <span class="ex">--</span> <span class="st">"Feather Spray"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Copyright</span> <span class="er">(</span><span class="ex">C</span><span class="kw">)</span> <span class="ex">2018</span> The R Foundation for Statistical Computing</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Platform:</span> x86_64-apple-darwin15.6.0 <span class="er">(</span><span class="ex">64-bit</span><span class="kw">)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>R version 3.5.1 (2018-07-02) -- "Feather Spray"</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Copyright (C) 2018 The R Foundation for Statistical Computing</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Platform: x86_64-apple-darwin15.6.0 (64-bit)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is free software and comes with ABSOLUTELY NO WARRANTY.</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">You</span> are welcome to redistribute it under certain conditions.</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'license()'</span> or <span class="st">'licence()'</span> for distribution details.</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>You are welcome to redistribute it under certain conditions.</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>Type 'license()' or 'licence()' for distribution details.</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Natural</span> language support but running in an English locale</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  Natural language support but running in an English locale</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> is a collaborative project with many contributors.</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'contributors()'</span> for more information and</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">'citation()'</span> on how to cite R or R packages in publications.</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>R is a collaborative project with many contributors.</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>Type 'contributors()' for more information and</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>'citation()' on how to cite R or R packages in publications.</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'demo()'</span> for some demos, <span class="st">'help()'</span> for on-line help, or</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="st">'help.start()'</span> for an HTML browser interface to help.</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Type</span> <span class="st">'q()'</span> to quit R.</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>Type 'demo()' for some demos, 'help()' for on-line help, or</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>'help.start()' for an HTML browser interface to help.</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>Type 'q()' to quit R.</span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="ex">[master]</span><span class="op">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>[master]&gt; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">If you get an error here rather than getting R to start, you might need clang4. Skip down to the <code>clang4 Required</code> section and then come back.</span></div></div>
 <p>So this looks like what happened when we called <code>R</code>, but also has an extra line at the top about “Process launched”. This is now an R process that our debugger is “attached” to. Run the following R code at the R console:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">x</span> <span class="op">&lt;</span>- 1 + 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(R) x &lt;- 1 + 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now, rather than running <code><a href="https://rdrr.io/r/base/quit.html">q()</a></code> to quit, let’s exit the process without quitting and jump back into our debugger. Press <code>CTRL + C</code> and you should see:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 53060 stopped</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x00007fff5af7ae82 libsystem_kernel.dylib`__select + 10</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">libsystem_kernel.dylib</span><span class="kw">`</span><span class="ex">__select:</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span>  0x7fff5af7ae82 <span class="op">&lt;</span>+10<span class="op">&gt;</span>: jae    0x7fff5af7ae8c            <span class="kw">;</span> <span class="op">&lt;</span>+20<span class="op">&gt;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x7fff5af7ae84</span> <span class="op">&lt;</span>+12<span class="op">&gt;</span>: movq   %rax, %rdi</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x7fff5af7ae87</span> <span class="op">&lt;</span>+15<span class="op">&gt;</span>: jmp    0x7fff5af73e31            <span class="kw">;</span> <span class="ex">cerror</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x7fff5af7ae8c</span> <span class="op">&lt;</span>+20<span class="op">&gt;</span>: retq   </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Process 53060 stopped</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x00007fff5af7ae82 libsystem_kernel.dylib`__select + 10</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>libsystem_kernel.dylib`__select:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>-&gt;  0x7fff5af7ae82 &lt;+10&gt;: jae    0x7fff5af7ae8c            ; &lt;+20&gt;</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    0x7fff5af7ae84 &lt;+12&gt;: movq   %rax, %rdi</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    0x7fff5af7ae87 &lt;+15&gt;: jmp    0x7fff5af73e31            ; cerror</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    0x7fff5af7ae8c &lt;+20&gt;: retq   </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>(lldb) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You may or may not get all that unintelligible garbage about “libsystem_kernel.dylib__select:”. It doesn’t seem to hurt me thought so let’s continue. The main thing is that we got a <code>Target 0: (R) stopped.</code> and we are now back at the <code>(lldb)</code> prompt.</p>
 <p>If you try and call <code>run</code> now you get this because you already have an R process running:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(lldb) run</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">There</span> is a running process, kill it and restart<span class="pp">?</span>: [Y/n]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>There is a running process, kill it and restart?: [Y/n]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So let’s jump back into that R process with <code>process continue</code> and the lldb prompt:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">process</span> continue</span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(lldb) process continue</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 53060 resuming</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Process 53060 resuming</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>I get this message…and then it kind of hangs. I don’t see the R console prompt. For some reason, you have to help it along. Press Enter if nothing shows up.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 53060 resuming</span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Process 53060 resuming</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[master]</span><span class="op">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>[master]&gt; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>That’s better. Here we can run R commands again in that same process we started in. To prove that it is the same process, print <code>x</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">x</span></span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(R) x</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>[1] 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now that you have a bit of the basics down, let’s shut down and start over. Press <code>CTRL + C</code> and then run:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(lldb) exit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You should be back at the Terminal prompt.</p>
 </section><section id="clang4" class="level2"><h2 class="anchored" data-anchor-id="clang4">clang4</h2>
 <p><em>Only read this section if you couldn’t get the debugger to start R. Otherwise skip on to the next section.</em></p>
@@ -435,33 +405,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Compiling with clang</li>
 </ul>
 <p>I immediately hit something like:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span> </span>
+<div class="sourceCode" id="cb17"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(lldb) run </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 74239 launched: </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">'/Library/Frameworks/R.framework/Resources/bin/exec/R'</span> <span class="er">(</span><span class="ex">x86_64</span><span class="kw">)</span> </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">dyld:</span> Library not loaded: /usr/local/clang4/lib/libomp.dylib </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Referenced</span> from: /Library/Frameworks/R.framework/Resources/bin/exec/R </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Reason:</span> image not found </span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 74239 stopped </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, stop reason = signal SIGABRT </span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010002c9ee dyld`__abort_with_payload + 10 </span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="ex">dyld</span><span class="kw">`</span><span class="ex">__abort_with_payload:</span> </span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span>  0x10002c9ee <span class="op">&lt;</span>+10<span class="op">&gt;</span>: jae    0x10002c9f8               <span class="kw">;</span> <span class="op">&lt;</span>+20<span class="op">&gt;</span> </span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x10002c9f0</span> <span class="op">&lt;</span>+12<span class="op">&gt;</span>: movq   %rax, %rdi </span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x10002c9f3</span> <span class="op">&lt;</span>+15<span class="op">&gt;</span>: jmp    0x10002c300               <span class="kw">;</span> <span class="ex">cerror_nocancel</span> </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x10002c9f8</span> <span class="op">&lt;</span>+20<span class="op">&gt;</span>: retq </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Process 74239 launched: </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>'/Library/Frameworks/R.framework/Resources/bin/exec/R' (x86_64) </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>dyld: Library not loaded: /usr/local/clang4/lib/libomp.dylib </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  Referenced from: /Library/Frameworks/R.framework/Resources/bin/exec/R </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  Reason: image not found </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>Process 74239 stopped </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>* thread #1, stop reason = signal SIGABRT </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010002c9ee dyld`__abort_with_payload + 10 </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>dyld`__abort_with_payload: </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>-&gt;  0x10002c9ee &lt;+10&gt;: jae    0x10002c9f8               ; &lt;+20&gt; </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    0x10002c9f0 &lt;+12&gt;: movq   %rax, %rdi </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    0x10002c9f3 &lt;+15&gt;: jmp    0x10002c300               ; cerror_nocancel </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    0x10002c9f8 &lt;+20&gt;: retq </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>I believe this was a bug that was fixed in December 2018. You can read about that <a href="http://r-sig-mac.29524.n8.nabble.com/R-SIG-Mac-CRAN-build-of-R-linking-to-usr-local-clang4-td228.html">here</a>. It’s trying to tell you it can’t find <code>/usr/local/clang4</code>, even though <code>clang6</code> is the recommended clang build nowadays. If you hit this, ensure that you don’t have <code>clang4</code> by opening a Terminal window and running:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="bu">cd</span> /usr/local</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(term) cd /usr/local</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>(term) ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you see clang6 there but not clang4, you need to get clang4 to continue. Luckily the research group at AT&amp;T has you covered. Go to <a href="https://r.research.att.com/libs/">this page</a> to see the libraries they provide. One is clang4 (it’s in alphabetical order). At the bottom, they tell you how to install it. If the version you see for clang 4.00 is the same as the one in the code below, you can open up a Terminal window and run this, otherwise, tweak it a bit as needed:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">curl</span> <span class="at">-O</span> http://r.research.att.com/libs/clang-4.0.0-darwin15.6-Release.tar.gz</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="fu">sudo</span> tar fvxz clang-4.0.0-darwin15.6-Release.tar.gz <span class="at">-C</span> /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(term) curl -O http://r.research.att.com/libs/clang-4.0.0-darwin15.6-Release.tar.gz</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>(term) sudo tar fvxz clang-4.0.0-darwin15.6-Release.tar.gz -C /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>I <em>think</em> I got an error of some kind from this, but it didn’t seem to affect anything in the end and ran fine. Check <code>/usr/local</code> again and look for clang4.</p>
 <p>Note that it specifies <code>darwin15</code>, and their key specifies that this means you need MacOS El Capitan or higher for this to work.</p>
 </section><section id="the-package" class="level2"><h2 class="anchored" data-anchor-id="the-package">The package</h2>
@@ -483,27 +447,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code><a href="https://rdrr.io/pkg/debugit/man/buggy_fun.html">buggy_fun()</a></code> is supposed to create an integer vector holding <code>0</code> and return it to you. Instead, it crashes R so you might not want to run it right away.</p>
 </section><section id="debugging-buggy_fun---round-1" class="level2"><h2 class="anchored" data-anchor-id="debugging-buggy_fun---round-1">Debugging buggy_fun() - Round 1</h2>
 <p>So at this point, you’ve installed the package, and can use R with a debugger. Now it’s time to learn how to debug a crashing R session. Let’s demonstrate the problem. Start R from the command line:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(term) R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now run:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">debugit::buggy_fun()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a> <span class="ex">***</span> caught segfault <span class="pp">***</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">address</span> 0x7f84fe68fd40, cause <span class="st">'memory not mapped'</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(R) debugit::buggy_fun()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a> *** caught segfault ***</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>address 0x7f84fe68fd40, cause 'memory not mapped'</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Traceback:</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a> <span class="ex">1:</span> buggy_fun_impl<span class="er">(</span><span class="kw">)</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a> <span class="ex">2:</span> debugit::buggy_fun<span class="er">(</span><span class="kw">)</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>Traceback:</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a> 1: buggy_fun_impl()</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a> 2: debugit::buggy_fun()</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Possible</span> actions:</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="ex">1:</span> abort <span class="er">(</span><span class="ex">with</span> core dump, if enabled<span class="kw">)</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="ex">2:</span> normal R exit</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="ex">3:</span> exit R without saving workspace</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="ex">4:</span> exit R saving workspace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>Possible actions:</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>1: abort (with core dump, if enabled)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>2: normal R exit</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>3: exit R without saving workspace</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>4: exit R saving workspace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>R crashes! We get a <code>"memory not mapped"</code> reason for the crash, and a traceback telling us that we called <code><a href="https://rdrr.io/pkg/debugit/man/buggy_fun.html">debugit::buggy_fun()</a></code> and then the error happened in a function called <code>buggy_fun_impl()</code>. This is the C++ function that is causing the issues (technically this is the R function that Rcpp exposed the C++ function of the same name as, but either way you think about it is fine). It looks like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> buggy_fun_impl<span class="op">()</span> <span class="op">{</span></span>
@@ -519,54 +477,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>It creates <code>x</code>, an Rcpp numeric vector with length 1 (by default filled with the value <code>0</code>). But then tries to assign <code>0</code> to a memory location at <code>INT_MAX</code> (a really big number). Since <code>x</code> doesn’t “own” that memory, we crash. But say we don’t know all that…</p>
 <p>How do we debug this? Well, we at least know we should be looking into <code>buggy_fun_impl()</code>, so lets start there. What we need to do is set a <em>breakpoint</em>. This is a spot in the C++ code that we tell the debugger to stop at, so we can have a look around before everything implodes. You can do that in a few ways with lldb.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># breakpoint on a specific line</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">breakpoint</span> set <span class="at">--file</span> <span class="op">&lt;</span>file.cpp<span class="op">&gt;</span> --line <span class="op">&lt;</span>line-number<span class="op">&gt;</span></span>
+<div class="sourceCode" id="cb26"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a># breakpoint on a specific line</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>breakpoint set --file &lt;file.cpp&gt; --line &lt;line-number&gt;</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># breakpoint on a object/function name</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">breakpoint</span> set <span class="at">--name</span> <span class="op">&lt;</span>function_name<span class="op">&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a># breakpoint on a object/function name</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>breakpoint set --name &lt;function_name&gt;</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># breakpoint for any errors that are thrown</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="ex">breakpoint</span> set <span class="at">-E</span> c++</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a># breakpoint for any errors that are thrown</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>breakpoint set -E c++</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The last one is super useful when you have no idea where the error is happening, but usually you have a guess. Let’s try setting it on the name <code>buggy_fun_impl</code>. Back in Terminal…</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span> <span class="at">-d</span> lldb</span>
+<div class="sourceCode" id="cb27"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(term) R -d lldb</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">breakpoint</span> set <span class="at">--name</span> buggy_fun_impl</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>(lldb) breakpoint set --name buggy_fun_impl</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Breakpoint</span> 1: no locations <span class="er">(</span><span class="ex">pending</span><span class="kw">)</span><span class="bu">.</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="ex">WARNING:</span>  Unable to resolve breakpoint to any actual locations.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>Breakpoint 1: no locations (pending).</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>WARNING:  Unable to resolve breakpoint to any actual locations.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So we set the breakpoint, but it didn’t actually find anything named <code>"buggy_fun_impl"</code>, so it set the breakpoint to <code>pending</code>. This shouldn’t be too surprising, we haven’t started an R process yet (we haven’t run <code>run</code>), and more importantly <em>we need to load the package that holds the buggy functions</em>. We can confirm that the breakpoint exists with <code>breakpoint list</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">breakpoint</span> list</span>
+<div class="sourceCode" id="cb28"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(lldb) breakpoint list</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Current</span> breakpoints:</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="ex">1:</span> name = <span class="st">'buggy_fun_impl'</span>, locations = 0 <span class="er">(</span><span class="ex">pending</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Current breakpoints:</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>1: name = 'buggy_fun_impl', locations = 0 (pending)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s start our R session and library the package.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span>
+<div class="sourceCode" id="cb29"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(lldb) run</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">library</span><span class="er">(</span><span class="ex">debugit</span><span class="kw">)</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>(R) library(debugit)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> location added to breakpoint 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>1 location added to breakpoint 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Immediately as we loaded the package the breakpoint was set! Great, now we just trigger the bug.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">buggy_fun()</span></span>
+<div class="sourceCode" id="cb30"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(R) buggy_fun()</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 57494 stopped</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x00000001087c45e0 debugit.so`buggy_fun_impl()</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="ex">debugit.so</span><span class="kw">`</span><span class="ex">buggy_fun_impl:</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span>  0x1087c45e0 <span class="op">&lt;</span>+0<span class="op">&gt;</span>: pushq  %rbp</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x1087c45e1</span> <span class="op">&lt;</span>+1<span class="op">&gt;</span>: movq   %rsp, %rbp</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x1087c45e4</span> <span class="op">&lt;</span>+4<span class="op">&gt;</span>: pushq  %r15</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">0x1087c45e6</span> <span class="op">&lt;</span>+6<span class="op">&gt;</span>: pushq  %r14</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>Process 57494 stopped</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x00000001087c45e0 debugit.so`buggy_fun_impl()</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>debugit.so`buggy_fun_impl:</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>-&gt;  0x1087c45e0 &lt;+0&gt;: pushq  %rbp</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    0x1087c45e1 &lt;+1&gt;: movq   %rsp, %rbp</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    0x1087c45e4 &lt;+4&gt;: pushq  %r15</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    0x1087c45e6 &lt;+6&gt;: pushq  %r14</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Uh? Okay well it didn’t crash. And it seems to be pointing us in the right direction:</p>
 <ul>
 <li>
@@ -589,143 +537,119 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>You can also do a standard Fork + Clone github workflow. Or you can download the zip file if you are desparate. Here is the link to the <a href="https://github.com/DavisVaughan/debugit/archive/master.zip">zip</a>.</p>
 <p>I’m going to assume you now have it locally. Jump back in Terminal, and change to the directory where you placed the package. It is important that you start R from here!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="bu">cd</span> ~/path/to/debugit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>(term) cd ~/path/to/debugit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You know you are in the right place if you see this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="fu">ls</span></span>
+<div class="sourceCode" id="cb33"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>(term) ls</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="ex">DESCRIPTION</span> LICENSE     LICENSE.md  NAMESPACE   R       debugit.Rproj   man     src</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>DESCRIPTION LICENSE     LICENSE.md  NAMESPACE   R       debugit.Rproj   man     src</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Start the debugger, set a breakpoint, and jump back into R.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span> <span class="at">-d</span> lldb</span>
+<div class="sourceCode" id="cb34"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>(term) R -d lldb</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">breakpoint</span> set <span class="at">--name</span> buggy_fun_impl</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>(lldb) breakpoint set --name buggy_fun_impl</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>(lldb) run</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now, run a <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>. Because you are in the right working directory, it will automatically find the debugit package and install it. I see:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">devtools::load_all()</span></span>
+<div class="sourceCode" id="cb35"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>(R) devtools::load_all()</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Loading</span> debugit</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Re-compiling</span> debugit</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="ex">─</span>  installing <span class="pp">*</span>source<span class="pp">*</span> package ‘debugit’ ...</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">**</span> libs</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -fPIC  <span class="at">-Wall</span> <span class="at">-g</span> <span class="at">-O2</span>  <span class="at">-c</span> RcppExports.cpp <span class="at">-o</span> RcppExports.o</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -fPIC  <span class="at">-Wall</span> <span class="at">-g</span> <span class="at">-O2</span>  <span class="at">-c</span> buggy.cpp <span class="at">-o</span> buggy.o</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -fPIC  <span class="at">-Wall</span> <span class="at">-g</span> <span class="at">-O2</span>  <span class="at">-c</span> stack.cpp <span class="at">-o</span> stack.o</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++ <span class="at">-dynamiclib</span> <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -o debugit.so RcppExports.o buggy.o stack.o</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">installing</span> to /private/var/folders/41/qx_9ygp112nfysdfgxcssgwc0000gn/T/Rtmpr8QYTT/devtools_install_e1c251df2215/debugit/libs</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="ex">─</span>  DONE <span class="er">(</span><span class="ex">debugit</span><span class="kw">)</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> location added to breakpoint 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Loading debugit</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>Re-compiling debugit</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>─  installing *source* package ‘debugit’ ...</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>   ** libs</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -fPIC  -Wall -g -O2  -c buggy.cpp -o buggy.o</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -fPIC  -Wall -g -O2  -c stack.cpp -o stack.o</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>   clang++ -dynamiclib &lt;stuff&gt; -o debugit.so RcppExports.o buggy.o stack.o</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>   installing to /private/var/folders/41/qx_9ygp112nfysdfgxcssgwc0000gn/T/Rtmpr8QYTT/devtools_install_e1c251df2215/debugit/libs</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>─  DONE (debugit)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>1 location added to breakpoint 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>It recompiled the package, and then the breakpoint was set! Now trigger the bug.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">buggy_fun()</span></span>
+<div class="sourceCode" id="cb36"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>(R) buggy_fun()</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 57912 stopped</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x00000001085ecbe4 debugit.so`buggy_fun_impl() at buggy.cpp:7</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">4</span>    // [[Rcpp::export<span class="er">(</span><span class="kw">)</span><span class="ex">]]</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">5</span>    bool buggy_fun_impl<span class="er">(</span><span class="kw">)</span> <span class="kw">{</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">6</span>    </span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 7      NumericVector x<span class="er">(</span><span class="ex">1</span><span class="kw">);</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>    </span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>      int n = INT_MAX<span class="kw">;</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">10</span>   </span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>Process 57912 stopped</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x00000001085ecbe4 debugit.so`buggy_fun_impl() at buggy.cpp:7</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>   4    // [[Rcpp::export()]]</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>   5    bool buggy_fun_impl() {</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>   6    </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>-&gt; 7      NumericVector x(1);</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>   8    </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>   9      int n = INT_MAX;</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>   10   </span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>(lldb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Woah! Now it stopped right where we wanted it to. Just inside the <code>buggy_fun_impl()</code> function. What can we do with this?</p>
 <p>Type <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> and hit enter to run the current line, this moves us to line 9:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">next</span></span>
+<div class="sourceCode" id="cb37"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(lldb) next</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 57912 stopped</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = step over</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x00000001085ecc03 debugit.so`buggy_fun_impl() at buggy.cpp:9</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">6</span>    </span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">7</span>      NumericVector x<span class="er">(</span><span class="ex">1</span><span class="kw">);</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>    </span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 9      int n = INT_MAX<span class="kw">;</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">10</span>   </span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">11</span>     x[n] = 0<span class="kw">;</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">12</span>   </span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>Process 57912 stopped</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = step over</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x00000001085ecc03 debugit.so`buggy_fun_impl() at buggy.cpp:9</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>   6    </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>   7      NumericVector x(1);</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>   8    </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>-&gt; 9      int n = INT_MAX;</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>   10   </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>   11     x[n] = 0;</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>   12   </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>View the available variables with <code>frame variable</code>. We see <code>x</code>, which is a <code>NumericVector</code> with a more complicated structure, and <code>n</code> which is an <code>int</code>. Looks like <code>INT_MAX = 2147483647</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">frame</span> variable</span>
+<div class="sourceCode" id="cb38"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>(lldb) frame variable</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">Rcpp::NumericVector</span><span class="kw">)</span> <span class="ex">x</span> = {</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Rcpp::PreserveStorage</span><span class="op">&lt;</span>Rcpp::Vector<span class="op">&lt;</span>14, Rcpp::PreserveStorage<span class="op">&gt;</span> <span class="op">&gt;</span> = <span class="er">(</span><span class="ex">data</span> = 0x00000001095c2b08<span class="kw">)</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">cache</span> = {</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">start</span> = 0x00000001095c2b38</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">int</span><span class="kw">)</span> <span class="ex">n</span> = 2147483647</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>(Rcpp::NumericVector) x = {</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  Rcpp::PreserveStorage&lt;Rcpp::Vector&lt;14, Rcpp::PreserveStorage&gt; &gt; = (data = 0x00000001095c2b08)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  cache = {</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    start = 0x00000001095c2b38</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>(int) n = 2147483647</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can even run arbitrary C++ code with <code>expr</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> 1 + 1</span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>(lldb) expr 1 + 1</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">int</span><span class="kw">)</span> <span class="va">$2</span> = 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>(int) $2 = 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you want to store the result, use the special syntax of <code>$var_name</code> rather than just <code>var_name</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> int <span class="va">$var</span> = 1 + 1</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> <span class="va">$var</span></span>
+<div class="sourceCode" id="cb40"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>(lldb) expr int $var = 1 + 1</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>(lldb) expr $var</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">int</span><span class="kw">)</span> <span class="va">$var</span> = 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>(int) $var = 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here’s a neat trick, what if I want to print out the value of <code>x</code>? Normally I’d use <code>Rcpp::Rcout &lt;&lt; x &lt;&lt; std::endl</code>, but that doesn’t work. We have to call a function from the R API, <code>Rf_PrintValue()</code>, on the underlying SEXP that <code>x</code> stores. Normally I’d get at that with <code>SEXP(x)</code>, but that doesn’t work either. We <em>really</em> have to be creative. If you look at what printed out for <code>x</code> earlier, you’ll see a <code>data</code> member. That’s the SEXP, and we can call <code>Rf_PrintValue()</code> on that.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> Rf_PrintValue<span class="er">(</span><span class="ex">x.data</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb41"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>(lldb) expr Rf_PrintValue(x.data)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>[1] 0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Nice! Now let’s continue until we hit the bug:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">next</span></span>
+<div class="sourceCode" id="cb42"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>(lldb) next</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 57912 stopped</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x5095c2b30)</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x00000001085ecc2b debugit.so`buggy_fun_impl() at buggy.cpp:11</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>    </span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>      int n = INT_MAX<span class="kw">;</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">10</span>   </span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 11     x[n] = 0<span class="kw">;</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">12</span>   </span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">13</span>     return true<span class="kw">;</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">14</span>   }</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>Process 57912 stopped</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x5095c2b30)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x00000001085ecc2b debugit.so`buggy_fun_impl() at buggy.cpp:11</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>   8    </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>   9      int n = INT_MAX;</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>   10   </span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>-&gt; 11     x[n] = 0;</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>   12   </span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>   13     return true;</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>   14   }</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ah, looks like that did it. See the <code>stop reason = EXC_BAD_ACCESS</code>? That’s our error saying we are “badly accessing” a location in memory. Importantly, <em>we now know exactly where the problem is</em>. And we have the power to print <code>x</code> and <code>n</code> and see that we are assigning to a location much larger than the size of <code>x</code>. So, with that, we can fix our problem. Press <code>CTRL + Z</code> to exit.</p>
 </section><section id="break-on-any-errors" class="level2"><h2 class="anchored" data-anchor-id="break-on-any-errors">Break on any errors</h2>
 <p>Just for kicks and giggles, lets try setting the breakpoint a different way. This way says to break any time we hit an error.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span> <span class="at">-d</span> lldb</span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(term) R -d lldb</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">breakpoint</span> set <span class="at">-E</span> c++</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>(lldb) breakpoint set -E c++</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>(lldb) run</span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">devtools::load_all()</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">buggy_fun()</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>(R) devtools::load_all()</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>(R) buggy_fun()</span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58089 stopped</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x5012cc530)</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010a327c2b debugit.so`buggy_fun_impl() at buggy.cpp:11</span></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>    </span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>      int n = INT_MAX<span class="kw">;</span></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>   <span class="ex">10</span>   </span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 11     x[n] = 0<span class="kw">;</span></span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>   <span class="ex">12</span>   </span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>   <span class="ex">13</span>     return true<span class="kw">;</span></span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>   <span class="ex">14</span>   }</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>Process 58089 stopped</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x5012cc530)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010a327c2b debugit.so`buggy_fun_impl() at buggy.cpp:11</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>   8    </span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>   9      int n = INT_MAX;</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>   10   </span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>-&gt; 11     x[n] = 0;</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>   12   </span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>   13     return true;</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>   14   }</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This immediately takes us to the problem line, where we can now look around like before using <code>expr</code> and <code>frame variable</code>.</p>
 </section><section id="debugging-add_one---round-1" class="level2"><h2 class="anchored" data-anchor-id="debugging-add_one---round-1">Debugging add_one() - Round 1</h2>
 <p>Now let’s try a different problem. <code><a href="https://rdrr.io/pkg/debugit/man/add_one.html">add_one()</a></code> doesn’t error, but clearly gives the wrong results. We expect the result to be <code>6</code>.</p>
@@ -746,28 +670,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s use the same tactic as before to set a breakpoint on <code>add_one_impl</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span> <span class="at">-d</span> lldb</span>
+<div class="sourceCode" id="cb46"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>(term) R -d lldb</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">breakpoint</span> set <span class="at">--name</span> add_one_impl</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>(lldb) breakpoint set --name add_one_impl</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>(lldb) run</span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">devtools::load_all()</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">add_one</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>(R) devtools::load_all()</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>(R) add_one(5)</span>
 <span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="ex">debugit.so</span> was compiled with optimization <span class="at">-</span> stepping may behave oddly<span class="kw">;</span> <span class="ex">variables</span> may not be available.</span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58425 stopped</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x00000001089d2693 debugit.so`add_one_impl(Rcpp::Vector&lt;14, Rcpp::PreserveStorage&gt;) [inlined] get_one() at stack.cpp:6 [opt]</span></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>   <span class="ex">3</span>    </span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>   <span class="ex">4</span>    NumericVector get_one<span class="er">(</span><span class="kw">)</span> <span class="kw">{</span></span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>   <span class="ex">5</span>    </span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 6      NumericVector one<span class="er">(</span><span class="ex">1,</span> 1.0<span class="kw">);</span></span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>   <span class="ex">7</span>    </span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>      // Not 1!</span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>      one[0] = 100<span class="kw">;</span></span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>debugit.so was compiled with optimization - stepping may behave oddly; variables may not be available.</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>Process 58425 stopped</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x00000001089d2693 debugit.so`add_one_impl(Rcpp::Vector&lt;14, Rcpp::PreserveStorage&gt;) [inlined] get_one() at stack.cpp:6 [opt]</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>   3    </span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>   4    NumericVector get_one() {</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>   5    </span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>-&gt; 6      NumericVector one(1, 1.0);</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>   7    </span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>   8      // Not 1!</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>   9      one[0] = 100;</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Agh, what? That’s not right, somehow we ended up in the <code>get_one()</code> function instead. But wait, what is that first line at the top:</p>
 <pre><code>debugit.so was compiled with optimization - stepping may behave oddly; variables may not be available.</code></pre>
 <p>Ah. Remember that bit at the beginning where I mentioned the “flags”? It is coming back to haunt us. R compiled this code with <code>O2</code>, but that stripped out some of the debugging info, so our debugger stopped in the wrong place. We need to recompile with <code>O0</code>. But how do we do that? We have to set <code>O0</code> as one of our <code>CXXFLAGS</code> in a <code>Makevars</code> file. That sounds ridiculous but it isn’t too bad thanks to <code>usethis.</code></p>
@@ -776,164 +698,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html">edit_r_makevars</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This should open a file located at <code>~/.R/Makevars</code>. Be careful here! This gets run whenever you install any packages with code that needs to be compiled. Add the following lines:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">CXXFLAGS</span> = <span class="at">-g</span> <span class="at">-O0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>CXXFLAGS = -g -O0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Save and <em>make sure you add a new blank line after</em> the <code>CXXFLAGS</code> line. Now close out of RStudio again.</p>
 </section><section id="debugging-add_one---round-2" class="level2"><h2 class="anchored" data-anchor-id="debugging-add_one---round-2">Debugging add_one() - Round 2</h2>
 <p>Let’s try this again:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">term</span><span class="kw">)</span> <span class="ex">R</span> <span class="at">-d</span> lldb</span>
+<div class="sourceCode" id="cb50"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>(term) R -d lldb</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">breakpoint</span> set <span class="at">--name</span> add_one_impl</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">run</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>(lldb) breakpoint set --name add_one_impl</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>(lldb) run</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>At this point, if we run <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> it actually won’t do anything, because we already compiled the code once and none of the code actually changed. We really need to force it to compile again by clearing out the old compiled code. You can do that with:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">devtools::clean_dll()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>(R) devtools::clean_dll()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>It will look like nothing happens, but if you run a <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> it should compile:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="fu">devtools::load_all()</span></span>
+<div class="sourceCode" id="cb52"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>(R) devtools::load_all()</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Loading</span> debugit</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Re-compiling</span> debugit</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="ex">─</span>  installing <span class="pp">*</span>source<span class="pp">*</span> package ‘debugit’ ...</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">**</span> libs</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -g <span class="at">-O0</span> <span class="at">-c</span> RcppExports.cpp <span class="at">-o</span> RcppExports.o</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -g <span class="at">-O0</span> <span class="at">-c</span> buggy.cpp <span class="at">-o</span> buggy.o</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -g <span class="at">-O0</span> <span class="at">-c</span> stack.cpp <span class="at">-o</span> stack.o</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">clang</span>++  <span class="op">&lt;</span>stuff<span class="op">&gt;</span> -o debugit.so RcppExports.o buggy.o stack.o</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">installing</span> to <span class="op">&lt;</span>stuff<span class="op">&gt;</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="ex">─</span>  DONE <span class="er">(</span><span class="ex">debugit</span><span class="kw">)</span></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> location added to breakpoint 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>Loading debugit</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>Re-compiling debugit</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>─  installing *source* package ‘debugit’ ...</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>   ** libs</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -g -O0 -c RcppExports.cpp -o RcppExports.o</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -g -O0 -c buggy.cpp -o buggy.o</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -g -O0 -c stack.cpp -o stack.o</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>   clang++  &lt;stuff&gt; -o debugit.so RcppExports.o buggy.o stack.o</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>   installing to &lt;stuff&gt;</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>─  DONE (debugit)</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>1 location added to breakpoint 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Look! Do you see the <code>-g -O0</code> you set? If so, you should be good to go.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">add_one</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb53"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>(R) add_one(5)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 stopped</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010b865ebf debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:17</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">14</span>   // [[Rcpp::export<span class="er">(</span><span class="kw">)</span><span class="ex">]]</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">15</span>   NumericVector add_one_impl<span class="er">(</span><span class="ex">NumericVector</span> x<span class="kw">)</span> <span class="kw">{</span></span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">16</span>   </span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 17     NumericVector y = get_one<span class="er">(</span><span class="kw">);</span></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">18</span>   </span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">19</span>     NumericVector result = x + y<span class="kw">;</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">20</span>   </span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>Process 58576 stopped</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010b865ebf debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:17</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>   14   // [[Rcpp::export()]]</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>   15   NumericVector add_one_impl(NumericVector x) {</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>   16   </span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>-&gt; 17     NumericVector y = get_one();</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>   18   </span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>   19     NumericVector result = x + y;</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>   20   </span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Woop! We are now exactly where we wanted, and we don’t get any of those annoying warnings about out package being compiled with optimization. Run <code><a href="https://rdrr.io/r/base/Control.html">next</a></code> to have the <code>get_one()</code> line run.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">next</span></span>
+<div class="sourceCode" id="cb54"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>(lldb) next</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 stopped</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = step over</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010b865ed7 debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:19</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">16</span>   </span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">17</span>     NumericVector y = get_one<span class="er">(</span><span class="kw">);</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">18</span>   </span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 19     NumericVector result = x + y<span class="kw">;</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">20</span>   </span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">21</span>     return result<span class="kw">;</span></span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">22</span>   }</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>Process 58576 stopped</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = step over</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010b865ed7 debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:19</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>   16   </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>   17     NumericVector y = get_one();</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>   18   </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>-&gt; 19     NumericVector result = x + y;</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>   20   </span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>   21     return result;</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>   22   }</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>What does <code>y</code> look like?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> Rf_PrintValue<span class="er">(</span><span class="ex">y.data</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb55"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>(lldb) expr Rf_PrintValue(y.data)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 100</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>[1] 100</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>That seems wrong. This should just be <code>1</code>. What is happening in <code>get_one()</code>? Let’s run <code>finish</code> to run the rest of the lines and try again:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">finish</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>(lldb) finish</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Run <code>process continue</code> to dump us back into the R session so we can try again:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">process</span> continue</span>
+<div class="sourceCode" id="cb57"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>(lldb) process continue</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 resuming</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 105</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="ex">[master]</span><span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>Process 58576 resuming</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>[1] 105</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>[master]&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Oh look, there’s the result of that call we debugged. Let’s go back into the debugger by calling it again.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">add_one</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb58"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>(R) add_one(5)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 stopped</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010b865ebf debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:17</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">14</span>   // [[Rcpp::export<span class="er">(</span><span class="kw">)</span><span class="ex">]]</span></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">15</span>   NumericVector add_one_impl<span class="er">(</span><span class="ex">NumericVector</span> x<span class="kw">)</span> <span class="kw">{</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">16</span>   </span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 17     NumericVector y = get_one<span class="er">(</span><span class="kw">);</span></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">18</span>   </span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">19</span>     NumericVector result = x + y<span class="kw">;</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">20</span>   </span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>Process 58576 stopped</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010b865ebf debugit.so`add_one_impl(x=Rcpp::NumericVector @ 0x00007ffeefbfd198) at stack.cpp:17</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>   14   // [[Rcpp::export()]]</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>   15   NumericVector add_one_impl(NumericVector x) {</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>   16   </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>-&gt; 17     NumericVector y = get_one();</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>   18   </span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>   19     NumericVector result = x + y;</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>   20   </span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now since we know <code>get_one()</code> seems to be the issue, we can <em>step into</em> the function with <code>step</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">step</span></span>
+<div class="sourceCode" id="cb59"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>(lldb) step</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 stopped</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = step in</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010b865dcb debugit.so`get_one() at stack.cpp:6</span></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">3</span>    </span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">4</span>    NumericVector get_one<span class="er">(</span><span class="kw">)</span> <span class="kw">{</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">5</span>    </span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 6      NumericVector one<span class="er">(</span><span class="ex">1,</span> 1.0<span class="kw">);</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">7</span>    </span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>      // Not 1!</span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>      one[0] = 100<span class="kw">;</span></span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>Process 58576 stopped</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = step in</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010b865dcb debugit.so`get_one() at stack.cpp:6</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>   3    </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>   4    NumericVector get_one() {</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>   5    </span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>-&gt; 6      NumericVector one(1, 1.0);</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>   7    </span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>   8      // Not 1!</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>   9      one[0] = 100;</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Okay, we are inside <code>get_one()</code>. Let’s run this line creating <code>one</code> and take a look at it.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">next</span></span>
+<div class="sourceCode" id="cb60"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>(lldb) next</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 stopped</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = step over</span></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010b865dff debugit.so`get_one() at stack.cpp:9</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">6</span>      NumericVector one<span class="er">(</span><span class="ex">1,</span> 1.0<span class="kw">);</span></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">7</span>    </span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>      // Not 1!</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 9      one[0] = 100<span class="kw">;</span></span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">10</span>   </span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">11</span>     return one<span class="kw">;</span></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">12</span>   }</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>Process 58576 stopped</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = step over</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010b865dff debugit.so`get_one() at stack.cpp:9</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>   6      NumericVector one(1, 1.0);</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>   7    </span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>   8      // Not 1!</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>-&gt; 9      one[0] = 100;</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>   10   </span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>   11     return one;</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>   12   }</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Things look okay now…</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> Rf_PrintValue<span class="er">(</span><span class="ex">one.data</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb61"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>(lldb) expr Rf_PrintValue(one.data)</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>[1] 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>But then you run the next line…</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="ex">next</span></span>
+<div class="sourceCode" id="cb62"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>(lldb) next</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Process</span> 58576 stopped</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="ex">*</span> thread <span class="co">#1, queue = 'com.apple.main-thread', stop reason = step over</span></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">frame</span> <span class="co">#0: 0x000000010b865e21 debugit.so`get_one() at stack.cpp:11</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>   <span class="ex">8</span>      // Not 1!</span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>   <span class="ex">9</span>      one[0] = 100<span class="kw">;</span></span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>   <span class="ex">10</span>   </span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span><span class="op">&gt;</span> 11     return one<span class="kw">;</span></span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>   <span class="ex">12</span>   }</span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>   <span class="ex">13</span>   </span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>   <span class="ex">14</span>   // [[Rcpp::export<span class="er">(</span><span class="kw">)</span><span class="ex">]]</span></span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Target</span> 0: <span class="er">(</span><span class="ex">R</span><span class="kw">)</span> <span class="ex">stopped.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>Process 58576 stopped</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>* thread #1, queue = 'com.apple.main-thread', stop reason = step over</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>    frame #0: 0x000000010b865e21 debugit.so`get_one() at stack.cpp:11</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>   8      // Not 1!</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>   9      one[0] = 100;</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>   10   </span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>-&gt; 11     return one;</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>   12   }</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>   13   </span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>   14   // [[Rcpp::export()]]</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>Target 0: (R) stopped.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>And as I am sure you can guess by now, you see that <code>one</code> now holds <code>100</code> because of the assignment we did there on line 9!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">lldb</span><span class="kw">)</span> <span class="fu">expr</span> Rf_PrintValue<span class="er">(</span><span class="ex">one.data</span><span class="kw">)</span></span>
+<div class="sourceCode" id="cb63"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>(lldb) expr Rf_PrintValue(one.data)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[1]</span> 100</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>[1] 100</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now <em>we know where the problem is</em>, so we can head back into our local copy of the package, fix the issue, and try again. At this point, <code>CTRL + Z</code> to quit.</p>
 <p><em>Don’t forget to go comment out or delete that line in the <code>~/.R/Makevars</code> file!</em></p>
 </section><section id="wrapping-up" class="level2"><h2 class="anchored" data-anchor-id="wrapping-up">Wrapping up</h2>
