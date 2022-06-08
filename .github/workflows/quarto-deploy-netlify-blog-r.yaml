@@ -7,7 +7,11 @@ on:
 name: quarto-deploy-netlify-blog-r
 
 permissions:
+  deployments: write
+  issues: write
+  discussions: write
   pull-requests: write
+  statuses: write
 
 jobs:
   build-deploy:
