@@ -9,7 +9,8 @@ name: quarto-deploy-netlify-blog-r
 permissions:
   # For `enable-commit-comment`
   contents: write
-  deployments: write
+  # For `enable-commit-status`
+  statuses: write
 
 jobs:
   build-deploy:
