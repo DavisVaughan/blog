@@ -48,11 +48,7 @@ jobs:
           deploy-message:
             'Deploy from GHA: ${{ github.event.pull_request.title || github.event.head_commit.message }} (${{ github.sha }})'
           enable-pull-request-comment: true
-          # This will comment on your commit with info about the deployment
           enable-commit-comment: true
-          # This adds a status update that links directly to the built site.
-          # You can find status updates by clicking on the green check mark next
-          # to a successful commit's message.
           enable-commit-status: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
