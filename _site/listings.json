@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2022-04-20-ivs-0-1-0/index.html",
       "/posts/2022-03-11-using-vs-code-to-debug-r-packages-with-c-code/index.html",
       "/posts/2020-05-27-almanac-0-1-0/index.html",
       "/posts/2019-10-16-data-frames-as-a-vector-of-rows/index.html",
