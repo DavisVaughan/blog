@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.344">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Davis Vaughan">
+<meta name="dcterms.date" content="2020-05-27">
+<title>Davis Vaughan - almanac 0.1.0</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script><script src="../../site_libs/quarto-nav/headroom.min.js"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script><meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script><script src="../../site_libs/quarto-search/fuse.min.js"></script><script src="../../site_libs/quarto-search/quarto-search.js"></script><script src="../../site_libs/quarto-html/quarto.js"></script><script src="../../site_libs/quarto-html/popper.min.js"></script><script src="../../site_libs/quarto-html/tippy.umd.min.js"></script><script src="../../site_libs/quarto-html/anchor.min.js"></script><link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script><link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Davis Vaughan</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html">Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DavisVaughan"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/dvaughan32"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">almanac 0.1.0</h1>
+                </div>
+  </div>
+    
+  
+
+
+
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Davis Vaughan </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 27, 2020</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><nav id="TOC" role="doc-toc"><h2 id="toc-title">Contents</h2>
+   
+  <ul>
+<li><a href="#recurrence-rules" id="toc-recurrence-rules" class="nav-link active" data-scroll-target="#recurrence-rules">Recurrence Rules</a></li>
+  <li><a href="#recurrence-bundles" id="toc-recurrence-bundles" class="nav-link" data-scroll-target="#recurrence-bundles">Recurrence Bundles</a></li>
+  <li><a href="#adjusters" id="toc-adjusters" class="nav-link" data-scroll-target="#adjusters">Adjusters</a></li>
+  <li><a href="#adjusted-rules" id="toc-adjusted-rules" class="nav-link" data-scroll-target="#adjusted-rules">Adjusted rules</a></li>
+  <li><a href="#stepping" id="toc-stepping" class="nav-link" data-scroll-target="#stepping">Stepping</a></li>
+  <li><a href="#steppers" id="toc-steppers" class="nav-link" data-scroll-target="#steppers">Steppers</a></li>
+  <li><a href="#vacation" id="toc-vacation" class="nav-link" data-scroll-target="#vacation">Vacation</a></li>
+  <li><a href="#learning-more" id="toc-learning-more" class="nav-link" data-scroll-target="#learning-more">Learning More</a></li>
+  </ul></nav>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content"><p>I’m very excited to announce that the first release of <a href="https://davisvaughan.github.io/almanac/index.html">almanac</a> has made its way to CRAN! almanac is a package for working with <em>recurring events</em>. These typically include dates that occur on some kind of recurring basis, like weekends or holidays. As you’ll soon see, one of the most powerful features of almanac is the ability to build up a set of these recurring events, like a company’s holiday calendar, so that you can then shift a vector of dates by, say, 5 business days, skipping over any weekends or holidays that might be specific to your company.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/almanac">almanac</a></span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="recurrence-rules" class="level3"><h3 class="anchored" data-anchor-id="recurrence-rules">Recurrence Rules</h3>
+<p>To start working with recurring events, we’ll need a way to define when those events happen. This is known as a <em>recurrence rule</em>, and is most easily built up using a chain of pipes like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">on_thursday</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rrule.html">weekly</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_wday.html">recur_on_wday</a></span><span class="op">(</span><span class="st">"Thursday"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This rule defines Thursdays as “events”. A Thursday comes around on a <code><a href="https://rdrr.io/pkg/almanac/man/rrule.html">weekly()</a></code> basis, but you can also create rules for <code><a href="https://rdrr.io/pkg/almanac/man/rrule.html">daily()</a></code>, <code><a href="https://rdrr.io/pkg/almanac/man/rrule.html">monthly()</a></code>, and <code><a href="https://rdrr.io/pkg/almanac/man/rrule.html">yearly()</a></code>. The call to <code><a href="https://rdrr.io/pkg/almanac/man/recur_on_wday.html">recur_on_wday()</a></code> further isolates exactly when the event occurs in the week. I call these <em>recurrence conditions</em>, and almanac comes with a whole family of them. All recurrence condition functions start with <code>recur_*()</code>.</p>
+<p>You can generate the events that fall between two dates with <code><a href="https://rdrr.io/pkg/almanac/man/alma_search.html">alma_search()</a></code>. For example, here are all of the Thursdays in January 2019.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_search.html">alma_search</a></span><span class="op">(</span><span class="st">"2019-01-01"</span>, <span class="st">"2019-01-31"</span>, <span class="va">on_thursday</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2019-01-03" "2019-01-10" "2019-01-17" "2019-01-24" "2019-01-31"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A more common use case is to create a rule that defines when a particular holiday happens. For example, Thanksgiving happens on the 4th Thursday in November. Here’s a recurrence rule for Thanksgiving:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">on_thanksgiving</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rrule.html">yearly</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_wday.html">recur_on_wday</a></span><span class="op">(</span><span class="st">"Thursday"</span>, nth <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_ymonth.html">recur_on_ymonth</a></span><span class="op">(</span><span class="st">"November"</span><span class="op">)</span>
+
+<span class="va">on_thanksgiving</span>
+<span class="co">#&gt; &lt;rrule[yearly / 1900-01-01 / 2100-01-01]&gt;</span>
+<span class="co">#&gt; - ymonth: Nov</span>
+<span class="co">#&gt; - wday: Thu[4]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Search for all Thanksgivings between 2010-2015:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_search.html">alma_search</a></span><span class="op">(</span><span class="st">"2010-01-01"</span>, <span class="st">"2015-12-31"</span>, <span class="va">on_thanksgiving</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2010-11-25" "2011-11-24" "2012-11-22" "2013-11-28" "2014-11-27"</span>
+<span class="co">#&gt; [6] "2015-11-26"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also check if a particular date is contained in a rule’s <em>event set</em> (the set of dates that that rule considers events) using <code><a href="https://rdrr.io/pkg/almanac/man/alma_in.html">alma_in()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2015-11-26"</span>, <span class="st">"2015-11-27"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_in.html">alma_in</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">on_thanksgiving</span><span class="op">)</span>
+<span class="co">#&gt; [1]  TRUE FALSE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="recurrence-bundles" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="recurrence-bundles">Recurrence Bundles</h3>
+<p>Recurrence rules just scratch the surface of what almanac can do. They are powerful on their own, but they can’t answer every question. An easy way to see their limitations is to try and construct a rule that defines Christmas <em>or</em> Thanksgiving as events. You can easily create rules for the individual holidays, but it would be impossible to create 1 rule that captures both. This is where <em>recurrence bundles</em> come in. They allow you to combine the event sets of multiple rules together in a variety of ways using set-based logic. Here’s a recurrence bundle for Christmas or Thanksgiving:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">on_christmas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rrule.html">yearly</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_mday.html">recur_on_mday</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_ymonth.html">recur_on_ymonth</a></span><span class="op">(</span><span class="st">"December"</span><span class="op">)</span>
+
+<span class="va">hldy_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">runion</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-add.html">add_rschedule</a></span><span class="op">(</span><span class="va">on_christmas</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-add.html">add_rschedule</a></span><span class="op">(</span><span class="va">on_thanksgiving</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">runion()</a></code> initializes a new recurrence bundle that takes the <em>union</em> of the event sets of each recurrence rule you pass it. almanac also comes with <code><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">rintersect()</a></code> and <code><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">rsetdiff()</a></code> bundle types. Below, we’ll use <code><a href="https://rdrr.io/pkg/almanac/man/alma_next.html">alma_next()</a></code> to generate the next events after these particular dates.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2019-11-01"</span>, <span class="st">"2019-12-01"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># The first event after 2019-11-01 is Thanksgiving</span>
+<span class="co"># The first event after 2019-12-01 is Christmas</span>
+<span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_next.html">alma_next</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">hldy_bundle</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2019-11-28" "2019-12-25"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can even add recurrence bundles to other recurrence bundles to make infinitely complex rules. For example, maybe we want all Thanksgiving and Christmas holidays, <em>except</em> for Thanksgiving dates that occur on the 26th of the month and Christmas dates that occur on a Wednesday.</p>
+<p>First we can create a bundle for the dates we want to exclude:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">on_26th</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rrule.html">monthly</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_mday.html">recur_on_mday</a></span><span class="op">(</span><span class="fl">26</span><span class="op">)</span>
+
+<span class="va">on_wednesday</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rrule.html">weekly</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_wday.html">recur_on_wday</a></span><span class="op">(</span><span class="st">"Wed"</span><span class="op">)</span>
+
+<span class="va">exclusion_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">runion</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-add.html">add_rschedule</a></span><span class="op">(</span><span class="va">on_26th</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-add.html">add_rschedule</a></span><span class="op">(</span><span class="va">on_wednesday</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can create a setdiff bundle to remove them from the holiday event set:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">hldy_bundle_with_exclusions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">rsetdiff</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-add.html">add_rschedule</a></span><span class="op">(</span><span class="va">hldy_bundle</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rbundle-add.html">add_rschedule</a></span><span class="op">(</span><span class="va">exclusion_bundle</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="aside">The order matters with this <code><a href="https://rdrr.io/pkg/almanac/man/rbundle-set.html">rsetdiff()</a></code> bundle creation. If the order was flipped, it would be all Wednesdays and 26ths of the month except for those on Christmas and Thanksgiving.</span></div></div>
+<p>To validate that, let’s generate some events before and after applying the exclusion criteria and check the results:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2010-01-01"</span><span class="op">)</span>
+<span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2015-12-31"</span><span class="op">)</span>
+
+<span class="va">hldys_2010_2015</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_search.html">alma_search</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, <span class="va">hldy_bundle</span><span class="op">)</span>
+<span class="va">hldys_exclude_2010_2015</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_search.html">alma_search</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, <span class="va">hldy_bundle_with_exclusions</span><span class="op">)</span>
+
+<span class="co"># Find holidays that don't exist in the exclusion bundle</span>
+<span class="va">exists</span> <span class="op">&lt;-</span> <span class="va">hldys_2010_2015</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">hldys_exclude_2010_2015</span>
+<span class="va">not_exists</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="va">exists</span>
+
+<span class="co"># 2013-12-25 - A Wednesday</span>
+<span class="co"># 2015-11-26 - On the 26th</span>
+<span class="va">hldys_2010_2015</span><span class="op">[</span><span class="va">not_exists</span><span class="op">]</span>
+<span class="co">#&gt; [1] "2013-12-25" "2015-11-26"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="adjusters" class="level3"><h3 class="anchored" data-anchor-id="adjusters">Adjusters</h3>
+<p>There are other things that you can do with these recurrence rules and bundles beyond just generating dates in their event sets. One powerful idea is to take an existing vector of dates and <em>adjust</em> it in the places where it lands on an event defined by a recurrence bundle.</p>
+<p>almanac comes with a number of adjusters that specify what kind of adjustment to make when this happens. For example, <code><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_following()</a></code> will adjust to the next non-event date, and <code><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_preceding()</a></code> will adjust to the preceding one.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">christmas</span> <span class="op">&lt;-</span> <span class="st">"2019-12-25"</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_following</a></span><span class="op">(</span><span class="va">christmas</span>, <span class="va">on_christmas</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2019-12-26"</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_preceding</a></span><span class="op">(</span><span class="va">christmas</span>, <span class="va">on_christmas</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2019-12-24"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="adjusted-rules" class="level3"><h3 class="anchored" data-anchor-id="adjusted-rules">Adjusted rules</h3>
+<p>These adjusters are critical low-level components that power more interesting aspects of almanac. One of those is an <em>adjusted rule</em>.</p>
+<p>To motivate it, imagine your company deems Christmas to be a holiday. Whenever Christmas rolls around on the 25th of December, you get that day off. But what happens when Christmas falls on a Saturday? What about Sunday? Most corporations will <em>observe</em> a holiday that falls on the weekend on the nearest working day instead of on the weekend date that it actually occurred on.</p>
+<p>In almanac, it seems like this would pose a problem. You can create rules for Christmas and for weekends, but a recurrence bundle like runion, rintersect, or rsetdiff can only perform some kind of set operation on those individual rules. What you really need is a way to say: recur on the dates defined by this rule, unless it intersects with this second rule. In those cases, apply an adjustment to the intersected dates to create valid dates. This is the job of the adjusted rule.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># A rule for weekends</span>
+<span class="va">on_weekends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/rrule.html">weekly</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/recur_on_wday.html">recur_on_weekends</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Create an adjusted rule that normally occurs on Christmas,</span>
+<span class="co"># unless Christmas is on a weekend, in which case it rolls to </span>
+<span class="co"># the nearest non-event date (so this rolls Saturday Christmas</span>
+<span class="co"># dates to Friday, and Sunday dates to Monday).</span>
+<span class="va">on_adjusted_christmas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/radjusted.html">radjusted</a></span><span class="op">(</span>
+  rschedule <span class="op">=</span> <span class="va">on_christmas</span>,
+  adjust_on <span class="op">=</span> <span class="va">on_weekends</span>,
+  adjustment <span class="op">=</span> <span class="va">adj_nearest</span>
+<span class="op">)</span>
+
+<span class="va">on_adjusted_christmas</span>
+<span class="co">#&gt; &lt;radjusted&gt;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Adjust:</span>
+<span class="co">#&gt; &lt;rrule[yearly / 1900-01-01 / 2100-01-01]&gt;</span>
+<span class="co">#&gt; - ymonth: Dec</span>
+<span class="co">#&gt; - mday: 25</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Adjust on:</span>
+<span class="co">#&gt; &lt;rrule[weekly / 1900-01-01 / 2100-01-01]&gt;</span>
+<span class="co">#&gt; - wday: Sat, Sun</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is just another type of recurrence object, so it can be used with all of the other <code>alma_*()</code> functions we have seen so far. For example, we can confirm that Christmas dates that fall on the weekend are adjusted appropriately by searching for a few of them.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Note 2004-12-24, which was rolled back from 2004-12-25, a Saturday.</span>
+<span class="co"># Note 2005-12-26, which was rolled forward from 2005-12-25, a Sunday.</span>
+<span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_search.html">alma_search</a></span><span class="op">(</span><span class="st">"2002-01-01"</span>, <span class="st">"2006-01-01"</span>, <span class="va">on_adjusted_christmas</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2002-12-25" "2003-12-25" "2004-12-24" "2005-12-26"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="stepping" class="level3"><h3 class="anchored" data-anchor-id="stepping">Stepping</h3>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://rdrr.io/pkg/almanac/man/alma_step.html">alma_step()</a></code> allows you to take an existing vector of dates and shift it by a number of days, “stepping over” any events in the event set defined by a recurrence object. This is generally useful for shifting by “N business days”, where the logic for a business day is encapsulated in the rule.</p>
+<p>You can think of <code><a href="https://rdrr.io/pkg/almanac/man/alma_step.html">alma_step()</a></code> as a way to replace lubridate’s <code>x + days(5)</code> with <code>x + business_days(5)</code> where <code>business_days()</code> is specific to your company’s holiday calendar.</p>
+<p>In the following example, we shift a Thursday and Friday by 2 working days. Notice that Thursday is shifted to Monday and Friday is shifted forward to Tuesday.</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># A Thursday / Friday pair</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2019-12-19"</span>, <span class="st">"2019-12-20"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Shift by 2 working days, stepping over weekends</span>
+<span class="va">step</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/alma_step.html">alma_step</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">2</span>, rschedule <span class="op">=</span> <span class="va">on_weekends</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  x <span class="op">=</span> <span class="va">x</span>,
+  x_wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  step <span class="op">=</span> <span class="va">step</span>,
+  step_wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">step</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt;            x x_wday       step step_wday</span>
+<span class="co">#&gt; 1 2019-12-19    Thu 2019-12-23       Mon</span>
+<span class="co">#&gt; 2 2019-12-20    Fri 2019-12-24       Tue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Internally, <code>n</code> is applied 1 day at a time. <code><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_following()</a></code> is called after each 1 day shift if <code>n</code> is positive, otherwise <code><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_preceding()</a></code> is called.</p>
+<p>To break this down, we’ll analyze that Friday.</p>
+<ul>
+<li>Start on <code>2019-12-20</code>, a Friday.</li>
+<li>Step forward 1 day, to <code>2019-12-21</code>, a Saturday.</li>
+<li>Apply <code><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_following()</a></code>, landing us on Monday, <code>2019-12-23</code>.</li>
+<li>Step forward 1 day, to <code>2019-12-24</code>, a Tuesday.</li>
+<li>Apply <code><a href="https://rdrr.io/pkg/almanac/man/adjustments.html">adj_following()</a></code>, but nothing needs to be done.</li>
+</ul></section><section id="steppers" class="level3 page-columns page-full"><h3 class="anchored" data-anchor-id="steppers">Steppers</h3>
+<div class="page-columns page-full"><p><code><a href="https://rdrr.io/pkg/almanac/man/alma_step.html">alma_step()</a></code> is nice, but it would be really nice to have something like lubridate’s <code>x + days(5)</code> syntax, but relative to a recurrence rule. Due to some issues with how R’s S3 dispatch system works with <code>+</code>, this isn’t exactly replicable with almanac, but you can get close. </p><div class="no-row-height column-margin column-container"><span class="aside">lubridate uses R’s S4 object oriented system to get it to work, but I don’t want to go there</span></div></div>
+<p>First off, you need an object the holds information about how to shift relative to a recurrence rule. You can create one of these with <code><a href="https://rdrr.io/pkg/almanac/man/stepper.html">stepper()</a></code>. The only thing you give <code><a href="https://rdrr.io/pkg/almanac/man/stepper.html">stepper()</a></code> is the rule to step relative to. It returns a function of 1 argument, <code>n</code>, which you’ll call with the desired number of days to shift. The resulting object can be added to or subtracted from your vector of dates. It sounds a little complicated, but hopefully things will clear up with an example. Let’s reproduce the last example from the previous section:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">working_days</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/almanac/man/stepper.html">stepper</a></span><span class="op">(</span><span class="va">on_weekends</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/stepper.html">%s+%</a></span> <span class="fu">working_days</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2019-12-23" "2019-12-24"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice the usage of <code>%s+%</code>. This replaces <code>+</code>, and allows you to step forward. There is also a <code>%s-%</code> for stepping backwards.</p>
+<p>The nice thing about <code>working_days()</code> is that you can continue to use it on other date vectors.</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># A Wednesday</span>
+<span class="va">wednesday</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2019-12-18"</span><span class="op">)</span>
+
+<span class="co"># Returns Thursday, Friday, Monday</span>
+<span class="va">wednesday</span> <span class="op"><a href="https://rdrr.io/pkg/almanac/man/stepper.html">%s+%</a></span> <span class="fu">working_days</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] "2019-12-19" "2019-12-20" "2019-12-23"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="vacation" class="level3"><h3 class="anchored" data-anchor-id="vacation">Vacation</h3>
+<p>I don’t really expect you to build all of your holidays and calendars from scratch. almanac holds the building blocks so that this is all possible, but an add-on package, <a href="https://github.com/DavisVaughan/vacation">vacation</a>, will eventually hold pre-generated holidays and calendars (like the US Federal calendar) with more bells and whistles.</p>
+</section><section id="learning-more" class="level3"><h3 class="anchored" data-anchor-id="learning-more">Learning More</h3>
+<p>To learn more about almanac, visit <a href="https://davisvaughan.github.io/almanac/">the pkgdown site</a>. In particular, head over to the <a href="https://davisvaughan.github.io/almanac/articles/almanac.html">Introduction to almanac</a> vignette.</p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
