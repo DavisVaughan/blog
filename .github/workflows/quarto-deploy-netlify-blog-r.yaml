@@ -31,6 +31,7 @@ jobs:
           R -e "install.packages('jsonlite')"
           R -e "install.packages('knitr')"
           R -e "install.packages('rmarkdown')"
+          R -e "install.packages('withr')"
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/install-quarto@v1
