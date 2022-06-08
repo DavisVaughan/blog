@@ -7,8 +7,10 @@ on:
 name: quarto-deploy-netlify-blog-r
 
 permissions:
+  # Always required because the Netlify step creates a deployment
+  deployments: write
   # For `enable-commit-comment`
-  contents: write
+  #contents: write
   # For `enable-commit-status`
   statuses: write
 
