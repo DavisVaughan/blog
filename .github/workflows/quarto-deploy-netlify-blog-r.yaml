@@ -8,7 +8,6 @@ name: quarto-deploy-netlify-blog-r
 
 permissions:
   actions: write
-  contents: write
   deployments: write
   statuses: write
 
