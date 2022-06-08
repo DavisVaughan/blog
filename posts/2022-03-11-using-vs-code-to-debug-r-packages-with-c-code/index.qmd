@@ -9,12 +9,12 @@ editor_options:
 
 This post is intended to serve as a reference for R package developers that use C or C++ code inside their package.
 RStudio is a fantastic IDE for R code, and has an amazing debugger built in, but sometimes you need to use a different tool for debugging C++ code.
-In a previous post, I've talked about how to use [lldb to debug an R package with C++ code](https://blog.davisvaughan.com/2019/04/05/debug-r-package-with-cpp/).
+In a previous post, I've talked about how to use [lldb to debug an R package with C++ code](https://blog.davisvaughan.com/posts/2019-04-05-debug-r-package-with-cpp/).
 While this works, it lacks the elegance and ease of use that we typically expect from a full fledged debugger, i.e. setting breakpoints by clicking on the line we care about, clicking to step over or into functions, easily watching local variables change, etc.
 Unsurprisingly, the C++ community has built a number of tools that *do* have support for this, one of them being VS Code with C++ extensions, but the R community hasn't latched on to any of these yet.
 In the remainder of this post, I'll show how to set up VS Code to debug an R package containing C++ code, which should hopefully make this tool more accessible to the R community.
 
-If you haven't yet read my post about using lldb (linked above and again [here](https://blog.davisvaughan.com/2019/04/05/debug-r-package-with-cpp/)), then I'd encourage you to do that first, as it explains some of the basics and gotchas of using lldb with R.
+If you haven't yet read my post about using lldb (linked above and again [here](https://blog.davisvaughan.com/posts/2019-04-05-debug-r-package-with-cpp/)), then I'd encourage you to do that first, as it explains some of the basics and gotchas of using lldb with R.
 This post assumes a little working knowledge of lldb.
 
 Most of this post would not be possible without the work of [Kun Ren](https://renkun.me), who has a nice post on [VS Code Extensions for R](https://renkun.me/2022/03/06/my-recommendations-of-vs-code-extensions-for-r/) and an example repo on using [VS Code with cpp11](https://github.com/renkun-ken/vscode-cpp11-demo).
@@ -151,7 +151,7 @@ You'll notice that some things aren't working exactly right, in particular we se
 vsexample.so was compiled with optimization - stepping may behave oddly; variables may not be available.
 ```
 
-If you remember from my post on [using lldb with R](https://blog.davisvaughan.com/2019/04/05/debug-r-package-with-cpp/), we need to compile the package with optimization turned off to ensure that all of the debugging information is available.
+If you remember from my post on [using lldb with R](https://blog.davisvaughan.com/posts/2019-04-05-debug-r-package-with-cpp/), we need to compile the package with optimization turned off to ensure that all of the debugging information is available.
 Luckily, this is easy.
 Run the following in the R Terminal of VS Code:
 

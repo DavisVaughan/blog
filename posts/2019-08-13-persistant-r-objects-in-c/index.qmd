@@ -60,7 +60,7 @@ The rest of this post will focus on creating a package that constructs some of t
 Specifically, we will look at creating a shared empty integer and a shared character vector, and then we will see how to return them back to the R side.
 One thing to keep in mind is that these kinds of things take a lot of setup on the C side for the first object, but adding subsequent objects is much simpler.
 
-If you haven't read [Now You C Me](https://blog.davisvaughan.com/2019/03/02/now-you-c-me/), and you aren't too familiar with working on an R package with C code in it, you might want to go check out that post before continuing.
+If you haven't read [Now You C Me](https://blog.davisvaughan.com/posts/2019-03-02-now-you-c-me/), and you aren't too familiar with working on an R package with C code in it, you might want to go check out that post before continuing.
 It will teach you the basics of working with an R package containing C code.
 
 The final product is an R package called [cshared](https://github.com/DavisVaughan/cshared).
@@ -72,7 +72,7 @@ I'll discuss the bits and pieces of the package throughout the post, but that wi
 First, some setup.
 We'll leverage `{usethis}` and `{devtools}` to get our new package up and running.
 I'm assuming you are working in RStudio for this.
-The [Now You C Me](https://blog.davisvaughan.com/2019/03/02/now-you-c-me/) post describes these steps in much greater detail.
+The [Now You C Me](https://blog.davisvaughan.com/posts/2019-03-02-now-you-c-me/) post describes these steps in much greater detail.
 
 ```{r}
 # Create a new R package, cshared
