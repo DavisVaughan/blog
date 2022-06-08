@@ -21,48 +21,20 @@ The method of debugging you will learn here has advantages and drawbacks:
 
 <ul style="list-style: none;">
 
-<li>
+<li>`r emo::ji("white_check_mark")` It is great because you can jump right to places where R would generally crash and shut down, and instead have a chance to figure out why things broke.</li>
 
-`r emo::ji("white_check_mark")` It is great because you can jump right to places where R would generally crash and shut down, and instead have a chance to figure out why things broke.
+<li>`r emo::ji("white_check_mark")` You can print out any R variables at the C++ level.</li>
 
-</li>
+<li>`r emo::ji("white_check_mark")` You can step forward through your code, one line at a time, just like how you do from RStudio.</li>
 
-<li>
+<li>`r emo::ji("white_check_mark")` You can even step *up* into the function that called the one you are currently in, which is very valuable if you have a guess as to where something went wrong, and then want to backtrack to where the wrong result came from.</li>
 
-`r emo::ji("white_check_mark")` You can print out any R variables at the C++ level.
+<li>`r emo::ji("white_check_mark")` You can run arbitrary C++ code interactively while inside a function to help you interrogate objects.</li>
 
-</li>
+<li>`r emo::ji("x")` It is painful to get going, and requires a decent amount of time investment.</li>
 
-<li>
-
-`r emo::ji("white_check_mark")` You can step forward through your code, one line at a time, just like how you do from RStudio.
-
-</li>
-
-<li>
-
-`r emo::ji("white_check_mark")` You can even step *up* into the function that called the one you are currently in, which is very valuable if you have a guess as to where something went wrong, and then want to backtrack to where the wrong result came from.
-
-</li>
-
-<li>
-
-`r emo::ji("white_check_mark")` You can run arbitrary C++ code interactively while inside a function to help you interrogate objects.
-
-</li>
-
-<li>
-
-`r emo::ji("x")` It is painful to get going, and requires a decent amount of time investment.
-
-</li>
-
-<li>
-
-`r emo::ji("x")` Not every C++ expression works as you might expect when running it interactively.
-For example, you can't easily use `std::cout`.
-
-</li>
+<li>`r emo::ji("x")` Not every C++ expression works as you might expect when running it interactively.
+For example, you can't easily use `std::cout`.</li>
 
 </ul>
 

@@ -193,25 +193,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The method of debugging you will learn here has advantages and drawbacks:</p>
 <ul style="list-style: none;">
 <li>
-<p>✅ It is great because you can jump right to places where R would generally crash and shut down, and instead have a chance to figure out why things broke.</p>
+✅ It is great because you can jump right to places where R would generally crash and shut down, and instead have a chance to figure out why things broke.
 </li>
 <li>
-<p>✅ You can print out any R variables at the C++ level.</p>
+✅ You can print out any R variables at the C++ level.
 </li>
 <li>
-<p>✅ You can step forward through your code, one line at a time, just like how you do from RStudio.</p>
+✅ You can step forward through your code, one line at a time, just like how you do from RStudio.
 </li>
 <li>
-<p>✅ You can even step <em>up</em> into the function that called the one you are currently in, which is very valuable if you have a guess as to where something went wrong, and then want to backtrack to where the wrong result came from.</p>
+✅ You can even step <em>up</em> into the function that called the one you are currently in, which is very valuable if you have a guess as to where something went wrong, and then want to backtrack to where the wrong result came from.
 </li>
 <li>
-<p>✅ You can run arbitrary C++ code interactively while inside a function to help you interrogate objects.</p>
+✅ You can run arbitrary C++ code interactively while inside a function to help you interrogate objects.
 </li>
 <li>
-<p>❌ It is painful to get going, and requires a decent amount of time investment.</p>
+❌ It is painful to get going, and requires a decent amount of time investment.
 </li>
 <li>
-<p>❌ Not every C++ expression works as you might expect when running it interactively. For example, you can’t easily use <code>std::cout</code>.</p>
+❌ Not every C++ expression works as you might expect when running it interactively. For example, you can’t easily use <code>std::cout</code>.
 </li>
 </ul>
 <p>Because this method is a pain to get going, my recommendation would be to start with printing out objects using some combination of:</p>
