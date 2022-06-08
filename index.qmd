@@ -9,6 +9,6 @@ listing:
   categories: false
   sort-ui: false
   filter-ui: false
-  fields: [title]
-page-layout: full
+  fields: [title, date]
+page-layout: article
 ---
