@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2019-10-16-data-frames-as-a-vector-of-rows/index.html",
       "/posts/2019-08-13-persistant-r-objects-in-c/index.html",
       "/posts/2019-04-05-debug-r-package-with-cpp/index.html",
       "/posts/2019-03-02-now-you-c-me/index.html",

@@ -1,0 +1,565 @@
+---
+title: Data Frames as Vectors of Rows
+author: Davis Vaughan
+date: '2019-10-16'
+slug: data-frames-as-vectors-of-rows
+editor_options: 
+  chunk_output_type: console
+---
+
+Recently, I have been working a lot on [{vctrs}](https://github.com/r-lib/vctrs).
+This package is an attempt to analyze the atomic types in R, such as `integer`, `character` and `double`, alongside the recursive types of `list` and `data.frame`, to extract a set of common principles.
+From this analysis, a growing toolkit of functions for working with vector types has developed around two themes of *size* and *prototype*.
+vctrs is a *fun* package to work on, and even more fun to build on top of.
+
+The goal of this post is two fold.
+First, I want to show off a few functions and packages that have been built using this new toolkit which contribute to why I think this package is so fun.
+Second, I'd like to introduce a shift in the way you might normally think about data frames, *from a vector of columns to a vector of rows*.
+[Hadley is the one who recognized that viewing data frames from this angle opens up powerful new workflows that are especially useful for data analysis.]{.aside}
+
+If you've never heard of vctrs before, there's a reason for that.
+For the most part, it's a developer focused package, and honestly if you never knew this package existed, but still used the higher level packages that were built on top of it, then we've done our job.
+A few examples of packages that rely heavily on vctrs right now are:
+
+-   [tidyr's](https://tidyr.tidyverse.org/articles/pivot.html) `pivot_longer()` and `pivot_wider()`, along with a number of other existing functions that recently got rewritten using vctrs principles
+-   [slider](https://davisvaughan.github.io/slider/), for working with window functions (like moving averages)
+-   [rray](https://rray.r-lib.org/), an array manipulation library
+-   [tibble's](https://github.com/tidyverse/tibble) development version
+
+```{r}
+library(vctrs)
+library(tibble, warn.conflicts = FALSE)
+```
+
+## `c()`
+
+As you gain more experience working with R, you eventually start to learn about how certain data structures are implemented.
+A data frame, for example, is really a list where each element of the list is a single column.
+In other words, a data frame is a vector of columns.
+
+One way to see this is by the fact that `length()` returns the number of columns.
+
+```{r}
+df <- tibble(
+  x = 1:4, 
+  y = c("a", "b", "a", "a"), 
+  z = c("x", "x", "y", "x")
+)
+
+df
+```
+
+```{r}
+length(df)
+```
+
+You can also check that a data frame is a list by calling `is.list()`.
+
+```{r}
+is.list(df)
+```
+
+This underlying assumption that a data frame is a vector of columns is deeply rooted into a number of R's core functions, and is often used as a fallback when behavior is otherwise ill-defined.
+Consider, as an example, calling `c(df, df)` to "combine" the data frame with itself.
+
+```{r}
+c(df, df)
+```
+
+Our data frames have combined to become a list!
+In a way, this behavior is consistent with the principle that a data frame is a list of columns.
+It follows the invariant (read: "unbreakable principle") of:
+
+<center>
+
+```{r, eval = FALSE}
+length(c(x, y)) == length(x) + length(y)
+```
+
+</center>
+
+```{r}
+length(df) + length(df)
+
+length(c(df, df)) == length(df) + length(df)
+```
+
+Is there any other type of output that makes sense?
+If we think of a data frame as a vector of columns, then no, because it makes sense to end up with something of length 6 after combining.
+However, I'd argue that if we flip our understanding of data frames from a vector of columns to a vector of rows, then another solution comes forward which offers a different result that I have begun to find pretty attractive.
+
+## `vec_size()`
+
+[Much of this particular section is adapted from the vctrs [vignette](https://vctrs.r-lib.org/articles/type-size.html#size) on size.]{.aside}
+
+To start the process of thinking about a "vector of rows", look again to `df`.
+A single "row" would be:
+
+```{r}
+df[1,]
+```
+
+With that in mind, `df` would be considered a vector of 4 rows.
+It would be nice to have a function that returned this information as a building block to work off of (as shown before, `length()` won't do).
+We could try and use `nrow()`, which gives us what we want, but it returns `NULL` when given an individual column.
+
+```{r}
+nrow(df)
+
+nrow(df$x)
+```
+
+What I'm looking for is a function that returns a value that is equivalent for the data frame itself and for any column of the data frame.
+Put another way, I'm really after the "number of observations".
+One other option is to use `NROW()`.
+
+```{r}
+NROW(df)
+
+NROW(df$x)
+```
+
+This looks good, but what happens if you give it some "non-vector" input?
+A practical way to think about that is something that isn't allowed to exist as a column of a data frame, for example, a function, or an `lm` object.
+
+```{r, error = TRUE}
+data.frame(x = mean)
+
+NROW(mean)
+
+lm_cars <- lm(mpg ~ cyl, data = mtcars)
+
+data.frame(x = lm_cars)
+
+# Treats it as a list
+NROW(lm_cars)
+```
+
+These objects are considered *scalar* types rather than *vector* types.
+They are "scalar" in the sense that you only ever consider them one at a time.
+Even though `lm_cars` is *technically* implemented as a list, we look at it is as a single linear model object.
+
+Compare that to a double *vector* like `c(1, 2, 3)` which is made up of 3 observations.
+
+For our purposes, it's valuable to keep scalar and vector types distinct, so it would be nice if an error was thrown for scalars to indicate that they don't really have this "number of observations" property that we are after.
+
+Motivated by this, the concept of `size` was created in vctrs to capture the invariants that were desired.
+In particular:
+
+-   It is the length of 1d vectors.
+-   It is the number of rows of data frames, matrices, and arrays.
+-   It throws error for non vectors.
+
+The vctrs function, `vec_size()`, is the resulting implementation of this concept.
+
+```{r, error=TRUE}
+vec_size(df)
+
+vec_size(df$x)
+
+vec_size(mean)
+```
+
+## `vec_c()`
+
+Armed with the concept of size, let's take another look at `c(df, df)`.
+If the length invariant for `c()` looks like:
+
+<center>
+
+```{r, eval = FALSE}
+length(c(x, y)) == length(x) + length(y)
+```
+
+</center>
+
+then imagine what would happen if `length()` was swapped with `vec_size()`:
+
+<center>
+
+```{r, eval = FALSE}
+vec_size(c(x, y)) =?= vec_size(x) + vec_size(y)
+```
+
+</center>
+
+Does this invariant hold?
+For 1d vectors, it does because `vec_size()` and `length()` are essentially the same.
+But for data frames, we've seen that `vec_size()` and `length()` are different, and `c()` was built with `length()` in mind, so it might not.
+In fact, looking at our original example of `c(df, df)` proves that it doesn't hold:
+
+```{r}
+vec_size(df) + vec_size(df)
+
+vec_size(c(df, df))
+```
+
+We'd like this invariant to hold, but `c()` isn't the right tool for the job.
+Instead, an alternative, `vec_c()`, was built that builds off of `vec_size()` and this invariant.
+The invariant that does hold actually looks like:
+
+<center>
+
+```{r, eval = FALSE}
+vec_size(vec_c(x, y)) == vec_size(x) + vec_size(y)
+```
+
+</center>
+
+So what does `vec_c()` do?
+For 1d vectors it acts like `c()`, as you might expect.
+
+```{r}
+vec_c(1:2, 3)
+```
+
+But what about with `vec_c(df, df)`?
+Based on the fact that `vec_size(df) + vec_size(df) = 8`, at the very least we know it should return something with a size of 8.
+To accomplish this, rather than coercing to a list and combining the columns together, `vec_c()` instead leaves them as data frames and *combines the rows*.
+
+```{r}
+vec_c(df, df)
+```
+
+If you view a data frame as a vector of rows, this makes complete sense.
+We start with a vector of 4 rows, and add another vector of 4 rows, so we should end up with a vector of 8 rows, i.e. a data frame with size 8.
+
+What happens if we combine `df` with a data frame containing one row but an entirely new column?
+Again, we "know" from our size invariant that we should get something back with a size of 5.
+
+```{r}
+df_w <- tibble(w = 1)
+
+vec_c(df, df_w)
+```
+
+The result is a data frame with 5 rows, and a union of the columns coming from each of the two individual data frames.
+Without getting too much into it, the fact that the result is a "tibble with 4 columns: x (int), y (chr), z (chr), and w (dbl)" comes from the other half of what vctrs offers, the *prototype*.
+`vec_c()` found the "common type" between `df` and `df_w`, which is the union holding those 4 columns.
+
+What about combining `df` with something like the double vector, `c(1, 2)`?
+We'd expect a size of 6 (4 from `df` and 2 from the vector), but we actually get an error because the size is only half of the story.
+
+```{r, error=TRUE}
+vec_c(df, c(1, 2))
+```
+
+In this case, there is no common type between a data frame and a double vector, so you can't combine them together.
+
+Compare that with the result from `c()` which upholds its length invariant giving a result of length 5.
+
+```{r}
+c(df, c(1, 2))
+```
+
+## `vec_match()`
+
+Treatment of a data frame as a vector of rows extends well past `vec_c()`, and bleeds into many other vctrs tools where we have been experimenting with this idea.
+As one more example, we'll take a look at `match()`.
+If you aren't familiar with `match()`, it tells you the location of `x` inside a `table`.
+Another way to think about this is that you want to find a `needle` in a `haystack`.
+More concretely:
+
+```{r}
+# Where is `"a"` inside the vector `c("b", "c", "a", "d")`?
+match(x = "a", table = c("b", "c", "a", "d"))
+```
+
+Now imagine that I want to use a data frame as my `table`.
+I might be interested in locating a few particular rows inside that `table`.
+
+```{r}
+needles <- tibble(x = 3:4, y = c("a", "b"), z = c("y", "y"))
+haystack <- df
+
+needles
+
+haystack
+```
+
+Here, the first row of `needles` is row 3 of the `haystack`, and the second row of `needles` is not in the `haystack` at all.
+Let's try with `match()`.
+
+```{r}
+match(needles, haystack)
+```
+
+`r emo::ji("thinking")` so what happened here?
+With R's (completely reasonable) treatment of `needles` as a vector of columns, it essentially first converted `needles` and `haystack` into lists, and then tried to locate each column of `needles` inside `haystack`.
+There were 3 columns, and none of them were found, so `NA` was returned 3 times.
+To actually see a match, we could instead provide a list containing the `y` column of `haystack`.
+
+```{r}
+match(list(haystack$y), haystack)
+```
+
+If we instead treat both `needles` and `haystack` as vectors of rows, what we are really trying to do is find one set of rows inside another set of rows.
+In vctrs, we've created `vec_match()` for this.
+
+```{r}
+vec_match(needles, haystack)
+```
+
+Again, it's not that anything R is doing is *wrong*, or even that this is "better".
+This just answers a different question by looking at a data frame from a different angle.
+Additionally, we don't actually lose anything in vctrs by thinking about data frames in this way.
+If we want the `match()` behavior, we can just `unclass()` our data frames to turn them into explicit lists, and then `vec_match()` works exactly the same.
+
+[Even though `c()` and `match()` treat data frames as vectors of columns, not all R functions do. At the end of the post I discuss how `split()` and `unique()` actually treat them as vectors of rows, and what the vctrs equivalents are.]{.aside}
+
+## `slide()`
+
+Lastly, I'd like to show an example of a package that builds on top of vctrs principles.
+{slider} is my attempt at a package for working with "window functions", functions that enable some kind of "rolling" analysis.
+A moving average, rolling regression, and even a cumulative sum are all examples of usage of window functions.
+
+```{r}
+library(slider)
+```
+
+`slide()` works similarly to `purrr::map()` in that you provide it a vector, `.x`, and a function, `.f`, to apply to each slice of `.x`.
+One difference is that you have additional options to control the window of `.x` you apply `.f` to.
+For example, below we construct a sliding window of size 3, asking for "the current value along with 2 values before this one".
+The function we apply is to just print out the current value of `.x` so we can see what is happening.
+
+```{r}
+slide(1:5, ~.x, .before = 2)
+```
+
+We could also perform a rolling average by switching `~.x` for `mean`, and, like with purrr, replacing `slide()` with `slide_dbl()`.
+
+```{r}
+slide_dbl(1:5, mean, .before = 2)
+```
+
+Because `slide()` builds on vctrs, it is meaningful to talk about the invariants of the function.
+For example, the size invariant of `slide()` is that:
+
+<center>
+
+```{r, eval = FALSE}
+vec_size(slide(.x)) == vec_size(.x)
+```
+
+</center>
+
+In other words, `slide()` always returns an output that has the same *size* as its input.
+This is similar to how `map()` works, with one major difference.
+Like `c()`, `map()` returns a vector with the same *length* as its input.
+This means that `map()` treats a data frame as a vector of columns.
+
+```{r}
+library(purrr)
+map(df, ~.x)
+```
+
+A major breakthrough for me was that, to uphold the invariant, `slide()` must treat a data frame as a vector of rows, meaning that it should *iterate rowwise over .x*.
+
+```{r}
+slide(df, ~.x)
+```
+
+This provides an alternative to some `pmap()` solutions that have been used previously, like the ones in Jenny Bryan's [GitHub repo](https://github.com/jennybc/row-oriented-workflows) of row oriented workflows.
+Consider this example modified from the repo, where you have a data frame of parameters that you want to pass on to `runif()` in order to call it multiple times with different parameter combinations.
+Additionally, the column names don't currently match the argument names of `runif()`, so you either have to rename on the fly, or wrap it with a function.
+
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+
+parameters <- tibble(
+  n = 1:3,
+  minimum = c(0, 10, 100),
+  maximum = c(1, 100, 1000)
+)
+
+set.seed(12)
+
+parameters %>%
+  rename(min = minimum, max = maximum) %>%
+  pmap(runif)
+
+set.seed(12)
+
+my_runif <- function(n, minimum, maximum) {
+  runif(n, minimum, maximum)
+}
+
+pmap(parameters, my_runif)
+```
+
+With `slide()` being a row wise iterator, you have access to the entire data frame row at each iteration as `.x`, meaning you can just do:
+
+```{r}
+set.seed(12)
+slide(parameters, ~runif(n = .x$n, min = .x$minimum, max = .x$maximum))
+```
+
+## Conclusion
+
+Treatment of a data frame as a vector of rows is a fairly novel concept in R, because of the way that data frames were originally implemented as a list of columns.
+But viewing them in this way can be incredibly powerful, especially for data analysis work.
+I, for one, am looking forward to seeing this concept explored more in the future, both in vctrs and in other packages built on top of it.
+
+## Extra - `unique()` and `split()`
+
+On the vctrs side, we are trying to be consistent in our treatment of data frames as vectors of rows.
+However, it is worth mentioning that there are some functions in R where data frames are already treated this way, rather than as a vector of columns.
+Two in particular are `unique()` and `split()`.
+
+### `unique()`
+
+With `unique()`, uniqueness is actually determined using data frame rows, not columns.
+Looking at columns `y` and `z` of `df`, we can see that rows 1 and 4 are duplicates.
+Calling `unique()` on this removes the duplicate row.
+
+```{r}
+df_yz <- df[, c("y", "z")]
+
+df_yz
+```
+
+```{r}
+unique(df_yz)
+```
+
+It's actually pretty interesting to see how this one works.
+If you look into `unique.data.frame()`, you'll see that it calls `duplicated.data.frame()`.
+In there is this somewhat cryptic line that actually does the rowwise check:
+
+```{r, eval=FALSE}
+duplicated(
+  do.call(Map, `names<-`(c(list, x), NULL)), 
+  fromLast = fromLast
+)
+```
+
+Breaking this down, it first combines the function `list()` with the data frame to end up with:
+
+```{r}
+c(list, df_yz)
+```
+
+which it then removes the names of:
+
+```{r}
+`names<-`(c(list, df_yz), NULL)
+```
+
+Next it uses `do.call()` to call `Map()`, which is a wrapper around `mapply()` meaning that it will repeatedly call `list()` on parallel elements of the columns of `df_yz`.
+Visually that means we end up with list elements holding the rows, which `duplicated()` is then run on to locate the duplicates.
+
+```{r}
+do.call(Map, `names<-`(c(list, df_yz), NULL))
+
+duplicated(do.call(Map, `names<-`(c(list, df_yz), NULL)))
+```
+
+In vctrs there is `vec_unique()`.
+Because `unique()` already works row wise, they are essentially equivalent in terms of functionality with data frames.
+However, there are two key differences.
+First, because `vec_unique()`'s handling of data frames is in C, it does end up being faster.
+
+```{r}
+# row bind df_yz 10000 times, making a 40000 row data frame
+large_df <- vec_rbind(!!!rep_len(list(df_yz), 10000))
+dim(large_df)
+```
+
+```{r, eval = FALSE}
+bench::mark(
+  unique(large_df),
+  vec_unique(large_df)
+)
+```
+
+```{r, eval = FALSE}
+## # A tibble: 2 x 6
+##   expression                min   median `itr/sec` mem_alloc `gc/sec`
+##   <bch:expr>           <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+## 1 unique(large_df)      28.38ms   31.6ms      31.7    1.42MB     137.
+## 2 vec_unique(large_df)   4.34ms    4.6ms     216.   429.61KB       0
+```
+
+Second, `unique()` doesn't handle the idea of a *packed* data frame well.
+This is a relatively new idea in the tidyverse, and it isn't one that we want to expose users to very much yet, but it is powerful.
+A packed data frame is a data frame where one of the columns is another data frame.
+This is different from a list-column of data frames.
+You can create one by providing `tibble()` another `tibble()` as a column along with a name for that data frame column.
+
+```{r}
+df_packed <- tibble(
+  x = tibble(
+    a = c(1, 1, 1, 3), 
+    b = c(1, 1, 3, 3)
+  ), 
+  y = c(1, 1, 1, 2)
+)
+
+# Both `$a` and `$b` are columns in the data frame column, `x`
+df_packed
+
+# `x` itself is another data frame
+df_packed$x
+```
+
+[Even though you can create one of these, as an end user there isn't much yet that you can do with them, so you shouldn't have to worry about this very much.]{.aside}
+
+Looking at `df_packed`, the unique rows are 1, 3, and 4, which `vec_unique()` can determine, but `unique()` doesn't correctly pick up on.
+
+```{r}
+vec_unique(df_packed)
+
+unique(df_packed)
+```
+
+As packed data frames become more prevalent in the tidyverse, it will be nice to have tools that handle them consistently.
+[For example, there is already `tidyr::pack()` and `tidyr::unpack()`, which helps power `tidyr::unnest()`.]{.aside}
+
+### `split()`
+
+`split(x, by)` will divide up `x` into groups using `by` to determine where the unique groups are.
+It assumes `by` is a factor, and will coerce your input to a factor if it isn't already one.
+Like `unique()`, it will slice up a data frame by rows rather than by columns.
+
+```{r}
+split(df, df$y)
+```
+
+One thing about `split()` is that it uses the unique values as labels on the list elements.
+To take a slightly different approach, `vec_split()` was created, which returns a data frame instead, holding the unique `key` values in their own parallel column.
+`vec_split()` returns a data frame to keep vctrs lightweight, but the print method for these can be a little complex, and I think tibble's print method does a nicer job.
+
+```{r}
+df_split <- vec_split(df, df$y)
+df_split <- as_tibble(df_split)
+
+df_split
+
+df_split$val
+```
+
+One useful feature of `vec_split()` is that it doesn't expect a factor as the second argument, which means that a data frame can be provided to split by, and since uniqueness is determined row wise this allows us to split by multiple columns.
+The `key` ends up as the unique rows of the data frame, meaning that the `key` is actually a data frame column, creating a packed data frame!
+
+```{r}
+df_multi_split <- vec_split(df, df[c("y", "z")])
+df_multi_split <- as_tibble(df_multi_split)
+
+df_multi_split
+```
+
+Technically you can provide `split()` a data frame to split `by`, but remember that it will try and treat it like a factor!
+Since the data frame is technically a list, it will run `interaction()` on it first to get a single factor it can use to split by.
+Notice that this gives a level for `b.y` which does not exist as a row in our data frame.
+
+```{r}
+df[c("y", "z")]
+
+interaction(df[c("y", "z")])
+```
+
+This results in the following split, with a `b.y` element with no rows which we may or may not have wanted.
+
+```{r}
+split(df, df[c("y", "z")])
+```
