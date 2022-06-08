@@ -16,7 +16,7 @@ As you'll soon see, one of the most powerful features of almanac is the ability 
 library(almanac)
 ```
 
-### Recurrence Rules
+## Recurrence Rules
 
 To start working with recurring events, we'll need a way to define when those events happen.
 This is known as a *recurrence rule*, and is most easily built up using a chain of pipes like this:
@@ -65,7 +65,7 @@ x <- as.Date(c("2015-11-26", "2015-11-27"))
 alma_in(x, on_thanksgiving)
 ```
 
-### Recurrence Bundles
+## Recurrence Bundles
 
 Recurrence rules just scratch the surface of what almanac can do.
 They are powerful on their own, but they can't answer every question.
@@ -142,7 +142,7 @@ not_exists <- !exists
 hldys_2010_2015[not_exists]
 ```
 
-### Adjusters
+## Adjusters
 
 There are other things that you can do with these recurrence rules and bundles beyond just generating dates in their event sets.
 One powerful idea is to take an existing vector of dates and *adjust* it in the places where it lands on an event defined by a recurrence bundle.
@@ -158,7 +158,7 @@ adj_following(christmas, on_christmas)
 adj_preceding(christmas, on_christmas)
 ```
 
-### Adjusted rules
+## Adjusted rules
 
 These adjusters are critical low-level components that power more interesting aspects of almanac.
 One of those is an *adjusted rule*.
@@ -202,7 +202,7 @@ For example, we can confirm that Christmas dates that fall on the weekend are ad
 alma_search("2002-01-01", "2006-01-01", on_adjusted_christmas)
 ```
 
-### Stepping
+## Stepping
 
 ```{r}
 library(lubridate, warn.conflicts = FALSE)
@@ -242,7 +242,7 @@ To break this down, we'll analyze that Friday.
 -   Step forward 1 day, to `2019-12-24`, a Tuesday.
 -   Apply `adj_following()`, but nothing needs to be done.
 
-### Steppers
+## Steppers
 
 `alma_step()` is nice, but it would be really nice to have something like lubridate's `x + days(5)` syntax, but relative to a recurrence rule.
 Due to some issues with how R's S3 dispatch system works with `+`, this isn't exactly replicable with almanac, but you can get close.
@@ -276,12 +276,12 @@ wednesday <- as.Date("2019-12-18")
 wednesday %s+% working_days(1:3)
 ```
 
-### Vacation
+## Vacation
 
 I don't really expect you to build all of your holidays and calendars from scratch.
 almanac holds the building blocks so that this is all possible, but an add-on package, [vacation](https://github.com/DavisVaughan/vacation), will eventually hold pre-generated holidays and calendars (like the US Federal calendar) with more bells and whistles.
 
-### Learning More
+## Learning More
 
 To learn more about almanac, visit [the pkgdown site](https://davisvaughan.github.io/almanac/).
 In particular, head over to the [Introduction to almanac](https://davisvaughan.github.io/almanac/articles/almanac.html) vignette.
