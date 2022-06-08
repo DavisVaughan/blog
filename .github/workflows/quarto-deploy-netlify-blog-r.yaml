@@ -10,7 +10,6 @@ permissions:
   # For `enable-commit-comment`
   contents: write
   deployments: write
-  statuses: write
 
 jobs:
   build-deploy:
