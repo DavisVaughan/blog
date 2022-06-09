@@ -35,20 +35,28 @@ jobs:
       # The blog posts themselves are frozen.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          # jsonlite / rmarkdown / xml2
-          #  Suggested dependencies of downlit that are required to run downlit
-          #  on HTML files
           # withr
           #  Required by downlit but not listed as a dependency right now
           #  https://github.com/r-lib/downlit/pull/141
+          # xml2
+          #  Suggested dependency of downlit that is required to run downlit
+          #  on HTML files
+          # htmltools / jsonlite / knitr / rmarkdown / xfun
+          #  Required by quarto itself to run this script:
+          #  https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/rmd/rmd.R
           # sessioninfo
           #  For nice lockfile printing in the action
           packages: |
             downlit
-            jsonlite
-            rmarkdown
-            xml2
             withr
+            xml2
+
+            htmltools
+            jsonlite
+            knitr
+            rmarkdown
+            xfun
+
             any::sessioninfo
           dependencies: '"hard"'
 
