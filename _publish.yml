@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 0f9611b0-7a7d-4214-bae5-596e78e0333e
+      url: 'https://blog.davisvaughan.com'
