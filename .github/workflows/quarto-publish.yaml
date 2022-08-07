@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: main
+  pull_request:
+     branches: main
+
+name: Render and Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.0.35
+
+      - name: Render and Publish to Netlify
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          render: true
+          target: netlify
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
