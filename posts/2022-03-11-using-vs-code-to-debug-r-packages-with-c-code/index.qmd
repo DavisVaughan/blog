@@ -547,6 +547,8 @@ use_vscode_debug <- function() {
 }
 ```
 
+This has also been added to usethis in a slightly more formal way as an unexported function: `usethis:::use_vscode_debug()`.
+
 ## References
 
 -   [My recommendations of VS Code extensions for R](https://renkun.me/2022/03/06/my-recommendations-of-vs-code-extensions-for-r/)
