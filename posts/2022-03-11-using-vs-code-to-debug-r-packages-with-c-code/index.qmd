@@ -464,6 +464,14 @@ You should see a tab for User (global settings) and Workspace (settings for this
 There are a number of Commonly Used settings, one in particular is Tab Size, which defaults to 4, but is 2 in RStudio.
 You may want to update this.
 
+### Breakpoint takes you to the Assembly code
+
+If hitting a breakpoint takes you to a view of the Assembly code rather than pausing you in the editor, then the first thing you should check is that the `-g` and `-0O` compiler flags have been set (you should be able to see them in the output that is emitted while R is compiling your package).
+
+If you've checked that and you are still being taken straight to the Assembly, check `.vscode/settings.json` and make sure that you don't have `"lldb.showDisassembly": "always"` set.
+For some reason, this setting has been set for me in the past even though I don't remember ever touching it.
+Switching to `"auto"` (which only shows the disassembly when the source isn't available) should fix it.
+
 ## Setup function
 
 Since you have to set up each R package with:
