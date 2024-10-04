@@ -1,0 +1,227 @@
+---
+title: Sometimes you just have to get in there!
+author: Davis Vaughan
+date: '2024-09-28'
+slug: get-in-there
+editor:
+  markdown:
+    wrap: sentence
+    canonical: true
+---
+
+This is a post about resiliance. About using every trick in your debugging toolkit to extract out any little breadcrumb of information, eventually leading to educated guesses, "ah ha!" moments, and a painfully simple solution.
+
+More specifically, it's a post about:
+- Debugging Rust tests
+- [Ark]((https://github.com/posit-dev/ark)), a Jupyter kernel for R
+- GitHub Actions shennanigans
+- LLDB
+
+## Setting the scene
+
+GitHub Actions is great. It's never been easier to run tests for your project across multiple different operating systems! But imagine this - you work on a Mac and all the tests pass locally for you. For some unknown reason, CI on Linux is failing and you _just can't figure out why_.
+
+This was me a few days ago. [Lionel](https://github.com/lionel-) and I were trying to figure out why our [new Rust integration tests](https://github.com/posit-dev/ark/pull/542) for [ark](https://github.com/posit-dev/ark) were completely blowing up. All we could see from the logs on CI was something like this (snipped down for brevity):
+[If you really want to see the full logs, I've put them [here](https://gist.github.com/DavisVaughan/cb3c23564a61ecd402df556041218b49).]{.aside}
+
+``` bash
+     Running `/home/runner/work/ark/ark/target/debug/deps/kernel-7a83330cb920019c kernel --nocapture`
+
+running 1 test
+thread 'dummy_kernel' panicked at crates/ark/src/interface.rs:1678:5:
+Suicide: unable to initialize the JIT
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+thread 'dummy_kernel' panicked at library/core/src/panicking.rs:221:5:
+panic in a function that cannot unwind
+stack backtrace:
+<...snip...>
+  17:     0x557245432aa6 - core::panicking::panic_cannot_unwind::he9511e6e72319a3e
+                               at /rustc/eeb90cda1969383f56a2637cbd3037bdf598841c/library/core/src/panicking.rs:309:5
+  18:     0x557245b2a9b2 - r_suicide
+                               at /home/runner/work/ark/ark/crates/ark/src/interface.rs:1676:1
+  19:     0x7ff8eec91d13 - R_Suicide
+  20:     0x7ff8eeb8a13b - setup_Rmainloop
+  21:     0x55724696f0e7 - libr::r::setup_Rmainloop::h9dbc3622390c56a1
+                               at /home/runner/work/ark/ark/crates/libr/src/functions.rs:31:21
+  22:     0x557245a0f331 - ark::sys::unix::interface::setup_r::h3bebd1c4e0c286f9
+                               at /home/runner/work/ark/ark/crates/ark/src/sys/unix/interface.rs:77:9
+  23:     0x557245b1d34c - ark::interface::start_r::h6de68a604affab76
+                               at /home/runner/work/ark/ark/crates/ark/src/interface.rs:235:5
+  24:     0x55724578f29b - ark::start::start_kernel::h116d83f7aa29615e
+                               at /home/runner/work/ark/ark/crates/ark/src/start.rs:116:5
+  25:     0x557245914b99 - ark::test::dummy_frontend::DummyArkFrontend::init::{{closure}}::h88892c8e324d7753
+                               at /home/runner/work/ark/ark/crates/ark/src/test/dummy_frontend.rs:37:13
+<...snip...>
+thread caused non-unwinding panic. aborting.
+error: test failed, to rerun pass `-p ark --test kernel`
+
+Caused by:
+  process didn't exit successfully: `/home/runner/work/ark/ark/target/debug/deps/kernel-7a83330cb920019c kernel --nocapture` (signal: 6, SIGABRT: process abort signal)
+```
+
+There isn't a ton to go off here, but we do learn some important things. It looks like the panic is coming from the [r_suicide()](https://github.com/posit-dev/ark/blob/d75d73c53c901f2be7e748230e6ffadcd3ac08d7/crates/ark/src/interface.rs#L1701-L1704) hook (It's a horrible name, we know. We inherit the name from R itself). This is a "hook" that we get to set as the "owner" of the R session - when R shuts down due to something horrible and irrecoverable, it calls our hook first then `abort`s the process after we are done.
+
+Another thing you'll see if you look closely is `unable to initialize the JIT`. This is the message our hook is provided by R that we get a chance to log before R implodes. It's not that useful on its own, but it's a sliver of info, and we'll take anything we can get! We'll come back to this.
+
+Looking up the stack, we also see `setup_Rmainloop()`, which looks like the caller of our hook. This is the C function provided by R that ark calls to, well, "setup" R. So it looks like something is going wrong at R setup time.
+
+At this point, we have some information, but we don't really have a great idea into what could be happening. Since we don't have too much else to go on, at this point we searched for that error in the R source code, [here's](https://github.com/wch/r-source/blob/a87aee1d3a7bec255650bb3aafdd8bd4974bec2f/src/main/main.c#L1187-L1198) what we found:
+
+``` c
+void setup_Rmainloop(void) {
+<...snip...>
+  /* trying to do this earlier seems to run into bootstrapping issues. */
+  doneit = 0;
+  if (SETJMP(R_Toplevel.cjmpbuf))
+    check_session_exit();
+  R_GlobalContext = R_ToplevelContext = R_SessionContext = &R_Toplevel;
+  if (!doneit) {
+    doneit = 1;
+    R_init_jit_enabled();
+  } else
+    R_Suicide(_("unable to initialize the JIT\n"));
+  R_Is_Running = 2;
+<...snip...>
+```
+
+For those unaquainted with the joy that is `longjmp()`-ing in C, the idea here is that if `R_init_jit_enabled()` throws an error, we "jump" out of it back to here and instead call `R_Suicide(_("unable to initialize the JIT\n"))`, which ends up calling our hook. This explains everything we saw above, but we still don't know _why_ the error was thrown. Typically I'd look at the source of [`R_init_jit_enabled()`](https://github.com/wch/r-source/blob/a87aee1d3a7bec255650bb3aafdd8bd4974bec2f/src/main/eval.c#L1457) to see if anything looks like a point of failure, and we did do this, but nothing really stood out to us besides `Rf_eval(install(".ArgsEnv"), R_BaseEnv)` (evaluating some code in the base environment) and `loadCompilerNamespace()` (loading the compiler R package). Both of those are places that R code could somehow throw an error through the C level `Rf_error()`, which would trigger the longjmp, but digging deeper into those didn't really reveal what could be going wrong.
+
+We're in pretty deep at this point, but we're mostly still just guessing. In an ideal world, I'd have this Linux machine in front of me so that I could rerun the tests that cause this failure - and in the best case scenario I'd do that while running under lldb so I could catch the tragic failure and poke around. But this is CI! It's an ephemeral GitHub runner that just runs [cargo test](https://github.com/posit-dev/ark/blob/d75d73c53c901f2be7e748230e6ffadcd3ac08d7/.github/workflows/amalthea-ci.yml#L45) and shuts itself back down on failure. So there's no way in...right?
+
+## You can SSH into GitHub Actions?
+
+It turns out that you can actually _pause_ a GitHub Actions runner mid run, have it spin up a [tmate](https://tmate.io/) session to provide you ssh access to it, and then jump into that runner from your local machine! It's this easy:
+
+``` yaml
+- name: Setup tmate session
+  uses: mxschmitt/action-tmate@v3
+  timeout-minutes: 30
+```
+
+Add that to your GitHub Actions workflow file right before the failing step, and once it hits that step you'll see something like this in the output logs:
+
+``` bash
+SSH: ssh <random-string>@nyc1.tmate.io
+```
+
+Copy that string and paste it in your terminal of choice, and you should end up sitting in front of a remote terminal session connected to the GitHub runner.
+[Except Warp, which can't actually connect to a [tmate](https://github.com/warpdotdev/Warp/issues/3114) session! Ask me how I know...]{.aside}
+
+![](./img/terminal.png)
+
+## LLDB to the rescue
+
+Ok, we're here, now what? Well, we can run `cargo test` as many times as we want now, and immediately get feedback about the fact that our test panics - compare that with waiting 5-10 minutes for CI to install everything just to get to the point of the panic! That's great, but what I _really_ want to do is attach a debugger to whatever `cargo test` is doing under the hood. To be able to do that, we need to know a little about how `cargo test` runs your test suite.
+
+In Rust, there are [two main groups](https://doc.rust-lang.org/book/ch11-03-test-organization.html) of tests:
+
+- Unit tests, which you typically write directly in the source file itself alongside the implementation code (these are quite cool!).
+
+- Integration tests, which you write in a `tests/` folder.
+
+Unit tests let you test an individual function at a time, while integration tests are one step removed from the implementation and test the code as a user would - by only using public APIs.
+
+The kind of test that is failing is an integration test. Way up at the top in the failure output, you might have seen:
+
+``` bash
+Running /home/runner/work/ark/ark/target/debug/deps/kernel-7a83330cb920019c
+```
+
+`kernel-7a83330cb920019c` is the name of an _executable binary_ specific to the `tests/kernel.rs` integration tests. `cargo test` is in charge of creating and then automatically running this binary for us at test time, but we can actually just run it manually if we want to! That's pretty cool, because a binary is exactly what lldb wants to attach to.
+
+Here's the game plan:
+
+- Start lldb
+
+- Create a "target" of that binary
+
+- Run the tests with lldb attached
+
+- R explodes, but lldb catches it
+
+- Poke around
+
+That looks like this:
+
+``` bash
+sudo apt install lldb
+cd /home/runner/work/ark/ark/target/debug/deps
+lldb
+```
+
+``` bash
+(lldb) target create kernel-7a83330cb920019c
+(lldb) run
+```
+
+![](./img/catch.png)
+
+This might not look like much, but lldb has "caught" the aborting process _right_ before it exits. This gives us a little chance to poke around. Running `bt` gives us a backtrace like we saw at the start, but with a little more info:
+
+``` bash
+frame #12: 0x0000555555b94bc2 kernel-61f59e199e4497b1`r_suicide(buf="unable to initialize the JIT\n") at interface.rs:1701:1
+frame #13: 0x00007fffe6091d13 libR.so`R_Suicide + 19
+frame #14: 0x00007fffe5f8a13b libR.so`setup_Rmainloop + 3467
+frame #15: 0x0000555556d13407 kernel-61f59e199e4497b1`libr::r::setup_Rmainloop::h9dbc3622390c56a1 at functions.rs:31:21
+```
+
+The thing that caught my eye here was ``libR.so`setup_Rmainloop`` rather than just `setup_Rmainloop`. LLDB is actually telling us the name of the shared object that this function comes from, which is actually a hint on how to set a breakpoint on it. Let's exit and try again, this time setting a breakpoint on ``libR.so`setup_Rmainloop``.
+
+``` bash
+(lldb) target create kernel-7a83330cb920019c
+(lldb) b libR.so`setup_Rmainloop
+(lldb) run
+```
+
+This actually gives me:
+
+``` bash
+(lldb) b libR.so`setup_Rmainloop
+Breakpoint 1: no locations (pending).
+WARNING:  Unable to resolve breakpoint to any actual locations.
+```
+
+But that's ok! The `kernel-61f59e199e4497b1` executable indeed does not have `setup_Rmainloop()` inside of it. The function only becomes available when the test internally "starts" R, opening the libR library. When I `run`, I see:
+
+``` bash
+# Hey look, that's our breakpoint being added as the libR library is opened!
+1 location added to breakpoint 1
+
+Process 9461 stopped
+* thread #6, name = 'dummy_kernel', stop reason = breakpoint 1.1
+    frame #0: 0x00007fffe1f893b0 libR.so`setup_Rmainloop
+libR.so`setup_Rmainloop:
+->  0x7fffe1f893b0 <+0>: endbr64
+    0x7fffe1f893b4 <+4>: pushq  %r12
+    0x7fffe1f893b6 <+6>: pushq  %rbp
+    0x7fffe1f893b7 <+7>: pushq  %rbx
+```
+
+Boom! Now we are stopped in `setup_Rmainloop()` before the crash has happened! Now, the `endbr64` and `pushq` you see here isn't super useful. That's assembly code, and to me it is absolutely useless. Since we are stepping through a _release_ version of R here, that's generally the best we can do. If we had a _debug_ version of R built from source, then we may actually get some useful information here about exactly which internal function we are stepping into, but we weren't quite ready to try that yet.
+
+Now, I have to admit, I got _lucky_ with this next part. We saw earlier that the error comes from some problem in `R_init_jit_enabled()` right? And I noticed that the only interesting things in there were an `Rf_eval()` call and loading the compiler package. So I happened to do this:
+
+``` bash
+(lldb) b libR.so`Rf_eval
+```
+
+And then I continued on from where we stopped in `setup_Rmainloop()`. `Rf_eval()` was called 3 times, and then the process aborted! _Interesting_. Pursuing this a little further, I dropped back in to lldb, continued through 2 of the 3 `Rf_eval()` calls, and then on the 3rd one I jumped into `Rf_eval()` and walked through it one line at a time, here's what I saw:
+
+# TODO turn into mp4
+{{< video ./video/abort.mp4 >}}
+
+`R_SignalCStackOverflow()`! What! That's super useful. If you missed that or didn't watch the video, here's what we caught:
+
+```bash
+libR.so`Rf_eval:
+->  0x7fffe5f54bed <+2141>: callq  0x7fffe5f22c90            ; R_SignalCStackOverflow
+    0x7fffe5f54bf2 <+2146>: leaq   0x14b886(%rip), %rdi
+    0x7fffe5f54bf9 <+2153>: xorl   %eax, %eax
+    0x7fffe5f54bfb <+2155>: callq  0x7fffe5f242a0            ; Rf_error
+```
+
+One thing we've learned while working on Ark is that if we run any R code on a thread that isn't the "main" thread where R is hosted, then the stack checking mechanism that R has in place doesn't work correctly on Linux (it seems to still work on macOS though). And sure enough, if you take one more step in the debugger, things explode:
+
+# TODO turn into mp4
+{{< video ./video/find-stack-overflow.mp4 >}}
