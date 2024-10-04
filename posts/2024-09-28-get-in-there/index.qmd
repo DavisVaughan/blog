@@ -257,9 +257,7 @@ And then I continued on from where we stopped in `setup_Rmainloop()`.
 *Interesting*.
 Pursuing this a little further, I dropped back in to lldb, continued through 2 of the 3 `Rf_eval()` calls, and then on the 3rd one I jumped into `Rf_eval()` and walked through it one line at a time, here's what I saw:
 
-# TODO turn into mp4
-
-{{< video ./video/abort.mp4 >}}
+{{< video video/find-stack-overflow.mp4 >}}
 
 `R_SignalCStackOverflow()`!
 What!
@@ -277,6 +275,4 @@ libR.so`Rf_eval:
 One thing we've learned while working on Ark is that if we run any R code on a thread that isn't the "main" thread where R is hosted, then the stack checking mechanism that R has in place doesn't work correctly on Linux (it seems to still work on macOS though).
 And sure enough, if you take one more step in the debugger, things explode:
 
-# TODO turn into mp4
-
-{{< video ./video/find-stack-overflow.mp4 >}}
+{{< video video/abort.mp4 >}}
