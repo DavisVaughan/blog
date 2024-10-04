@@ -4,6 +4,7 @@ project:
 website:
   title: "Davis Vaughan"
   navbar:
+    background: white
     right:
       - text: "Posts"
         file: index.qmd
