@@ -1,8 +1,5 @@
 /*-- scss:defaults --*/
 
-// Use litera as the base
-$theme: "litera" !default;
-
 // Import google fonts
 @import 'https://fonts.googleapis.com/css2?family=Roboto';
 @import 'https://fonts.googleapis.com/css2?family=Fira+Mono';
@@ -17,3 +14,10 @@ $code-color: #4758AB;
 // Add a bit more vertical space between lines of text.
 // quarto uses 1.5 but that seems a bit cramped in places.
 $line-height-base: 1.75;
+
+/*-- scss:rules --*/
+
+// litera is serif by default: revert to san-serif
+p {
+  font-family: $font-family-sans-serif;
+}
