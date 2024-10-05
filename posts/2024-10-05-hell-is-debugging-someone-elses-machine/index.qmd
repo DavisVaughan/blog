@@ -16,7 +16,7 @@ More specifically, it's a post about:
 
 -   Debugging Rust tests
 
--   [Ark]((https://github.com/posit-dev/ark)), a Jupyter kernel for R
+-   [Ark](https://github.com/posit-dev/ark), a Jupyter kernel for R
 
 -   SSH-ing into GitHub Actions
 
