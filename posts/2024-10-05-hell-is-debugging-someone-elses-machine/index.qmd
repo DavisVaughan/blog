@@ -342,7 +342,7 @@ libr::set(libr::R_CStackLimit, usize::MAX);
 You know, "During tests, set the `R_CStackLimit` variable to `usize::MAX`." That should have turned off the stack checking mechanism, so it should have been impossible for `R_SignalCStackOverflow()` to get called.
 
 Well, turns out we forgot something important here.
-It's actually: "During *unit* tests, set the `R_CStackLimit` variable to `usize::MAX`." In other words, during *integration* tests *this code still isn't run*.
+The meaning of `#[cfg(test)]` in Rust is actually: "During *unit* tests, set the `R_CStackLimit` variable to `usize::MAX`." In other words, during *integration* tests *this line of code still isn't run, so stack checking is still on*.
 As confusing as this may be on the surface due to the presence of `#[cfg(test)]`, it does kind of make sense.
 Remember, in Rust, integration tests are supposed to be from the perspective *of the user*.
 And when the user is using ark, this line isn't present, so it shouldn't be present during integration tests either.
