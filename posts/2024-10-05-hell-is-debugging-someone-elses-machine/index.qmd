@@ -191,7 +191,7 @@ Unit tests let you test an individual function at a time, while integration test
 In the R world, you can think of unit tests as the testthat tests you typically write.
 Integration tests would be like creating a separate `pkgtest` package with its own suite of tests that test behavior in the `pkg` package.
 `pkgtest` would only be able to use `pkg`'s exported functions, and would test behavior from a real user's perspective.
-[That sounds like a lot, but [tidymodels](https://github.com/tidymodels/extratests) actually does this to make sure that specific workflows involving multiple packages are working as they should be.]{.aside}
+[That sounds like a lot, but [tidymodels](https://github.com/tidymodels/extratests) actually does this to make sure that specific workflows involving multiple packages are working as they should be, even across development versions. They run these integration tests on a nightly GitHub Actions workflow.]{.aside}
 
 The kind of test that is failing is an integration test.
 Way up at the top in the failure output, you might have seen:
