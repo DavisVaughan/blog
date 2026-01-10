@@ -1,25 +1,16 @@
 ---
 title: "About"
-image: about.jpg
 about:
   template: solana
-  links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/dvaughan32
-    - icon: github
-      text: Github
-      href: https://github.com/DavisVaughan
 ---
 
-## Who am I?
+I'm a software engineer at [Posit](https://posit.co/) working on improving R and the [tidyverse](https://tidyverse.org/).
 
-I'm Davis, a Software Engineer at [RStudio](https://www.rstudio.com/) working on creating user friendly R packages with the rest of the [tidyverse](https://github.com/tidyverse) team.
+I've created / maintained a number of R packages:
 
-## What else?
-
-I've developed a few R packages:
-
+-   [dplyr](https://dplyr.tidyverse.org)
+-   [tidyr](https://tidyr.tidyverse.org)
+-   [vctrs](https://vctrs.r-lib.org)
 -   [furrr](https://furrr.futureverse.org)
 -   [slider](https://davisvaughan.github.io/slider)
 -   [clock](https://clock.r-lib.org)
@@ -27,9 +18,8 @@ I've developed a few R packages:
 -   [hardhat](http://hardhat.tidymodels.org)
 -   [workflows](http://workflows.tidymodels.org)
 -   [probably](https://probably.tidymodels.org)
-
-And I work on many more, including:
-
--   [tidyr](https://tidyr.tidyverse.org)
--   [vctrs](https://vctrs.r-lib.org)
 -   [yardstick](https://yardstick.tidymodels.org)
+
+I'm a core contributor to [Ark](https://github.com/posit-dev/ark), the Jupyter Kernel, Language Server, and Debug Adapter for R. Ark powers the R tooling for [Positron](https://positron.posit.co/), Posit's data science focused IDE.
+
+I'm also the co-creator of [Air](https://github.com/posit-dev/air), a popular R code formatter.
