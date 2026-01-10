@@ -1,0 +1,886 @@
+---
+title: Semi-automating 200 Pull Requests with Claude Code
+author: Davis Vaughan
+date: '2026-01-09'
+slug: claude-200-pull-requests
+editor:
+  markdown:
+    wrap: sentence
+    canonical: true
+draft: true
+draft-mode: unlinked
+---
+
+We're working on the next [dplyr](https://github.com/tidyverse/dplyr) release.
+It's a fun one, and I'm very excited for all of the [new features](https://github.com/tidyverse/dplyr/blob/main/NEWS.md) we're releasing!
+We're also advancing the deprecation stages of each of our deprecated functions, and this is...less fun.
+
+Take `mutate_()` as an example.
+Underscored functions like this are the "old style" way to program with dplyr in your own package.
+`mutate_()` and friends have been deprecated since 2017 (and have been warning on every use!), but for years they've been too painful to move all the way to the defunct stage (where they will instead error).
+Until now!
+We've decided to rip off that bandaid and move all of these underscored functions to be defunct with the goal of removing them entirely in the release after this one.
+It's long overdue, and will nicely reduce the surface area of the dplyr API.
+
+*However*, doing so breaks a whopping 50 R packages on CRAN.
+
+The [tidyverse](https://tidyverse.org/) group as a whole has generally adopted the principle that if we are going to break your package, then we should make an attempt at sending you a pull request with a patch ahead of time - that way you can preemptively update your package on CRAN to be forward compatible with the next version of dplyr, and CRAN won't threaten to kick your package off due to changes we made in dplyr.
+We do this as an act of good will towards the community, and people are generally very appreciative of this work.
+A little kindness goes a long way here.
+
+But *man*, this is time consuming.
+Imagine getting dropped into a software project that you have *zero* familiarity with, and being tasked with tracking down and updating some out-of-date code.
+And there aren't just 50 of these, there's [over 200](https://github.com/tidyverse/dplyr/issues/7763)!
+[It's worth noting that most of these changes are unlikely to affect data analysis scripts, mostly just very old and outdated R packages.]{.aside}
+
+Doing some rough back of the envelope math here:
+
+-   10 minutes per pull request
+
+-   200 packages
+
+-   2000 minutes = 33 hours
+
+That's...a lot.
+
+So we could back out and not do this, but we've been wanting to remove these for years.
+Do we just slog through?
+
+Hadley suggested that maybe Claude Code could help fix the packages.
+I laughed, and thought that there was no way that it would be good enough for that.
+But around the same time, I also read [this thread](https://bsky.app/profile/sunshowers.io/post/3mbcik4ld6s2q) from Rain, a software engineer I also highly respect:
+
+> To the extent that LLMs shift the Pareto curve on time spent vs quality level of code, I'd much rather people spend the extra time improving code quality.
+> Do the thing that's annoying to write and has many edge cases to test but has a cleaner UX.
+> Aggressively refactor.
+> Tackle the TODOs.
+>
+> There are absolutely things I've built with LLM assistance that are an utter drag to write 1000+ lines of tests for.
+> Without them I'd have tended to build something easier to write but with a worse UX.
+> Do the hard, tedious thing, focusing on improving the lives of people — that is the way forward
+>
+> These tools can help set higher standards than ever, if you use them in that direction.
+> Aim for a higher level of excellence
+
+They've clearly had some positive experiences with LLMs and sloggy-yet-impactful work like this, so I decided to give it some real effort.
+Let's do the hard, tedious thing!
+
+## A TLDR
+
+This is a long post, and if you don't want to read the whole thing, that's fine, I get it.
+We're all busy.
+So here's the conclusion, right up front:
+
+-   Yes, I really did generate \~200 sets of diffs using Claude, each of which became a human reviewed PR.
+    You can see a link to each PR [from this issue](https://github.com/tidyverse/dplyr/issues/7763).
+
+-   Yes, it was successful, provided that you have enough [structure](#structure-success) in place, and can let each Claude subagent focus on the *smallest scoped task* possible
+
+-   Yes, it saved me time.
+    I'd estimate it is taking me 4x less time this way (33 hours -\> 8 hours).
+
+Historically I've been pretty mellow on AI.
+It's never felt that useful to me.
+I never really had the right task for it to slog through.
+But this was the right combination of tedious-but-useful task, and Claude Code + Opus 4.5 are a whole new level of powerful tools.
+I'm not worried about these tools replacing me.
+That's not what they're for!
+These tools let me [code like a surgeon](https://www.geoffreylitt.com/2025/10/24/code-like-a-surgeon), they take away the boring menial work so I can focus more on the rewarding deep work.
+They also require skill and expertise to use for complex production level tasks - it's like any other tool, garbage in garbage out.
+But they *are* useful tools, and at this point it finally feels worth it to sink some time into learning them.
+
+## 100 `id()`s
+
+So here's the setup.
+100 of the failing packages suffered from the same issue, these were my first target.
+
+`dplyr::id()` has been defunct (literally throwing an error) for *years*, but we've never been able to actually remove this function.
+The reason for this is a little complex and a lot stupid.
+
+When an R package uses dplyr code internally, it typically looks something like this:
+
+``` r
+my_fn <- function(df) {
+  df |>
+    summarise(total = sum(money))
+}
+```
+
+When developers check their R package with `R CMD check` or `devtools::check()`, they get a NOTE that looks like this:
+
+```
+❯ checking R code for possible problems ... NOTE
+  my_fn: no visible binding for global variable ‘money’
+```
+
+`money` is captured using non-standard evaluation (NSE).
+It's a column of `df` that the user gets to reference inside of `summarise()` without needing to do `df$money`.
+But to R's checks, it looks "unbound".
+
+Typically R package authors fix this in one of two ways:
+
+-   Declare it as a global variable in your package somewhere with `utils::globalVariables("money")`
+
+-   Import the `.data` pronoun from rlang and change to `summarise(total = sum(.data$money))`
+
+And you know what an extremely common column name is?
+`id`.
+
+But here's the thing, if your package imports the *defunct function* `dplyr::id()`, then this fools R's checks into thinking the binding exists, and you don't get the NOTE even if you skipped out on doing one of the appropriate fixes mentioned above.
+You can also get into this scenario by doing a mass `@import dplyr`, which many packages do.
+
+But now we want to remove `dplyr::id()`, so this is going to expose anyone who's been referencing an `id` column using NSE.
+All...100 of them.
+
+I figured Claude Code could help me fix this batch of packages by adding in `globalVariables()` or `.data$` as appropriate.
+
+## Crash and burn
+
+I used Claude Opus 4.5 with a (to me) reasonable set of permissions
+
+``` json
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo fork:*)",
+      "Bash(gh repo clone:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(Rscript:*)",
+      "WebFetch(domain:github.com)",
+    ]
+  }
+}
+```
+
+Claude and I first came up with a plan together of how it should fix up these failing packages.
+For each package, Claude would:
+
+-   Clone down the package using the cli tool `gh`
+
+-   Create an `.Rprofile` and a `library/` folder to have a per-failing-package package library (for the package's dependencies, so we can run its tests)
+
+-   Install all dependencies required by the package into `library/`
+
+-   Analyze the package, looking for places to add `.data$` or `globalVariables()` calls
+
+-   `Use devtools::check()` or `devtools::test()` against *both* the CRAN and dev versions of dplyr as the validation method to ensure that the package was fixed
+
+I would be in charge of doing a final review of the diff that Claude created, and sending in the actual PRs.
+
+I knew this would take awhile, so I encouraged Claude to use subagents for this task.
+
+If you want to view the whole Plan that Claude and I came up with, click below.
+I do think it is useful to read a few of these to get a grasp on how LLMs tend to prefer to consume instructions.
+[FWIW, this was my first time doing a Claude project of this magnitude. It was a great learning experience!]{.aside}
+
+<details>
+
+<summary>Click to view the Plan</summary>
+
+````
+# Reverse Dependency Fix Plan
+
+## Overview
+
+This plan outlines an automated approach to fix reverse dependency (revdep) failures caused by breaking changes in an upstream R package. The goal is to create a first-pass fix for each affected package that can then be reviewed and submitted as pull requests.
+
+## Parameters
+
+Before executing this plan, the following must be specified:
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `UPSTREAM_PACKAGE` | The package with breaking changes | `dplyr` |
+| `REVDEP_ISSUE_URL` | GitHub issue listing affected packages (grouped by category) | `https://github.com/tidyverse/dplyr/issues/7763` |
+| `REVDEP_BASE_DIR` | Base directory for all revdep work | `~/Desktop/revdeps` |
+| `RELEASE_DATE` | Target CRAN release date for the upstream package | `January 15, 2026` |
+
+The `REVDEP_ISSUE_URL` should contain packages grouped by category of breaking change. Each subprocess will use this categorization to guide its diagnosis and fix approach.
+
+## Architecture
+
+### Subprocess Model
+
+Each reverse dependency will be processed by a dedicated subprocess (Claude Code agent) to:
+- Ensure isolation between packages
+- Enable parallel processing when appropriate
+- Contain failures to individual packages
+- Maintain clear state per package
+
+### Directory Structure
+
+```
+{REVDEP_BASE_DIR}/
+├── _summary.md                 # Overall progress tracking
+├── _config.json                # Parameters for this run
+├── {package_name}/
+│   ├── library/                # Package-specific R library
+│   ├── {package_name}/         # Git checkout of package source
+│   │   └── .Rprofile           # Sets library path
+│   ├── status.json             # Processing status
+│   └── notes.md                # Agent notes and findings
+```
+
+## Workflow Per Package
+
+Each subprocess will follow this workflow:
+
+### Phase 1: Setup
+
+1. **Create directory structure**
+   ```bash
+   mkdir -p {REVDEP_BASE_DIR}/{package}/library
+   ```
+
+2. **Fork and clone repository**
+   ```bash
+   cd {REVDEP_BASE_DIR}/{package}
+   gh repo fork {source_url} --clone=false
+   gh repo clone {forked_repo} {package}
+   cd {package}
+   git checkout main  # or master
+   ```
+
+   For packages with mailto URLs (CRAN-only), use:
+   ```bash
+   gh repo fork https://github.com/cran/{package} --clone=false
+   ```
+
+3. **Add .Rprofile for library isolation** (use hardcoded absolute path)
+   ```r
+   .libPaths(c("{REVDEP_BASE_DIR}/{package}/library", .libPaths()))
+   ```
+
+4. **Install dependencies**
+   ```bash
+   cd {REVDEP_BASE_DIR}/{package}/{package}
+   Rscript -e "pak::pak()"
+   ```
+
+### Phase 2: Diagnose
+
+1. **Identify the specific failure**
+   - The package's category from `REVDEP_ISSUE_URL` indicates the likely problem
+   - Run `Rscript -e "devtools::test()"` to confirm the error
+   - Search codebase for usage of deprecated/removed functions
+
+2. **Search for affected code**
+   - Use grep/ripgrep to find usage of the problematic function/feature
+   - Check NAMESPACE file for imports
+   - Check DESCRIPTION for dependencies
+
+### Phase 3: Fix
+
+Apply fixes based on the category from `REVDEP_ISSUE_URL`. The subprocess should:
+
+1. Identify all files containing the problematic pattern
+2. Apply the documented fix pattern
+3. Update NAMESPACE if imports changed
+4. Update DESCRIPTION if new dependencies needed
+
+**Important**: Fixes must work with both:
+- Development version of the upstream package
+- Current CRAN version of the upstream package
+
+### Phase 4: Validate
+
+1. **Install development version of upstream and test**
+   ```bash
+   Rscript -e "pak::pak('{upstream_github_repo}')"
+   Rscript -e "devtools::check()"
+   ```
+
+2. **Install CRAN version of upstream and test**
+   ```bash
+   Rscript -e "pak::pak('{UPSTREAM_PACKAGE}')"
+   Rscript -e "devtools::check()"
+   ```
+
+3. **Verification criteria:**
+   - `R CMD check` passes (0 errors, 0 warnings ideally)
+   - Tests pass with both upstream versions
+   - No new NOTEs introduced
+
+4. **Quick validation alternative**
+   - For faster iteration, use `Rscript -e "devtools::test()"`
+   - Run full `devtools::check()` only for final validation
+
+### Phase 5: Document
+
+1. **Record status in `status.json`**
+   ```json
+   {
+     "package": "package_name",
+     "status": "fixed|failed|needs_review",
+     "category": "category_name",
+     "files_changed": ["R/file.R", "NAMESPACE"],
+     "cran_upstream_check": "pass|fail",
+     "dev_upstream_check": "pass|fail",
+     "notes": "Any special considerations"
+   }
+   ```
+
+2. **Create diff for review**
+   ```bash
+   git diff > {REVDEP_BASE_DIR}/{package}/fix.patch
+   ```
+
+3. **Create PR message** (for fixed packages only)
+
+   Write `{REVDEP_BASE_DIR}/{package}/message.txt`:
+   ```
+   Hi there, we are working on the next version of {UPSTREAM_PACKAGE} and your package was flagged in our reverse dependency checks.
+
+   {Brief description of the problem and how it was resolved}
+
+   {UPSTREAM_PACKAGE} will be released on {RELEASE_DATE}. If you could please send an update of your package to CRAN before then, that would help us out a lot! Thanks!
+   ```
+
+   The description should be specific to the fix made, e.g.:
+   - "The `dplyr::id()` function has been removed. We updated your NAMESPACE to remove the import and added `id` to `globalVariables()` since it's used as a column name."
+   - "The `add` argument to `group_by()` has been removed. We updated the call to use `.add` instead."
+
+   **CRITICAL**: The message.txt file MUST follow this exact template format. Do not deviate from this structure. The message should:
+   - Start with the exact greeting: "Hi there, we are working on the next version of dplyr..."
+   - Include a brief, specific description of the problem and fix (1-3 sentences)
+   - End with the exact closing about the release date and CRAN update request
+   - NOT include any additional sections, headers, or formatting beyond this template
+
+## Execution Strategy
+
+### Option A: Sequential Processing
+
+Process packages one at a time:
+- Recommended for initial runs to observe patterns
+- Lower resource usage
+- Easier to monitor and debug
+
+```
+For each package in package_list:
+    spawn_subprocess(package)
+    wait_for_completion()
+    record_result()
+```
+
+### Option B: Parallel Processing
+
+Process multiple packages concurrently:
+- Group by fix category (similar fixes have similar solutions)
+- **Max concurrency: 5 packages at a time** (STRICT LIMIT - never exceed this)
+- Wait for agents to complete before launching new ones
+- **Timeout: 10 minutes per package** (mark as failed and move on if exceeded)
+- Useful after workflow is validated
+
+### Prioritization
+
+Suggested processing order:
+1. **Tidyverse/related packages** - highest visibility, may reveal patterns
+2. **Simple fixes** - quick wins, build confidence
+3. **Largest categories** - maximize impact
+4. **Complex cases** - may need manual intervention
+
+## Subprocess Implementation
+
+Each package will be processed by an independent subprocess using Claude Code's `Task` tool with `run_in_background=true`:
+
+```
+Task(
+    subagent_type="general-purpose",
+    prompt="<detailed prompt with full workflow>",
+    run_in_background=true
+)
+```
+
+**Important**: Background execution is required so that:
+- Agents can run without requiring user permission for each tool call
+- Multiple packages can be processed in parallel
+- The main process can monitor progress and launch new agents as others complete
+
+Each subprocess receives a comprehensive prompt containing:
+- Package name and source URL
+- Fix category (from `REVDEP_ISSUE_URL`)
+- Complete workflow instructions (setup, diagnose, fix, validate, document)
+- Directory structure requirements
+- Validation criteria
+- Upstream package dev install command
+
+The subprocess operates fully independently - no shared state between packages except the summary file. This ensures:
+- Clean isolation between packages
+- No cross-contamination of fixes
+- Easy retry of individual packages if needed
+- Clear audit trail per package
+
+## Progress Tracking
+
+Maintain `{REVDEP_BASE_DIR}/_summary.md`:
+
+```markdown
+# Revdep Fix Progress
+
+## Configuration
+- Upstream package: {UPSTREAM_PACKAGE}
+- Issue: {REVDEP_ISSUE_URL}
+- Started: {date}
+
+## Statistics
+- Total: N
+- Fixed: X
+- Failed: Y
+- In Progress: Z
+- Pending: W
+
+## By Category
+| Category | Fixed | Failed | Pending |
+|----------|-------|--------|---------|
+| ...      | ...   | ...    | ...     |
+
+## Package Status
+| Package | Category | Status | Notes |
+|---------|----------|--------|-------|
+| ...     | ...      | ...    | ...   |
+```
+
+## Error Handling
+
+### Package cannot be forked
+- Check if CRAN mirror exists at `https://github.com/cran/{package}`
+- Record as "source_unavailable" and skip
+
+### Dependencies fail to install
+- Try installing with `dependencies = FALSE`
+- Record specific failing dependencies
+- May indicate upstream issues unrelated to our changes
+
+### Fix requires architectural changes
+- Mark as "needs_manual_review"
+- Document the issue clearly
+- These will be handled separately
+
+### Tests fail for reasons unrelated to upstream package
+- Document pre-existing failures
+- Verify our changes don't make things worse
+- Mark as "partial_fix" if upstream-specific issues resolved
+
+### Package uses internal/unexported functions
+- These are harder to fix as there may not be a public API replacement
+- Document what internal function was used
+- Mark as "needs_manual_review" if no clear replacement exists
+
+## Output for Review
+
+After all packages are processed:
+
+1. **Summary report** in `{REVDEP_BASE_DIR}/_summary.md`
+2. **Per-package patches** in `{REVDEP_BASE_DIR}/{package}/fix.patch`
+3. **Status files** in `{REVDEP_BASE_DIR}/{package}/status.json`
+
+Review diffs with:
+```bash
+cd {REVDEP_BASE_DIR}/{package}/{package}
+git diff
+```
+
+Create PRs manually after review.
+
+## Notes
+
+- Do not add NEWS.md or changelog entries to fixes
+- Work autonomously - do not stop to ask for permission, make reasonable decisions and proceed
+- If a package fails or needs manual review, document it and move on to the next package
+- Keep processing until all packages are complete or have a final status
+- Prefer `devtools::test()` for quick iteration; use `devtools::check()` for final validation
+- Some test failures may be pre-existing or due to missing API keys/credentials - document these but don't block on them
+````
+
+</details>
+
+I let it rip, and it was pretty satisfying to watch it start to get to work:
+
+![](img/running-two-tasks.png)
+
+![](img/tasks-completing.png){fig-align="center"}
+
+As the results started coming in, I started reviewing them.
+And they were pretty good!
+Here's a live review of one of the simplest fixes:
+
+{{< video video/process-revdep.mp4 >}}
+
+And then the problems started!
+
+### GitHub rate limits
+
+At some point along the way the main Claude process started complaining that the subprocesses were hitting GitHub rate limits.
+I was a bit confused by this, as I do have a validated account and should have a pretty high rate limit.
+Regardless, I didn't think too much of it because the tasks completed anyways.
+
+But this *wrecked* me.
+
+Turns out that at some point along the way the agents stopped doing a `git clone`, and instead started just downloading and unpacking a tarball from GitHub, like the one that lives at <https://github.com/tidyverse/dplyr/archive/refs/heads/main.tar.gz>.
+
+This was wildly problematic!
+The agent would then modify these sources directly, which meant that when it came time for me to review them, *I had no diff*.
+Git hadn't even been initialized in this folder!
+Even if I did have a diff, it wasn't hooked to an upstream remote, so I couldn't push it anywhere!
+It was practically useless to me.
+
+### Ignoring the plan
+
+Somewhere else along the way I noticed that the per package `library/` folders either weren't being created, or the `.Rprofile` files (which are supposed to point an R session to use `library/`) weren't being used.
+This meant that some agents were mucking with my global R package library!
+Ugh!
+
+### Will you just shut up already
+
+One of the most annoying things that I had to deal with was Claude's main session asking me permission to do pretty much *anything* both in the main session and in the subagent sessions.
+
+The whole point of this exercise was for me to be able to go off and do other things while Claude worked for me.
+Instead I felt like I was babysitting it!
+Yes, you can run `find`, yes you can run this bash `for` loop, etc etc.
+
+I would always accept the modification to `settings.local.json` that in theory meant that it wouldn't need to ask me about a similar command the next time, but in practice that just led to this overblown permissions file:
+
+``` json
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo fork:*)",
+      "Bash(gh repo clone:*)",
+      "Bash(test:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(Rscript:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(xargs:*)",
+      "Bash(tree:*)",
+      "Bash(for dir in */)",
+      "Bash(do pkg=\"$dir%/\")",
+      "Bash(if [ ! -f \"$pkg/status.json\" ])",
+      "Bash(then echo \"$pkg\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(for pkg in concrete disclapmix dplR ecochange episensr forestmangr admiral2 benchmarkmeData codebook)",
+      "Bash(do echo '=== $pkg ===' if [ -f /Users/davis/files/r/packages/dplyr/revdeps/$pkg/status.json ])",
+      "Bash(then echo 'Has status.json' else echo 'No status.json' if [ -d /Users/davis/files/r/packages/dplyr/revdeps/$pkg ])",
+      "Bash(then ls -la /Users/davis/files/r/packages/dplyr/revdeps/$pkg)",
+      "Bash(do echo \"=== $pkg ===\")",
+      "Bash([ \"$pkg\" != \"_summary.md\" ])",
+      "Bash([ \"$pkg\" != \"_config.json\" ])",
+      "Bash(ls:*)",
+      "Bash(while read dir)",
+      "Bash(do pkg=$dir%/)",
+      "Bash(if [ ! -f $pkg/status.json ])",
+      "Bash(then echo $pkg)",
+      "Bash(while read pkg)",
+      "Bash(do if [ ! -d \"$pkg\" ])",
+      "Bash(then echo \"$pkg\" fi done)",
+      "Bash(for:*)",
+      "Bash(do:*)",
+      "Bash(echo:*)",
+      "Bash(wc:*)",
+      "Bash(while:*)",
+      "Bash(for:*)",
+      "Bash(ls:*)",
+      "Bash(do [ -d \"$pkg\" ])",
+      "Bash(/tmp/get_category.sh:*)",
+      "Bash(for f in */message.txt)",
+      "Bash(do if [ -f \"$f\" ])",
+      "Bash(then if ! head -1 \"$f\")",
+      "Bash(then echo 'NEEDS FIX: $f' fi fi done)",
+      "Bash(grep:*)",
+      "Bash([ \"$pkg\" != \"_packages.txt\" ])",
+      "Bash([ \"$pkg\" != \"_remaining.txt\" ])",
+      "Bash(for pkg in amt assertHE chunked dexter discord)",
+      "Bash(if [ -f \"/Users/davis/files/r/packages/dplyr/revdeps/$pkg/status.json\" ])",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(for pkg in gMOIP GOxploreR)",
+      "Bash(for pkg in gMOIP GOxploreR growthcleanr grPipe heuristicsmineR)",
+      "Bash(comm:*)"
+    ]
+  }
+}
+```
+
+I'm not the only one that's hit a problem like this.
+I recently read [Matthew Rocklin's](https://matthewrocklin.com/ai-zealotry/#example-problem-incomplete-permissions) post about this exact issue, which he solved with Hooks.
+
+## And yet...?
+
+All these frustrating issues.
+
+And yet.
+
+*And yet*.
+
+The fixes themselves were good.
+Not always perfect, but pretty darn good.
+Enough to be meaningfully helpful if we could just get the details out of the way.
+
+## Structure = Success {#structure-success}
+
+I slogged my way through the `dplyr::id()` related packages, patching up Claude's git snafus and eventually getting some value out of the work it had done.
+As I did so, I reflected on what I would do differently, and it all comes down to structure.
+Here's the key point:
+
+> When you want Claude to perform a `job` N times, scope the `job` as tightly as possible.
+
+I was having Claude do way too many things, with way too many points of failure.
+Managing git/github interactions, setting up local package libraries, etc.
+Notably these aren't the things I really *needed* help with.
+I wanted Claude to work on the fixes!
+Not waste time with git!
+
+So as I looked to the next batch of 50 packages related to `mutate_()`, I re-scoped the plan quite a bit.
+
+-   I pre-cloned all 50 packages into a single folder (a simple R script)
+
+-   I pre-generated all 50 `.Rprofile`s and `library/` folders (a simple R script)
+
+-   I pre-created a bulleted list of the 50 packages it was going to work on, so it could track it's progress without needing to look back at the GitHub issue constantly
+
+This meant that Claude could focus solely on the part that I actually cared about getting its help with - finding and applying the fix.
+
+I also learned that I could ask Claude to use *background* tasks rather than whatever its standard tasks are.
+This meant that each task would operate *autonomously*, and the main Claude process wouldn't have to repeatedly stop and ask me for permission to run code in the subagents.
+This was quite the game changer because I could truly walk away while it chugged through the next batch of packages.
+
+Here's the updated plan I used for the second round:
+
+<details>
+
+<summary>Click to view the updated plan</summary>
+
+````
+# Reverse Dependency Fix Plan
+
+## Overview
+
+This plan outlines an automated approach to fix reverse dependency (revdep) failures caused by breaking changes in an upstream R package. The goal is to create a first-pass fix for each affected package that can then be reviewed and submitted as pull requests.
+
+Assume that `clone-all-from-github.R` has been run to clone all reverse dependencies into `LOCAL_FOLDER`, followed by `prepare-library-folders.R` to set up reverse dependency specific package libraries.
+
+Assume that `summary.md` has already been set up for you as well.
+
+## Parameters
+
+Before executing this plan, the following must be specified by the user:
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `UPSTREAM_PACKAGE` | The R package with breaking changes | `dplyr` |
+| `UPSTREAM_PACKAGE_REPO` | The GitHub repo of the R package with breaking changes | `tidyverse/dplyr` |
+| `ISSUE_CATEGORY` | The kind of issue that every one of these revdep failures shares | Uses deprecated underscored functions, needs to migrate to non deprecated ones. |
+| `LOCAL_FOLDER` | The folder that holds the reverse dependency folders | `~/Desktop/revdeps` |
+
+Expect that all reverse dependencies have already been cloned into `LOCAL_FOLDER`. There is nothing else to fetch besides packages required to run a reverse dependency's tests, which will go into that package's `library/` folder, which has also already been created for you.
+
+## Architecture
+
+### Subprocess Model
+
+Each reverse dependency will be processed by a dedicated subprocess (Claude Code agent) to:
+
+- Ensure isolation between packages
+- Enable parallel processing when appropriate
+- Contain failures to individual packages
+- Maintain clear state per package
+
+These subprocesses MUST be run as _background_ tasks using Claude Code's `Task` tool with `run_in_background=true`:
+
+```
+Task(
+    subagent_type="general-purpose",
+    prompt="<detailed prompt with full workflow>",
+    run_in_background=true
+)
+```
+
+**Important**: Background execution is required so that:
+
+- Agents can run without requiring user permission for each tool call
+- Multiple packages can be processed in parallel
+- The main process can monitor progress and launch new agents as others complete
+
+Each subprocess receives a comprehensive prompt containing:
+- Package name and source URL
+- `ISSUE_CATEGORY`
+- Complete workflow instructions (setup, diagnose, fix, validate, document)
+- Directory structure requirements
+- Validation criteria
+- Upstream package dev install command
+
+The subprocess operates fully independently - no shared state between packages except the summary file. This ensures:
+- Clean isolation between packages
+- No cross-contamination of fixes
+- Easy retry of individual packages if needed
+- Clear audit trail per package
+
+### Concurrency
+
+- Launch packages one after another in background subprocesses
+- **Max concurrency: 10 packages at a time**
+- When one package finishes, launch the next one, do not wait for all current tasks to finish before launching the next task
+- **Timeout: 10 minutes per package** (mark as failed and move on if exceeded)
+
+### Directory Structure
+
+```
+{LOCAL_FOLDER}/
+├── summary.md                  # Overall progress tracking
+├── {package_name}/
+│   ├── .Rprofile               # Sets library path
+│   ├── library/                # Package-specific R library
+│   ├── {package files}         # The rest of the files for this package
+```
+
+## Workflow Per Package
+
+Each subprocess will follow this workflow:
+
+### Phase 1: Dependencies
+
+1. **Install dependencies**
+   ```bash
+   cd {LOCAL_FOLDER}/{package}/
+   Rscript -e "pak::pak()"
+   ```
+
+### Phase 2: Diagnose
+
+1. **Identify the specific failure**
+   - The `ISSUE_CATEGORY` indicates the likely problem
+   - Run `Rscript -e "devtools::test()"` to confirm the error
+   - Search codebase for usage of deprecated/removed functions
+   - Use grep/ripgrep to find usage of the problematic function/feature
+   - Check NAMESPACE file for imports
+   - Check DESCRIPTION for dependencies
+
+### Phase 3: Fix
+
+The subprocess should:
+
+1. Identify all files containing the problematic pattern
+2. Apply the fix pattern
+3. Update NAMESPACE if imports changed
+4. Update DESCRIPTION if new dependencies needed
+
+### Phase 4: Validate
+
+1. **Install development version of upstream and test**
+   ```bash
+   Rscript -e "pak::pak('{UPSTREAM_PACKAGE_REPO}')"
+   Rscript -e "devtools::check()"
+   ```
+
+2. **Install CRAN version of upstream and test**
+   ```bash
+   Rscript -e "pak::pak('{UPSTREAM_PACKAGE}')"
+   Rscript -e "devtools::check()"
+   ```
+
+3. **Verification criteria:**
+   - `R CMD check` passes (0 errors, 0 warnings ideally)
+   - Tests pass with both upstream versions
+   - No new NOTEs introduced
+
+4. **Quick validation alternative**
+   - For faster iteration, use `Rscript -e "devtools::test()"`
+   - Run full `devtools::check()` only for final validation
+
+**Critical**: Fixes must work with both:
+
+- Development version of the upstream package
+- Current CRAN version of the upstream package
+
+### Phase 5: Document
+
+1. **Check the corresponding box in `summary.md` to mark the package as finished**
+   ```markdown
+   - [x] revdep_package
+   ```
+
+## Error Handling
+
+If you run into a failure, you are allowed to write a 1 sentence summary in `summary.md` for that specific reverse dependency, like:
+
+```
+- [x] cofeatureR
+   - Failed due to <reason>.
+```
+
+Be terse here.
+
+Some reasons for failure are listed below.
+
+### Dependencies fail to install
+- Record specific failing dependencies and give up
+- Do NOT bypass the reverse dependency specific libpath set up for you in the `.Rprofile`
+
+### Tests fail for reasons unrelated to upstream package
+- Document pre-existing failures
+- Verify our changes don't make things worse
+
+## NEWS bullets
+
+Do not add NEWS.md or changelog entries to fixes
+
+## Files you can touch
+
+- Anything inside the package specific revdep folder, i.e. `./{package}/`
+- The `summary.md` file
+
+Do NOT touch any other files or folders yourself. You should not need to do so.
+````
+
+</details>
+
+With an updated plan and *much* more structure in place, I fired off Claude to work through the next batch of packages.
+What a difference!
+
+-   Every package had a small diff, and I could easily push a PR from my IDE
+
+-   My global R package library was never touched
+
+-   Claude asked me for permission to run something maybe twice throughout the whole process
+
+And the diffs!
+I'll be honest, I was pretty skeptical that Claude would be able to handle the update process from `mutate_()` to `mutate()` cleanly (it's more complicated than just changing the function name).
+But I was so wrong!
+Just check out this [patch for the benthos package](https://github.com/DavisVaughan/benthos/pull/1/changes).
+This is the kind of drudgery that I really hate.
+There are repeatable patterns in there, but it's much more complex than a simple find and replace.
+This one PR would have taken me maybe 20 minutes?
+Instead I was able to look over Claude's diff, double check that `devtools::check()` passes with dev dplyr, and push out a PR in under 2 minutes.
+
+As another example, here's a live review of a patch for the {useful} package.
+This took me just over 1 minute to process (full checks and all).
+
+{{< video video/speedrun-a-revdep-useful-package.mp4 >}}
+
+If it looks like I'm skimming over the code quickly, that's because I am!
+I'd reviewed 30+ of these patches by this point, I know roughly what it's going to look like, so I don't need to spend much time on it as long as the checks pass.
+
+## Money talks
+
+Let's talk money for a second.
+How much did all of this cost?
+
+I ran `/cost` after just the second batch of 50 packages:
+
+```
+❯ /cost
+  ⎿  Total cost:            $147.07
+     Total duration (API):  6h 33m 5s
+     Total duration (wall): 1h 9m 51s
+     Total code changes:    869 lines added, 802 lines removed
+     Usage by model:
+             claude-haiku:  834.2k input, 20.4k output, 10.8k cache read, 0 cache write ($0.94)
+          clause-opus-4-5:  29.5k input, 1.1m output, 200.7m cache read, 2.8m cache write
+     ($146.13)
+```
+
+\$150 is not nothing!
+But Posit pays for this, and they also pay my salary.
+So if \$150 can take 8.3 hours of work (10 minutes per package for 50 packages) down to just 1-2 hours of reviewing patches, then that's actually a pretty big win.
