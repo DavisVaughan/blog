@@ -530,6 +530,7 @@ It was practically useless to me.
 Somewhere else along the way I noticed that the per package `library/` folders either weren't being created, or the `.Rprofile` files (which are supposed to point an R session to use `library/`) weren't being used.
 This meant that some agents were mucking with my global R package library!
 Ugh!
+[[Simon Willison](https://simonwillison.net/) predicted in [a podcast](https://podcasts.apple.com/us/podcast/oxide-and-friends/id1625932222?i=1000744305607) that 2026 will be the year of sandboxing AI, and that resonates extremely strongly with me after this experiment. I don't want to install arbitrary packages and run arbitrary tests on my own machine!]{.aside}
 
 ### Will you just shut up already
 
