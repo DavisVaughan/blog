@@ -108,7 +108,7 @@ my_fn <- function(df) {
 
 When developers check their R package with `R CMD check` or `devtools::check()`, they get a NOTE that looks like this:
 
-```
+``` bash
 ❯ checking R code for possible problems ... NOTE
   my_fn: no visible binding for global variable ‘money’
 ```
@@ -178,7 +178,7 @@ I do think it is useful to read a few of these to get a grasp on how LLMs tend t
 
 <summary>Click to view the Plan</summary>
 
-````
+```` markdown
 # Reverse Dependency Fix Plan
 
 ## Overview
@@ -653,7 +653,7 @@ Here's the updated plan I used for the second round:
 
 <summary>Click to view the updated plan</summary>
 
-````
+```` markdown
 # Reverse Dependency Fix Plan
 
 ## Overview
@@ -870,7 +870,7 @@ How much did all of this cost?
 
 I ran `/cost` after just the second batch of 50 packages:
 
-```
+``` bash
 ❯ /cost
   ⎿  Total cost:            $147.07
      Total duration (API):  6h 33m 5s
