@@ -7,8 +7,6 @@ editor:
   markdown:
     wrap: sentence
     canonical: true
-draft: true
-draft-mode: unlinked
 ---
 
 We're working on the next [dplyr](https://github.com/tidyverse/dplyr) release.
