@@ -304,3 +304,4 @@ And the worst part is that Abercrombie probably views both of these email thread
 I don't want to live in this future!
 
 Surely, *surely* we can come up with a way to do better.
+[Don't get me wrong. I like AI. It's a great *tool*, and can be useful for many things, like [this](../2026-01-09-claude-200-pull-requests/index.html). Heck, it even helped me style the email blocks used in this post!]{.aside}
