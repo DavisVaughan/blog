@@ -1,0 +1,35 @@
+---
+title: TODO
+author: Davis Vaughan
+date: '2026-01-24'
+slug: abercrombie-returns
+editor:
+  markdown:
+    wrap: sentence
+    canonical: true
+---
+
+> Hi, I have received two gifts that I'd like to return online.
+>
+> I would like to return the Chocolate Brown hoodie from order number 1
+>
+> I would like to return 1 of the Black hoodies from order number 2
+>
+> Can you please help me with this?
+>
+> Thanks,
+> Davis Vaughan
+
+that
+
+> Hi Davis,
+>
+> Thank you so much for reaching out to us about your return request. I’m here to help you every step of the way!
+>
+> Could you please share the reason for your return? Also, just to clarify, is the item you’d like to return a size M or L from order 2?
+>
+> I can’t wait to hear back from you, Davis!
+>
+> Thank you so much for being a valued member of Abercrombie & Fitch!
+>
+> Jezza
