@@ -1,5 +1,5 @@
 ---
-title: TODO
+title: Waging War Against Abercrombie's AI Customer Service
 author: Davis Vaughan
 date: '2026-01-24'
 slug: abercrombie-returns
@@ -9,27 +9,247 @@ editor:
     canonical: true
 ---
 
-> Hi, I have received two gifts that I'd like to return online.
->
-> I would like to return the Chocolate Brown hoodie from order number 1
->
-> I would like to return 1 of the Black hoodies from order number 2
->
-> Can you please help me with this?
->
-> Thanks,
-> Davis Vaughan
+```{=html}
+<style>
+.email-me {
+  background-color: #cdcdcd;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
+  font-style: italic
+}
+.email-them {
+  background-color: #e1e1e1;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
+  font-style: italic
+}
+</style>
+```
 
-that
+Like many others, I received Christmas gifts that I needed to return.
 
-> Hi Davis,
->
-> Thank you so much for reaching out to us about your return request. I’m here to help you every step of the way!
->
-> Could you please share the reason for your return? Also, just to clarify, is the item you’d like to return a size M or L from order 2?
->
-> I can’t wait to hear back from you, Davis!
->
-> Thank you so much for being a valued member of Abercrombie & Fitch!
->
-> Jezza
+In my case, two sweatshirts from Abercrombie & Fitch that I did like, I just needed them in a different style.
+
+The sweatshirts were from two different orders.
+
+Looking online, it seemed like I could reach out over email to return these.
+
+::: {.email-me}
+Hi, I have received two gifts that I'd like to return online.
+
+I would like to return the Chocolate Brown hoodie from order number 1
+
+I would like to return 1 of the Black hoodies from order number 2
+
+Can you please help me with this?
+
+Thanks, Davis
+:::
+
+Around an hour later:
+
+::: {.email-them}
+Hi Davis,
+
+Thank you so much for reaching out to us about your return request. I'm here to help you every step of the way!
+
+Could you please share the reason for your return? Also, just to clarify, is the item you'd like to return a size M or L from order 2?
+
+I can't wait to hear back from you, Davis!
+
+Thank you so much for being a valued member of Abercrombie & Fitch!
+
+Jezza
+:::
+
+Ok, reasonable. I don't want to be forced into some kind of exchange system here though, I just want the refund, I'll order the new one myself. So I responded:
+
+::: {.email-me}
+We just decided we don’t want them.
+
+It is a L
+
+Thanks!
+:::
+
+
+::: {.email-them}
+Hi Davis,
+
+Thank you so much for reaching out to us about your return request. I'll be glad to help you!
+
+Could you please tell me if you want me to process the return or if you just want to help about the online return? To know more about online return.
+
+I'll keep an eye out to your reply, Davis!
+
+Thank you so much for being a valued member of Abercrombie & Fitch!
+
+Jhaen
+:::
+
+<center>
+
+I obviously want to process the return.
+
+I'm now talking to someone else? Jezza vs Jhaen.
+
+Hmm.
+
+</center>
+
+::: {.email-me}
+Process the return.
+:::
+
+::: {.email-them}
+Hello Davis,
+
+Thank you for getting back to us! I completely understand that sometimes a gift isn't the perfect fit, and I'm more than happy to help you finalize this return so you can get everything sorted out quickly.
+
+Regarding your Order #2, I have successfully submitted your return request through our website. To make things as easy as possible for you, you can access your return label here.
+
+\<Some info about how to drop it off\>
+
+I appreciate your understanding and patience in this process. I will be waiting for your response. If you have further concerns, please feel free to contact us whenever you need. We will always be happy to assist you!
+
+Thank you for being the best part of Abercrombie & Fitch. Have an amazing day! 💛
+
+Josely
+:::
+
+Well, that went ok, kind of. But why am I talking to a _third_ person, Josely?
+
+Also, I very clearly stated I had two returns from two orders. It's dropped one of them.
+
+Jezza, Jhaen, and Josely.
+
+At this point, I'm 80% sure that I'm talking to an AI. The chances that all 3 of these people have names starting with J seems quite low (but the typos in the previous email left me uncertain). [Ironic that typos scream human these days.]{.aside}
+
+::: {.email-me}
+I also wanted to return the Chocolate Brown hoodie from order number 1
+
+You seem to have dropped that part of the conversation.
+
+Davis
+:::
+
+::: {.email-them}
+Hello Davis,
+
+Thank you for reaching out on us at Abercrombie & Fitch. I am sorry to hear that you have decided to return your Abercrombie & Fitch item. No worries, I am here to assist!
+
+To further assist you with your online return request on Order #1, could you please provide the necessary details so that I can process the return request for you?
+
+Could you please share the primary reason for your return?
+Are you returning for an exchange for a new size or color or return for a refund?
+If return for a refund, how would you like to be refunded? E-Gift Card or via Original Payment Method?
+
+Thank you for being a valued part of Abercrombie & Fitch. We look forward to your response and are committed to providing you with the best possible service. 🤍
+
+Juliana
+:::
+
+<center>
+🤬
+
+JULIANA.
+
+I was so clear.
+
+I'm begging you.
+
+Just let me return order 1.
+</center>
+
+::: {.email-me}
+We no longer want it.
+
+Full refund on original payment method.
+
+Stop bouncing me between customer service agents and just process my refund please. This is a horrible customer service experience.
+:::
+
+::: {.email-them}
+Hi Davis,
+
+Thank you so much for your prompt response. I am sorry to hear that you have decided to return your Abercrombie & Fitch item. I understand that you wanted to process your refund request immediately. No worries, I have reviewed the details of your order and have taken the necessary actions to make you a satisfied customer today!
+
+Good news! I have already initiated a return for refund request on your behalf (Return Order Number 2).
+
+\<Some info about how to drop it off\>
+
+I hope I was able to cover everything to your satisfaction today. If you need me to clarify anything else, please let me know and I will be more than happy to help, as always.
+
+Thank you so much for being a valued member of Abercrombie & Fitch, Davis! 🤍
+
+Juliana
+:::
+
+<center>
+...
+
+_"Good news! I have already initiated a return for ... Order Number 2."_
+
+...
+
+_**Order Number 2**_
+
+...
+
+Not...order number...1? The one I _just_ asked about?
+
+Sigh.
+</center>
+
+Alright, I'm clearly talking to an AI. I've worked with Claude Code enough to recognize that we've entered some kind of local maximum. It clearly thinks it has succeeded here by helping me return order number 2, and cannot cope with the fact that I have another order for it to process.
+
+When Claude enters a loop like this, I nuke it and completely restart. So maybe the same strategy applies here? I decided to start an entirely new email thread. And if you're going to make me talk to an AI agent, I'm going to treat it like an AI agent. [As a side note, I did get Juliana twice here. I explicitly requested "Stop bouncing me between customer service agents", and I wonder if that came into play here!]{.aside}
+
+::: {.email-me}
+\- I’d like to return order number 1
+
+\- I’d like to return the large chocolate brown hoodie from that order
+
+\- Refund the full amount to the original payment method
+
+\- Provide me a return label and I will take it to fedex
+
+\- Work autonomously, do not ask follow up questions. You have one shot. Just process the refund.
+
+
+Davis
+:::
+
+Take that!
+
+::: {.email-them}
+Hi Davis,
+
+Thank you for reaching out to us! We truly appreciate your communication. I understand that you would like to initiate a return for an item that you purchased. No worries, I have taken a necessary actions regarding with your request.
+
+I wanted to take a moment to inform you that your return request has been successfully initiated. We have processed your request, and everything is now in motion. I will attach the return label below for your convenience.
+
+\<Some info about how to drop it off\>
+
+I hope I was able to cover everything to your satisfaction today. If you need me to clarify anything else, please let me know and I will be more than happy to help, as always.
+
+Thank you so much for being a valued member of Abercrombie & Fitch, Davis!
+
+Domenick
+:::
+
+Success!
+
+"You have one shot" indeed. I'm not sure if that helped or not, but one thing to notice is that I didn't provide it a reason for my return, and it didn't ask for one like Jezza did at the start, so that feels like something?
+
+Interestingly, this bot was named Domenick, so not a J name. I wonder if the letter is tied to the email thread? Who knows.
+
+Regardless, this sucked.
+
+This is AI of the worst kind, where the consumer suffers epically. And the worst part is that Abercrombie probably views both of these email threads as successes, because some action was taken on my behalf.
+
+I don't want to live in this future!
+
+Surely, _surely_ we can come up with a way to do better.
