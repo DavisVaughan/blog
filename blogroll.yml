@@ -1,0 +1,46 @@
+- title: "Comprehension Debt - the hidden cost of AI generated code."
+  path: https://addyosmani.com/blog/comprehension-debt/
+- title: "Cognitive Debt"
+  path: https://simonwillison.net/2026/Feb/15/cognitive-debt/
+- title: "Every layer of review makes you 10x slower"
+  path: https://apenwarr.ca/log/20260316
+- title: "Diverse perspectives on AI from Rust contributors and maintainers"
+  path: https://nikomatsakis.github.io/rust-project-perspectives-on-ai/feb27-summary.html
+- title: "LLVM AI Tool Use Policy"
+  path: https://llvm.org/docs//AIToolPolicy.html
+- title: "Code Is Cheap Now. Software Isn't."
+  path: https://www.chrisgregori.dev/opinion/code-is-cheap-now-software-isnt
+- title: "Agent Psychosis: Are We Going Insane?"
+  path: https://lucumr.pocoo.org/2026/1/18/agent-psychosis/
+- title: "Bsky thread on improving code quality"
+  path: https://bsky.app/profile/sunshowers.io/post/3mbcik4ld6s2q
+- title: "Ruby was ready from the start"
+  path: https://obie.medium.com/ruby-was-ready-from-the-start-4b089b17babb
+- title: "Using LLMs at Oxide"
+  path: https://rfd.shared.oxide.computer/rfd/0576
+- title: "Your job is to deliver code you have proven to work"
+  path: https://simonwillison.net/2025/Dec/18/code-proven-to-work/
+- title: "I'm Tired of Talking About AI"
+  path: https://paddy.carvers.com/posts/2025/07/ai/
+- title: "On LLMs in programming"
+  path: https://blog.danieljanus.pl/2025/12/27/llms/
+- title: "LLMS Are Not Fun"
+  path: https://orib.dev/nofun.html
+- title: "Process oriented vs Outcome oriented"
+  path: https://simonwillison.net/2026/Jan/2/ben-werdmuller/
+- title: "Code like a surgeon"
+  path: https://www.geoffreylitt.com/2025/10/24/code-like-a-surgeon
+- title: "Your vibe coded slop PR is not welcome"
+  path: https://samsaffron.com/archive/2025/10/27/your-vibe-coded-slop-pr-is-not-welcome
+- title: "Do not give up your brain"
+  path: https://cassidoo.co/post/good-brain/
+- title: "On AI in Hollywood"
+  path: https://www.reddit.com/r/vfx/comments/1qfbhj8/ben_affleck_on_ai_in_hollywood_and_vfx/
+- title: "The Value of Things"
+  path: https://journal.stuffwithstuff.com/
+- title: "We Are The Art - Sanderson keynote"
+  path: https://www.youtube.com/watch?app=desktop&v=mb3uK-_QkOo
+- title: "How AI assistance impacts the formation of coding skills"
+  path: https://www.anthropic.com/research/AI-assistance-coding-skills
+- title: "Yes, and..."
+  path: https://htmx.org/essays/yes-and/
