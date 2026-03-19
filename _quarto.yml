@@ -19,5 +19,3 @@ format:
       - litera
       - custom.scss
     css: styles.css
-
-editor: visual
