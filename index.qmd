@@ -10,5 +10,6 @@ listing:
   sort-ui: false
   filter-ui: false
   fields: [title, date]
+  page-size: 1000
 page-layout: article
 ---
