@@ -1,0 +1,45 @@
+[Comprehension Debt - the hidden cost of AI generated code.](https://addyosmani.com/blog/comprehension-debt/)
+
+[Cognitive Debt](https://simonwillison.net/2026/Feb/15/cognitive-debt/)
+
+[Every layer of review makes you 10x slower](https://apenwarr.ca/log/20260316)
+
+[Diverse perspectives on AI from Rust contributors and maintainers](https://nikomatsakis.github.io/rust-project-perspectives-on-ai/feb27-summary.html)
+
+[LLVM AI Tool Use Policy](https://llvm.org/docs//AIToolPolicy.html)
+
+[Code Is Cheap Now. Software Isn’t.](https://www.chrisgregori.dev/opinion/code-is-cheap-now-software-isnt)
+
+[Agent Psychosis: Are We Going Insane?](https://lucumr.pocoo.org/2026/1/18/agent-psychosis/)
+
+[Bsky thread on improving code quality](https://bsky.app/profile/sunshowers.io/post/3mbcik4ld6s2q)
+
+[Ruby was ready from the start](https://obie.medium.com/ruby-was-ready-from-the-start-4b089b17babb)
+
+[Using LLMs at Oxide](https://rfd.shared.oxide.computer/rfd/0576)
+
+[Your job is to deliver code you have proven to work](https://simonwillison.net/2025/Dec/18/code-proven-to-work/)
+
+[I’m Tired of Talking About AI](https://paddy.carvers.com/posts/2025/07/ai/)
+
+[On LLMs in programming](https://blog.danieljanus.pl/2025/12/27/llms/)
+
+[LLMS Are Not Fun](https://orib.dev/nofun.html)
+
+[Process oriented vs Outcome oriented](https://simonwillison.net/2026/Jan/2/ben-werdmuller/)
+
+[Code like a surgeon](https://www.geoffreylitt.com/2025/10/24/code-like-a-surgeon)
+
+[Your vibe coded slop PR is not welcome](https://samsaffron.com/archive/2025/10/27/your-vibe-coded-slop-pr-is-not-welcome)
+
+[Do not give up your brain](https://cassidoo.co/post/good-brain/)
+
+[On AI in Hollywood](https://www.reddit.com/r/vfx/comments/1qfbhj8/ben_affleck_on_ai_in_hollywood_and_vfx/)
+
+[The Value of Things](https://journal.stuffwithstuff.com/)
+
+[We Are The Art - Sanderson keynote](https://www.youtube.com/watch?app=desktop&v=mb3uK-_QkOo)
+
+[How AI assistance impacts the formation of coding skills](https://www.anthropic.com/research/AI-assistance-coding-skills)
+
+[Yes, and...](https://htmx.org/essays/yes-and/)
